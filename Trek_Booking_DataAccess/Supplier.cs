@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
@@ -38,10 +39,13 @@ namespace Trek_Booking_DataAccess
 
         [Required(ErrorMessage = "Role is not null")]
         public string? Role { get; set; }
-
+        [JsonIgnore]
         public ICollection<SupplierStaff>? supplierStaffs { get; set; }
+        [JsonIgnore]
         public ICollection<Hotel>? hotels { get; set; }
+        [JsonIgnore]
         public ICollection<Tour>? tours { get; set; }
+        [JsonIgnore]
         public ICollection<TourOrder>? tourOrders { get; set; }
     }
 }
