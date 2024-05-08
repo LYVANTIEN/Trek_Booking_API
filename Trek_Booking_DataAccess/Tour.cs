@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
-{
+{//tienvan
     public class Tour
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
