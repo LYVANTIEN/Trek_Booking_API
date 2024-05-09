@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_Hotel_3D\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {}
+    "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {}
   },
   "projects": {
-    "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_Hotel_3D\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
+    "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_Hotel_3D\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
+        "projectUniqueName": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
         "projectName": "Trek_Booking_DataAccess",
-        "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_Hotel_3D\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_Hotel_3D\\Trek_Booking_DataAccess\\obj\\",
+        "projectPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
