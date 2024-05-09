@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
@@ -20,6 +21,7 @@ namespace Trek_Booking_DataAccess
 
         [Required(ErrorMessage = "ServiceImage is not null")]
         public string? ServiceImage { get; set; }
-        public ICollection<RoomService>? roomServices { get; set; }    
+        [JsonIgnore]
+        public ICollection<RoomService>? roomServices { get; set; }
     }
 }

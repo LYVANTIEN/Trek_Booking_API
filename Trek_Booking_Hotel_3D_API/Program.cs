@@ -19,6 +19,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(item =>
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
