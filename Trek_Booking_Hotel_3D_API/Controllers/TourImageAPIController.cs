@@ -51,7 +51,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             var check = await _repository.getTourImageById(tourImage.TourImageId);
             if (check == null)
             {
-                return BadRequest("Not found Hotel");
+                return BadRequest("Not found Tour Image");
             }
             var update = await _repository.updateTourImage(tourImage);
             return Ok(update);
