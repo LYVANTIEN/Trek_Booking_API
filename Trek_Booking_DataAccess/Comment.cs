@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
@@ -14,6 +15,7 @@ namespace Trek_Booking_DataAccess
         public int CommentId { get; set; }
         [ForeignKey("Booking")]
         public int BookingId { get; set; }
+        [JsonIgnore]
         public Booking? Booking { get; set; }
 
         [Required(ErrorMessage = "Message is not null")]
@@ -23,10 +25,12 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
+        [JsonIgnore]
         public Hotel? Hotel { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }
+        [JsonIgnore]
         public User? User { get; set; }
 
     }

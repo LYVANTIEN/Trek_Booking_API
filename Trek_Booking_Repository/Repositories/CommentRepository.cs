@@ -19,21 +19,38 @@ namespace Trek_Booking_Repository.Repositories
             _context = context;
         }
 
-        public Task<Comment> createComment(Comment comment)
+
+
+
+        public async Task<Comment> createComment(Comment comment)
         {
-            throw new NotImplementedException();
+            var bookingId = comment.BookingId;
+            var userId = comment.UserId;
+
+            // Kiểm tra xem người dùng đã đặt phòng chưa
+            var checkBooked = await _context.bookings.FirstOrDefaultAsync(b => b.BookingId == bookingId && b.UserId == userId);
+            if (checkBooked == null)
+            {
+                // Nếu người dùng chưa đặt phòng, bạn có thể throw một Exception hoặc xử lý theo ý của bạn
+                throw new Exception("User has not booked any room.");
+            }
+
+            // Người dùng đã đặt phòng, tiến hành tạo bình luận
+            var newComment = new Comment
+            {
+                BookingId = comment.BookingId,
+                Message = comment.Message,
+                DateSubmitted = DateTime.Now,
+                HotelId = comment.HotelId,
+                UserId = comment.UserId
+            };
+
+            _context.comments.Add(newComment);
+            await _context.SaveChangesAsync();
+
+            return newComment;
         }
 
-
-
-
-        //public async Task<Comment> CreateComment(Comment comment)
-        //{
-        //    var checkBooked = await _context.bookings.FirstOrDefault(b => b.BookingId == comment.BookingId);
-        //    _context.hotels.Add(hotel);
-        //    await _context.SaveChangesAsync();
-        //    return hotel;
-        //}
 
 
         public async Task<IEnumerable<Comment>> getCommentByHotelId(int hotelId)
