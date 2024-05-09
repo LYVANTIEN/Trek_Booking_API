@@ -23,7 +23,7 @@ namespace Trek_Booking_DataAccess
         public string? RoomNote { get; set; }
 
         public bool RoomStatus { get; set; }
-        public bool RoomAvailable { get; set; }
+        public int RoomAvailable { get; set; }
 
         [Required(ErrorMessage = "RoomPrice is not null")]
         public decimal RoomPrice { get; set; }

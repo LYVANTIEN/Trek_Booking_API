@@ -9,12 +9,12 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
 {
     public interface ISupplierRepository
     {
-        public Task<Supplier> CreateSupplier(Supplier supplier);
-        public Task<Supplier> UpdateSupplier(Supplier supplier);
-        public Task<int> DeleteSupplier(int supplierId);
-        public Task<Supplier> GetSupplierbyId(int supplierId);
-        public Task<IEnumerable<Supplier>> GetSuppliers();
+        public Task<Supplier> createSupplier(Supplier supplier);
+        public Task<Supplier> updateSupplier(Supplier supplier);
+        public Task<int> deleteSupplier(int supplierId);
+        public Task<Supplier> getSupplierbyId(int supplierId);
+        public Task<IEnumerable<Supplier>> getSuppliers();
 
-        public Task<bool> CheckExitsName(string name);
+        public Task<bool> checkExitsName(string name);
     }
 }

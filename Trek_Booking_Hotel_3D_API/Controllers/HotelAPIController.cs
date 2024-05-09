@@ -11,64 +11,66 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     {
         private readonly IHotelRepository _repository;
 
+
+
         public HotelAPIController(IHotelRepository repository)
         {
             _repository = repository;
         }
-        [HttpGet("/GetHotels")]
-        public async Task<IActionResult> GetHotels()
+        [HttpGet("/getHotels")]
+        public async Task<IActionResult> getHotels()
         {
-            var c = await _repository.GetHotels();
+            var c = await _repository.getHotels();
             if (c == null)
             {
                 return NotFound("Not Found");
             }
             return Ok(c);
         }
-        [HttpGet("/GetHotelbyId/{hotelId}")]
-        public async Task<IActionResult> GetHotelbyId(int hotelId)
+        [HttpGet("/getHotelbyId/{hotelId}")]
+        public async Task<IActionResult> getHotelbyId(int hotelId)
         {
-            var check = await _repository.GetHotelbyId(hotelId);
+            var check = await _repository.getHotelbyId(hotelId);
             if (check == null)
             {
                 return NotFound("Not Found");
             }
             return Ok(check);
         }
-        [HttpPost("/CreateHotel")]
-        public async Task<IActionResult> CreateHotel([FromBody] Hotel hotel)
+        [HttpPost("/createHotel")]
+        public async Task<IActionResult> createHotel([FromBody] Hotel hotel)
         {
             if (hotel == null)
             {
                 return BadRequest();
             }
-            else if (await _repository.CheckExitsName(hotel.HotelName))
+            else if (await _repository.checkExitsName(hotel.HotelName))
             {
                 return BadRequest("HotelName already exits");
             }
-            var create = await _repository.CreateHotel(hotel);
+            var create = await _repository.createHotel(hotel);
             return StatusCode(201, "Create Successfully!");
         }
-        [HttpPut("/UpdateHotel")]
-        public async Task<IActionResult> UpdateHotel([FromBody] Hotel hotel)
+        [HttpPut("/updateHotel")]
+        public async Task<IActionResult> updateHotel([FromBody] Hotel hotel)
         {
-            var check = await _repository.GetHotelbyId(hotel.HotelId);
+            var check = await _repository.getHotelbyId(hotel.HotelId);
             if (check == null)
             {
                 return BadRequest("Not found Hotel");
             }
-            var update = await _repository.UpdateHotel(hotel);
+            var update = await _repository.updateHotel(hotel);
             return Ok(update);
         }
-        [HttpDelete("/DeleteHotel/{hotelId}")]
-        public async Task<IActionResult> DeleteHotel(int hotelId)
+        [HttpDelete("/deleteHotel/{hotelId}")]
+        public async Task<IActionResult> deleteHotel(int hotelId)
         {
-            var check = await _repository.GetHotelbyId(hotelId);
+            var check = await _repository.getHotelbyId(hotelId);
             if (check == null)
             {
                 return NotFound("Not found Hotel");
             }
-            await _repository.DeleteHotel(hotelId);
+            await _repository.deleteHotel(hotelId);
             return StatusCode(200, "Delele Successfully!");
         }
     }

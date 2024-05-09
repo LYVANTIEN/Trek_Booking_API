@@ -21,13 +21,13 @@ namespace Trek_Booking_Repository.Repositories
             _context = context;
         }
 
-        public async Task<bool> CheckExitsName(string name)
+        public async Task<bool> checkExitsName(string name)
         {
             var check = await _context.hotels.AnyAsync(n => n.HotelName == name);
             return check;
         }
 
-        public async Task<Hotel> CreateHotel(Hotel hotel)
+        public async Task<Hotel> createHotel(Hotel hotel)
         {
             hotel.IsVerify = true;
             _context.hotels.Add(hotel);
@@ -35,7 +35,7 @@ namespace Trek_Booking_Repository.Repositories
             return hotel;
         }
 
-        public async Task<int> DeleteHotel(int HotelId)
+        public async Task<int> deleteHotel(int HotelId)
         {
             var deleteHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == HotelId);
             if (deleteHotel != null)
@@ -46,19 +46,19 @@ namespace Trek_Booking_Repository.Repositories
             return 0;
         }
 
-        public async Task<Hotel> GetHotelbyId(int hotelId)
+        public async Task<Hotel> getHotelbyId(int hotelId)
         {
             var getHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == hotelId);
             return getHotel;
         }
 
-        public async Task<IEnumerable<Hotel>> GetHotels()
+        public async Task<IEnumerable<Hotel>> getHotels()
         {
             var hotels = await _context.hotels.Include(s => s.Supplier).ToListAsync();
             return hotels;
         }
 
-        public async Task<Hotel> UpdateHotel(Hotel hotel)
+        public async Task<Hotel> updateHotel(Hotel hotel)
         {
             var findHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == hotel.HotelId);
             if (findHotel != null)

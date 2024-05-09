@@ -14,60 +14,60 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         {
             _repository = repository;
         }
-        [HttpGet("/GetSuppliers")]
-        public async Task<IActionResult> GetSuppliers()
+        [HttpGet("/getSuppliers")]
+        public async Task<IActionResult> getSuppliers()
         {
-            var c = await _repository.GetSuppliers();
+            var c = await _repository.getSuppliers();
             if (c == null)
             {
                 return NotFound("Not Found");
             }
             return Ok(c);
         }
-        [HttpGet("/GetSupplierbyId/{supplierId}")]
-        public async Task<IActionResult> GetHotelbyId(int supplierId)
+        [HttpGet("/getSupplierbyId/{supplierId}")]
+        public async Task<IActionResult> getHotelbyId(int supplierId)
         {
-            var check = await _repository.GetSupplierbyId(supplierId);
+            var check = await _repository.getSupplierbyId(supplierId);
             if (check == null)
             {
                 return NotFound("Not Found");
             }
             return Ok(check);
         }
-        [HttpPost("/CreateSupplier")]
-        public async Task<IActionResult> CreateSupplier([FromBody] Supplier supplier)
+        [HttpPost("/createSupplier")]
+        public async Task<IActionResult> createSupplier([FromBody] Supplier supplier)
         {
             if (supplier == null)
             {
                 return BadRequest();
             }
-            else if (await _repository.CheckExitsName(supplier.SupplierName))
+            else if (await _repository.checkExitsName(supplier.SupplierName))
             {
                 return BadRequest("SupplierName already exits");
             }
-            var create = await _repository.CreateSupplier(supplier);
+            var create = await _repository.createSupplier(supplier);
             return StatusCode(201, "Create Successfully!");
         }
-        [HttpPut("/UpdateSupplier")]
-        public async Task<IActionResult> UpdateSupplier([FromBody] Supplier supplier)
+        [HttpPut("/updateSupplier")]
+        public async Task<IActionResult> updateSupplier([FromBody] Supplier supplier)
         {
-            var check = await _repository.GetSupplierbyId(supplier.SupplierId);
+            var check = await _repository.getSupplierbyId(supplier.SupplierId);
             if (check == null)
             {
                 return BadRequest("Not found Supplier");
             }
-            var update = await _repository.UpdateSupplier(supplier);
+            var update = await _repository.updateSupplier(supplier);
             return Ok(update);
         }
-        [HttpDelete("/DeleteSupplier/{supplierId}")]
-        public async Task<IActionResult> DeleteSupplier(int supplierId)
+        [HttpDelete("/deleteSupplier/{supplierId}")]
+        public async Task<IActionResult> deleteSupplier(int supplierId)
         {
-            var check = await _repository.GetSupplierbyId(supplierId);
+            var check = await _repository.getSupplierbyId(supplierId);
             if (check == null)
             {
                 return NotFound("Not found Supplier");
             }
-            await _repository.DeleteSupplier(supplierId);
+            await _repository.deleteSupplier(supplierId);
             return StatusCode(200, "Delele Successfully!");
         }
     }

@@ -19,13 +19,13 @@ namespace Trek_Booking_Repository.Repositories
             _context = context;
         }
 
-        public async Task<bool> CheckExitsName(string name)
+        public async Task<bool> checkExitsName(string name)
         {
             var check = await _context.suppliers.AnyAsync(n => n.SupplierName == name);
             return check;
         }
 
-        public async Task<Supplier> CreateSupplier(Supplier supplier)
+        public async Task<Supplier> createSupplier(Supplier supplier)
         {
 
             supplier.IsVerify = true;
@@ -34,7 +34,7 @@ namespace Trek_Booking_Repository.Repositories
             return supplier;
         }
 
-        public async Task<int> DeleteSupplier(int supplierId)
+        public async Task<int> deleteSupplier(int supplierId)
         {
             var deleteSupplier = await _context.suppliers.FirstOrDefaultAsync(t => t.SupplierId == supplierId);
             if (deleteSupplier != null)
@@ -45,19 +45,19 @@ namespace Trek_Booking_Repository.Repositories
             return 0;
         }
 
-        public async Task<Supplier> GetSupplierbyId(int supplierId)
+        public async Task<Supplier> getSupplierbyId(int supplierId)
         {
             var getSupplier = await _context.suppliers.FirstOrDefaultAsync(t => t.SupplierId == supplierId);
             return getSupplier;
         }
 
-        public async Task<IEnumerable<Supplier>> GetSuppliers()
+        public async Task<IEnumerable<Supplier>> getSuppliers()
         {
             var suppliers = await _context.suppliers.ToListAsync();
             return suppliers;
         }
 
-        public async Task<Supplier> UpdateSupplier(Supplier supplier)
+        public async Task<Supplier> updateSupplier(Supplier supplier)
         {
             var findSupplier = await _context.suppliers.FirstOrDefaultAsync(t => t.SupplierId == supplier.SupplierId);
             if (findSupplier != null)
