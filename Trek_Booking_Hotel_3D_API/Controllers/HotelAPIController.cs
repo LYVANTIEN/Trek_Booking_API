@@ -11,8 +11,6 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     {
         private readonly IHotelRepository _repository;
 
-
-
         public HotelAPIController(IHotelRepository repository)
         {
             _repository = repository;
