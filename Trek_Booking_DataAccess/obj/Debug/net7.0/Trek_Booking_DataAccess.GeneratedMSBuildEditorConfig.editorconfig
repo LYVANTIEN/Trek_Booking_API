@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Trek_Booking_DataAccess
-build_property.ProjectDir = D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_Hotel_3D\Trek_Booking_DataAccess\
+build_property.ProjectDir = D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_DataAccess\

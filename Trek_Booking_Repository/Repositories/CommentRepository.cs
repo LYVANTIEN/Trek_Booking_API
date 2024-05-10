@@ -26,13 +26,13 @@ namespace Trek_Booking_Repository.Repositories
         {
             var bookingId = comment.BookingId;
             var userId = comment.UserId;
-
+            var hotelId = comment.HotelId;
             // Kiểm tra xem người dùng đã đặt phòng chưa
-            var checkBooked = await _context.bookings.FirstOrDefaultAsync(b => b.BookingId == bookingId && b.UserId == userId);
+            var checkBooked = await _context.bookings.FirstOrDefaultAsync(b => b.BookingId == bookingId && b.UserId == userId && b.HotelId == hotelId);
             if (checkBooked == null)
             {
                 // Nếu người dùng chưa đặt phòng, bạn có thể throw một Exception hoặc xử lý theo ý của bạn
-                throw new Exception("User has not booked any room.");
+                throw new Exception("User has not booked this room.");
             }
 
             // Người dùng đã đặt phòng, tiến hành tạo bình luận
