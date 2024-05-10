@@ -19,9 +19,9 @@ namespace Trek_Booking_Repository.Repositories
             _context = context;
         }
 
-        public async Task<bool> checkExitsName(string name)
+        public async Task<bool> checkExitsEmail(string email)
         {
-            var check = await _context.suppliers.AnyAsync(n => n.SupplierName == name);
+            var check = await _context.suppliers.AnyAsync(n => n.Email == email);
             return check;
         }
 

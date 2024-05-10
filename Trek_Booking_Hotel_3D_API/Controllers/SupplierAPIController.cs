@@ -25,7 +25,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(c);
         }
         [HttpGet("/getSupplierbyId/{supplierId}")]
-        public async Task<IActionResult> getHotelbyId(int supplierId)
+        public async Task<IActionResult> getSupplierbyId(int supplierId)
         {
             var check = await _repository.getSupplierbyId(supplierId);
             if (check == null)
@@ -41,9 +41,9 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             {
                 return BadRequest();
             }
-            else if (await _repository.checkExitsName(supplier.SupplierName))
+            else if (await _repository.checkExitsEmail(supplier.Email))
             {
-                return BadRequest("SupplierName already exits");
+                return BadRequest("SupplierEmail already exits");
             }
             var create = await _repository.createSupplier(supplier);
             return StatusCode(201, "Create Successfully!");

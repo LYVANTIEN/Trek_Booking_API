@@ -15,6 +15,6 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<Supplier> getSupplierbyId(int supplierId);
         public Task<IEnumerable<Supplier>> getSuppliers();
 
-        public Task<bool> checkExitsName(string name);
+        public Task<bool> checkExitsEmail(string email);
     }
 }
