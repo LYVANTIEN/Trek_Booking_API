@@ -19,7 +19,7 @@ namespace Trek_Booking_Repository.Repositories
             _context = context;
         }
 
-        public async Task<bool> CheckBookingCartExists(int userId, int roomId)
+        public async Task<bool> checkBookingCartExists(int userId, int roomId)
         {
             return await _context.bookingCarts
                 .AnyAsync(t => t.UserId == userId && t.RoomId == roomId);
@@ -27,17 +27,17 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<BookingCart> createBookingCart(BookingCart bookingCart)
         {
-            var findHotel = await _context.rooms.FindAsync(bookingCart.RoomId);
-            if (findHotel != null)
+            var findRoom = await _context.rooms.FindAsync(bookingCart.RoomId);
+            if (findRoom == null)
             {
-                bookingCart.HotelId = findHotel.HotelId;
-                bookingCart.TotalPrice = findHotel.RoomPrice * bookingCart.RoomQuantity;
-                _context.bookingCarts.Add(bookingCart);
-                await _context.SaveChangesAsync();
-                return bookingCart;
-
+                throw new Exception("Room not found");
             }
-            return null;
+
+            bookingCart.HotelId = findRoom.HotelId;
+            bookingCart.TotalPrice = findRoom.RoomPrice * bookingCart.RoomQuantity;
+            _context.bookingCarts.Add(bookingCart);
+            await _context.SaveChangesAsync();
+            return bookingCart;
         }
 
         public async Task<int> deleteBookingCart(int bookingCartId)

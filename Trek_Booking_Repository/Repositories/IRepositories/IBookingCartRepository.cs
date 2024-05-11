@@ -16,7 +16,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<BookingCart> getBookingCartbyId(int bookingCartId);
         public Task<int> deleteBookingCart(int bookingCartId);
         public Task<BookingCart> createBookingCart(BookingCart bookingCart);
-        public Task<bool> CheckBookingCartExists(int userId, int roomId);
+        public Task<bool> checkBookingCartExists(int userId, int roomId);
         public Task<BookingCart> updateBookingCart(BookingCart bookingCart);
         public Task<IEnumerable<BookingCart>> getBookingCarts();
     }

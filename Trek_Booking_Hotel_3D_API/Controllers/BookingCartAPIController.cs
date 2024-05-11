@@ -68,16 +68,23 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         }
 
         [HttpPost("/createBookingCart")]
-        public async Task<IActionResult> CreateBookingCart([FromBody] BookingCart bookingCart)
+        public async Task<IActionResult> createBookingCart([FromBody] BookingCart bookingCart)
         {
-            var bookingCartExists = await _repository.CheckBookingCartExists(bookingCart.UserId, bookingCart.RoomId);
-            if (bookingCartExists)
+            try
             {
-                return BadRequest("BookingCart already exists for the specified userId and roomId.");
-            }
+                var bookingCartExists = await _repository.checkBookingCartExists(bookingCart.UserId, bookingCart.RoomId);
+                if (bookingCartExists)
+                {
+                    return BadRequest("BookingCart already exists for the specified userId and roomId");
+                }
 
-            await _repository.createBookingCart(bookingCart);
-            return StatusCode(201, "Create Successfully!");
+                await _repository.createBookingCart(bookingCart);
+                return StatusCode(201, "Create Successfully!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("User or Room not exits");
+            }
         }
 
         [HttpPut("/updateBookingCart")]
