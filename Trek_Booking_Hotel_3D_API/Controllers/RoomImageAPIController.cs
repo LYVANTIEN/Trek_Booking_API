@@ -58,7 +58,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return StatusCode(201, "Create Successfully!");
         }
         [HttpPut("/updateRoomImage")]
-        public async Task<IActionResult> updateHotel([FromBody] RoomImage roomImage)
+        public async Task<IActionResult> updateRoomImage([FromBody] RoomImage roomImage)
         {
             var check = await _repository.getRoomImagebyId(roomImage.RoomImageId);
             if (check == null)
@@ -69,7 +69,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(update);
         }
         [HttpDelete("/deleteRoomImage/{roomImageId}")]
-        public async Task<IActionResult> deleteHotel(int roomImageId)
+        public async Task<IActionResult> deleteRoomImage(int roomImageId)
         {
             var check = await _repository.getRoomImagebyId(roomImageId);
             if (check == null)

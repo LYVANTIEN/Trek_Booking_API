@@ -23,6 +23,7 @@ builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IRoomImageRepository, RoomImageRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IBookingCartRepository, BookingCartRepository>();
+builder.Services.AddScoped<IRoom3DImageRepository, Room3DImageRepository>();
 
 
 var app = builder.Build();
