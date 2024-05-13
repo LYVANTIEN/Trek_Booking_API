@@ -22,7 +22,7 @@ namespace Trek_Booking_Repository.Repositories
 
 
 
-        public async Task<Rate> ratingRoom(Rate rate)
+        public async Task<Rate> rateHotel(Rate rate)
         {
             //var bookingId = comment.BookingId;
             //var userId = comment.UserId;

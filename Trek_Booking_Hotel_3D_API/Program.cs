@@ -25,6 +25,10 @@ builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRateRepository, RateRepository>();
 builder.Services.AddScoped<ISupplierStaffRepository, SupplierStaffRepository>();
 builder.Services.AddScoped<IBookingCartRepository, BookingCartRepository>();
+builder.Services.AddScoped<IRoom3DImageRepository, Room3DImageRepository>();
+builder.Services.AddScoped<IVoucherRepository, VoucherRepository>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

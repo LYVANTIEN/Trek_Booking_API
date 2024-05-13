@@ -14,11 +14,11 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             _repository = repository;
         }
 
-        [HttpPost("/ratingRoom")]
-        public async Task<IActionResult> ratingRoom([FromBody] Rate rate)
+        [HttpPost("/rateHotel")]
+        public async Task<IActionResult> rateHotel([FromBody] Rate rate)
         {
             
-            var ratingRoom = await _repository.ratingRoom(rate);
+            var ratingHotel = await _repository.rateHotel(rate);
             return StatusCode(201, "Rating Successfully!");
         }
 

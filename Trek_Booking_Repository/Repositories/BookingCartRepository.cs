@@ -27,17 +27,17 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<BookingCart> createBookingCart(BookingCart bookingCart)
         {
-            var findHotel = await _context.rooms.FindAsync(bookingCart.RoomId);
-            if (findHotel != null)
+            var findRoom = await _context.rooms.FindAsync(bookingCart.RoomId);
+            if (findRoom == null)
             {
-                bookingCart.HotelId = findHotel.HotelId;
-                bookingCart.TotalPrice = findHotel.RoomPrice * bookingCart.RoomQuantity;
-                _context.bookingCarts.Add(bookingCart);
-                await _context.SaveChangesAsync();
-                return bookingCart;
-
+                throw new Exception("Room not found");
             }
-            return null;
+
+            bookingCart.HotelId = findRoom.HotelId;
+            bookingCart.TotalPrice = findRoom.RoomPrice * bookingCart.RoomQuantity;
+            _context.bookingCarts.Add(bookingCart);
+            await _context.SaveChangesAsync();
+            return bookingCart;
         }
 
         public async Task<int> deleteBookingCart(int bookingCartId)

@@ -9,7 +9,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
 {
     public interface IRateRepository
     {
-        public Task<Rate> ratingRoom(Rate rate);
+        public Task<Rate> rateHotel(Rate rate);
         public Task<IEnumerable<Rate>> getRateByHotelId(int hotelId);
 
         public Task<IEnumerable<Rate>> getRateByUserId(int userId);
