@@ -45,6 +45,9 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 

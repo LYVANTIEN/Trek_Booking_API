@@ -34,7 +34,7 @@ namespace Trek_Booking_Repository.Repositories
             }
 
             bookingCart.HotelId = findRoom.HotelId;
-            bookingCart.TotalPrice = findRoom.RoomPrice * bookingCart.RoomQuantity;
+            // bookingCart.TotalPrice = findRoom.RoomPrice * bookingCart.RoomQuantity;
             _context.bookingCarts.Add(bookingCart);
             await _context.SaveChangesAsync();
             return bookingCart;

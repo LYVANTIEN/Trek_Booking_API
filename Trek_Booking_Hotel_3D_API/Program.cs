@@ -24,6 +24,7 @@ builder.Services.AddScoped<IRoomImageRepository, RoomImageRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IBookingCartRepository, BookingCartRepository>();
 builder.Services.AddScoped<IRoom3DImageRepository, Room3DImageRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
 
 var app = builder.Build();
