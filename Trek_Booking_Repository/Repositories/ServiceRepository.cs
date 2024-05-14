@@ -42,7 +42,7 @@ namespace Trek_Booking_Repository.Repositories
             return 0;
         }
 
-        public async Task<Service> getServicebyId(int serviceId)
+        public async Task<Service> getServiceById(int serviceId)
         {
             var get = await _context.services.FirstOrDefaultAsync(t => t.ServiceId == serviceId);
             return get;

@@ -34,7 +34,6 @@ namespace Trek_Booking_Repository.Repositories
             }
 
             bookingCart.HotelId = findRoom.HotelId;
-            // bookingCart.TotalPrice = findRoom.RoomPrice * bookingCart.RoomQuantity;
             _context.bookingCarts.Add(bookingCart);
             await _context.SaveChangesAsync();
             return bookingCart;
@@ -52,25 +51,25 @@ namespace Trek_Booking_Repository.Repositories
             return 0;
         }
 
-        public async Task<IEnumerable<BookingCart>> getBookingCartbyHotelId(int hotelId)
+        public async Task<IEnumerable<BookingCart>> getBookingCartByHotelId(int hotelId)
         {
             var booking = await _context.bookingCarts.Where(t => t.HotelId == hotelId).ToListAsync();
             return booking;
         }
 
-        public async Task<BookingCart> getBookingCartbyId(int bookingCartId)
+        public async Task<BookingCart> getBookingCartById(int bookingCartId)
         {
             var findBCart = await _context.bookingCarts.FirstOrDefaultAsync(t => t.BookingCartId == bookingCartId);
             return findBCart;
         }
 
-        public async Task<IEnumerable<BookingCart>> getBookingCartbyRoomId(int roomId)
+        public async Task<IEnumerable<BookingCart>> getBookingCartByRoomId(int roomId)
         {
             var check = await _context.bookingCarts.Where(t => t.RoomId == roomId).ToListAsync();
             return check;
         }
 
-        public async Task<IEnumerable<BookingCart>> getBookingCartbyUserId(int userId)
+        public async Task<IEnumerable<BookingCart>> getBookingCartByUserId(int userId)
         {
             var check = await _context.bookingCarts.Where(t => t.UserId == userId).ToListAsync();
             return check;

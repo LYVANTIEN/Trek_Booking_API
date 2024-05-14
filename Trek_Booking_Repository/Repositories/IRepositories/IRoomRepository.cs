@@ -12,9 +12,9 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<Room> createRoom(Room room);
         public Task<Room> updateRoom(Room room);
         public Task<int> deleteRoom(int roomId);
-        public Task<Room> getRoombyId(int roomId);
+        public Task<Room> getRoomById(int roomId);
         public Task<IEnumerable<Room>> getRooms();
-        public Task<IEnumerable<Room>> getRoombyHotelId(int hotelId);
+        public Task<IEnumerable<Room>> getRoomByHotelId(int hotelId);
         public Task<bool> checkExitsName(string name);
     }
 }

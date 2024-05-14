@@ -23,10 +23,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(c);
         }
 
-        [HttpGet("/getBookingbyId/{bookingId}")]
-        public async Task<IActionResult> getBookingbyId(int bookingId)
+        [HttpGet("/getBookingById/{bookingId}")]
+        public async Task<IActionResult> getBookingById(int bookingId)
         {
-            var check = await _repository.getBookingbyId(bookingId);
+            var check = await _repository.getBookingById(bookingId);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -34,10 +34,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
 
-        [HttpGet("/getBookingbyUserId/{userId}")]
-        public async Task<IActionResult> getBookingbyUserId(int userId)
+        [HttpGet("/getBookingByUserId/{userId}")]
+        public async Task<IActionResult> getBookingByUserId(int userId)
         {
-            var check = await _repository.getBookingbyUserId(userId);
+            var check = await _repository.getBookingByUserId(userId);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -45,10 +45,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
 
-        [HttpGet("/getBookingbyHotelId/{hotelId}")]
-        public async Task<IActionResult> getBookingbyHotelId(int hotelId)
+        [HttpGet("/getBookingByHotelId/{hotelId}")]
+        public async Task<IActionResult> getBookingByHotelId(int hotelId)
         {
-            var check = await _repository.getBookingbyHotelId(hotelId);
+            var check = await _repository.getBookingByHotelId(hotelId);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -56,10 +56,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
 
-        [HttpGet("/getBookingbyRoomId/{roomId}")]
-        public async Task<IActionResult> getBookingbyRoomId(int roomId)
+        [HttpGet("/getBookingByRoomId/{roomId}")]
+        public async Task<IActionResult> getBookingByRoomId(int roomId)
         {
-            var check = await _repository.getBookingbyRoomId(roomId);
+            var check = await _repository.getBookingByRoomId(roomId);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -90,7 +90,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPut("/deleteBooking")]
         public async Task<IActionResult> deleteBooking(Booking booking)
         {
-            var checkCart = await _repository.getBookingbyId(booking.BookingId);
+            var checkCart = await _repository.getBookingById(booking.BookingId);
             if (checkCart == null)
             {
                 return BadRequest("Booking is not exits");

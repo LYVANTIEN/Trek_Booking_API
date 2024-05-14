@@ -46,7 +46,7 @@ namespace Trek_Booking_Repository.Repositories
             return 0;
         }
 
-        public async Task<Hotel> getHotelbyId(int hotelId)
+        public async Task<Hotel> getHotelById(int hotelId)
         {
             var getHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == hotelId);
             return getHotel;

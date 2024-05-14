@@ -36,7 +36,7 @@ namespace Trek_Booking_Repository.Repositories
             return 0;
         }
 
-        public async Task<Room3DImage> getRoom3DImagebyId(int roomImage3DId)
+        public async Task<Room3DImage> getRoom3DImageById(int roomImage3DId)
         {
             var getRoomImage = await _context.room3DImages.FirstOrDefaultAsync(t => t.RoomImage3DId == roomImage3DId);
             return getRoomImage;

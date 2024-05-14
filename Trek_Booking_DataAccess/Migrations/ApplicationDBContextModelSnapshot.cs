@@ -595,6 +595,9 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 

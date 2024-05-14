@@ -12,7 +12,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<Service> createService(Service service);
         public Task<Service> updateService(Service service);
         public Task<int> deleteService(int serviceId);
-        public Task<Service> getServicebyId(int serviceId);
+        public Task<Service> getServiceById(int serviceId);
         public Task<IEnumerable<Service>> getServices();
 
         public Task<bool> checkExitsName(string name);

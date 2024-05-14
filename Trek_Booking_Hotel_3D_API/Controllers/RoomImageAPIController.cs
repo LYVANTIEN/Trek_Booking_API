@@ -25,10 +25,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(c);
         }
-        [HttpGet("/getRoomImagebyId/{roomImageId}")]
-        public async Task<IActionResult> getRoomImagebyId(int roomImageId)
+        [HttpGet("/getRoomImageById/{roomImageId}")]
+        public async Task<IActionResult> getRoomImageById(int roomImageId)
         {
-            var check = await _repository.getRoomImagebyId(roomImageId);
+            var check = await _repository.getRoomImageById(roomImageId);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -60,7 +60,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPut("/updateRoomImage")]
         public async Task<IActionResult> updateRoomImage([FromBody] RoomImage roomImage)
         {
-            var check = await _repository.getRoomImagebyId(roomImage.RoomImageId);
+            var check = await _repository.getRoomImageById(roomImage.RoomImageId);
             if (check == null)
             {
                 return BadRequest("Not found RoomImage");
@@ -71,7 +71,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpDelete("/deleteRoomImage/{roomImageId}")]
         public async Task<IActionResult> deleteRoomImage(int roomImageId)
         {
-            var check = await _repository.getRoomImagebyId(roomImageId);
+            var check = await _repository.getRoomImageById(roomImageId);
             if (check == null)
             {
                 return NotFound("Not found RoomImage");

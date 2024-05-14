@@ -24,10 +24,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(c);
         }
-        [HttpGet("/getSupplierbyId/{supplierId}")]
-        public async Task<IActionResult> getHotelbyId(int supplierId)
+        [HttpGet("/getSupplierById/{supplierId}")]
+        public async Task<IActionResult> getSupplierById(int supplierId)
         {
-            var check = await _repository.getSupplierbyId(supplierId);
+            var check = await _repository.getSupplierById(supplierId);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -51,7 +51,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPut("/updateSupplier")]
         public async Task<IActionResult> updateSupplier([FromBody] Supplier supplier)
         {
-            var check = await _repository.getSupplierbyId(supplier.SupplierId);
+            var check = await _repository.getSupplierById(supplier.SupplierId);
             if (check == null)
             {
                 return BadRequest("Not found Supplier");
@@ -62,7 +62,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpDelete("/deleteSupplier/{supplierId}")]
         public async Task<IActionResult> deleteSupplier(int supplierId)
         {
-            var check = await _repository.getSupplierbyId(supplierId);
+            var check = await _repository.getSupplierById(supplierId);
             if (check == null)
             {
                 return NotFound("Not found Supplier");

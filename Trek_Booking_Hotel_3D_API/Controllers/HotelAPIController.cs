@@ -25,10 +25,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(c);
         }
-        [HttpGet("/getHotelbyId/{hotelId}")]
-        public async Task<IActionResult> getHotelbyId(int hotelId)
+        [HttpGet("/getHotelById/{hotelId}")]
+        public async Task<IActionResult> getHotelById(int hotelId)
         {
-            var check = await _repository.getHotelbyId(hotelId);
+            var check = await _repository.getHotelById(hotelId);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -52,7 +52,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPut("/updateHotel")]
         public async Task<IActionResult> updateHotel([FromBody] Hotel hotel)
         {
-            var check = await _repository.getHotelbyId(hotel.HotelId);
+            var check = await _repository.getHotelById(hotel.HotelId);
             if (check == null)
             {
                 return BadRequest("Not found Hotel");
@@ -63,7 +63,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpDelete("/deleteHotel/{hotelId}")]
         public async Task<IActionResult> deleteHotel(int hotelId)
         {
-            var check = await _repository.getHotelbyId(hotelId);
+            var check = await _repository.getHotelById(hotelId);
             if (check == null)
             {
                 return NotFound("Not found Hotel");

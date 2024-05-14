@@ -12,7 +12,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<RoomImage> createRoomImage(RoomImage roomImage);
         public Task<RoomImage> updateRoomImage(RoomImage roomImage);
         public Task<int> deleteRoomImage(int roomImageId);
-        public Task<RoomImage> getRoomImagebyId(int roomImageId);
+        public Task<RoomImage> getRoomImageById(int roomImageId);
         public Task<IEnumerable<RoomImage>> getRoomImages();
         public Task<IEnumerable<RoomImage>> getRoomImageByRoomId(int roomId);
     }

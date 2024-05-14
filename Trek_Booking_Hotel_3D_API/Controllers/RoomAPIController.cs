@@ -25,10 +25,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(c);
         }
-        [HttpGet("/getRoombyId/{roomId}")]
-        public async Task<IActionResult> getRoombyId(int roomId)
+        [HttpGet("/getRoomById/{roomId}")]
+        public async Task<IActionResult> getRoomById(int roomId)
         {
-            var check = await _repository.getRoombyId(roomId);
+            var check = await _repository.getRoomById(roomId);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -36,10 +36,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
 
-        [HttpGet("/getRoombyHotelId/{hotelId}")]
-        public async Task<IActionResult> getRoombyHotelId(int hotelId)
+        [HttpGet("/getRoomByHotelId/{hotelId}")]
+        public async Task<IActionResult> getRoomByHotelId(int hotelId)
         {
-            var check = await _repository.getRoombyHotelId(hotelId);
+            var check = await _repository.getRoomByHotelId(hotelId);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -64,7 +64,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPut("/updateRoom")]
         public async Task<IActionResult> updateRoom([FromBody] Room room)
         {
-            var check = await _repository.getRoombyId(room.RoomId);
+            var check = await _repository.getRoomById(room.RoomId);
             if (check == null)
             {
                 return BadRequest("Not found Room");
@@ -75,7 +75,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpDelete("/deleteRoom/{roomId}")]
         public async Task<IActionResult> deleteRoom(int roomId)
         {
-            var check = await _repository.getRoombyId(roomId);
+            var check = await _repository.getRoomById(roomId);
             if (check == null)
             {
                 return NotFound("Not found Hotel");

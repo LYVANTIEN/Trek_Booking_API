@@ -44,13 +44,13 @@ namespace Trek_Booking_Repository.Repositories
             return 0;
         }
 
-        public async Task<IEnumerable<Room>> getRoombyHotelId(int hotelId)
+        public async Task<IEnumerable<Room>> getRoomByHotelId(int hotelId)
         {
             var check = await _context.rooms.Where(t => t.HotelId == hotelId).ToListAsync();
             return check;
         }
 
-        public async Task<Room> getRoombyId(int roomId)
+        public async Task<Room> getRoomById(int roomId)
         {
             var getHotel = await _context.rooms.FirstOrDefaultAsync(t => t.RoomId == roomId);
             return getHotel;

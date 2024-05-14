@@ -45,7 +45,7 @@ namespace Trek_Booking_Repository.Repositories
             return 0;
         }
 
-        public async Task<Supplier> getSupplierbyId(int supplierId)
+        public async Task<Supplier> getSupplierById(int supplierId)
         {
             var getSupplier = await _context.suppliers.FirstOrDefaultAsync(t => t.SupplierId == supplierId);
             return getSupplier;

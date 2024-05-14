@@ -10,10 +10,10 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
 {
     public interface IBookingCartRepository
     {
-        public Task<IEnumerable<BookingCart>> getBookingCartbyUserId(int userId);
-        public Task<IEnumerable<BookingCart>> getBookingCartbyHotelId(int hotelId);
-        public Task<IEnumerable<BookingCart>> getBookingCartbyRoomId(int roomId);
-        public Task<BookingCart> getBookingCartbyId(int bookingCartId);
+        public Task<IEnumerable<BookingCart>> getBookingCartByUserId(int userId);
+        public Task<IEnumerable<BookingCart>> getBookingCartByHotelId(int hotelId);
+        public Task<IEnumerable<BookingCart>> getBookingCartByRoomId(int roomId);
+        public Task<BookingCart> getBookingCartById(int bookingCartId);
         public Task<int> deleteBookingCart(int bookingCartId);
         public Task<BookingCart> createBookingCart(BookingCart bookingCart);
         public Task<bool> checkBookingCartExists(int userId, int roomId);
