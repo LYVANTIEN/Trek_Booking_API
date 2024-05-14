@@ -45,11 +45,17 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserNote")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VoucherCode")
                         .HasColumnType("nvarchar(max)");
@@ -62,7 +68,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("bookings");
+                    b.ToTable("Booking");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.BookingCart", b =>
@@ -94,6 +100,9 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserNote")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("VoucherCode")
                         .HasColumnType("nvarchar(max)");
 
@@ -105,7 +114,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("bookingCarts");
+                    b.ToTable("BookingCart");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.CartTour", b =>
@@ -134,7 +143,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("cartTours");
+                    b.ToTable("CartTour");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Comment", b =>
@@ -169,7 +178,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("comments");
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Hotel", b =>
@@ -226,7 +235,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("hotels");
+                    b.ToTable("Hotel");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.PaymentInformation", b =>
@@ -260,7 +269,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("paymentInformations");
+                    b.ToTable("PaymentInformation");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Rate", b =>
@@ -291,7 +300,27 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("rates");
+                    b.ToTable("Rate");
+                });
+
+            modelBuilder.Entity("Trek_Booking_DataAccess.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("RoleDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Room", b =>
@@ -336,7 +365,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.ToTable("rooms");
+                    b.ToTable("Room");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Room3DImage", b =>
@@ -358,7 +387,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("room3DImages");
+                    b.ToTable("Room3DImage");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.RoomImage", b =>
@@ -380,7 +409,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("roomImages");
+                    b.ToTable("RoomImage");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.RoomService", b =>
@@ -395,7 +424,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("roomServices");
+                    b.ToTable("RoomService");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Service", b =>
@@ -420,7 +449,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasKey("ServiceId");
 
-                    b.ToTable("services");
+                    b.ToTable("Service");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Supplier", b =>
@@ -445,16 +474,14 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -466,7 +493,9 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasKey("SupplierId");
 
-                    b.ToTable("suppliers");
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Supplier");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.SupplierStaff", b =>
@@ -477,9 +506,8 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<string>("StaffAddress")
                         .HasMaxLength(300)
@@ -497,8 +525,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.Property<string>("StaffPassword")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffPhoneNumber")
                         .HasMaxLength(12)
@@ -509,9 +536,11 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasKey("StaffId");
 
+                    b.HasIndex("RoleId");
+
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("supplierStaff");
+                    b.ToTable("SupplierStaff");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Tour", b =>
@@ -556,7 +585,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("tours");
+                    b.ToTable("Tour");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.TourImage", b =>
@@ -578,7 +607,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("TourId");
 
-                    b.ToTable("tourImages");
+                    b.ToTable("TourImage");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.TourOrder", b =>
@@ -618,7 +647,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("tourOrders");
+                    b.ToTable("TourOrder");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.User", b =>
@@ -635,20 +664,21 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsVerify")
                         .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -660,7 +690,9 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("users");
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Voucher", b =>
@@ -698,7 +730,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.ToTable("vouchers");
+                    b.ToTable("Voucher");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.VoucherUsageHistory", b =>
@@ -726,7 +758,7 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.HasIndex("VoucherId");
 
-                    b.ToTable("voucherUsageHistories");
+                    b.ToTable("VoucherUsageHistory");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Booking", b =>
@@ -788,7 +820,7 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.HasOne("Trek_Booking_DataAccess.Tour", "Tour")
                         .WithMany("cartTours")
                         .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Trek_Booking_DataAccess.User", "User")
@@ -930,13 +962,32 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Navigation("Service");
                 });
 
+            modelBuilder.Entity("Trek_Booking_DataAccess.Supplier", b =>
+                {
+                    b.HasOne("Trek_Booking_DataAccess.Role", "Role")
+                        .WithMany("suppliers")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("Trek_Booking_DataAccess.SupplierStaff", b =>
                 {
+                    b.HasOne("Trek_Booking_DataAccess.Role", "Role")
+                        .WithMany("supplierStaffs")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Trek_Booking_DataAccess.Supplier", "Supplier")
                         .WithMany("supplierStaffs")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
 
                     b.Navigation("Supplier");
                 });
@@ -988,6 +1039,17 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Navigation("Tour");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Trek_Booking_DataAccess.User", b =>
+                {
+                    b.HasOne("Trek_Booking_DataAccess.Role", "Role")
+                        .WithMany("users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Voucher", b =>
@@ -1050,6 +1112,15 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Navigation("rooms");
 
                     b.Navigation("vouchers");
+                });
+
+            modelBuilder.Entity("Trek_Booking_DataAccess.Role", b =>
+                {
+                    b.Navigation("supplierStaffs");
+
+                    b.Navigation("suppliers");
+
+                    b.Navigation("users");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Room", b =>

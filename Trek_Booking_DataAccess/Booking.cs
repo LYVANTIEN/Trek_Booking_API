@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("Booking")]
     public class Booking
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -38,6 +39,8 @@ namespace Trek_Booking_DataAccess
         public decimal TotalPrice { get; set; }
         public int RoomQuantity { get; set; }
         public string? VoucherCode { get; set; }
+        public string? UserNote { get; set; }
+        public bool Status { get; set; }
 
         public ICollection<VoucherUsageHistory>? voucherUsageHistory { get; set; }
         public ICollection<Comment>? comments { get; set; }

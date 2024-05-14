@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("Hotel")]
     public class Hotel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -47,20 +48,20 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }
-        [JsonIgnore]
+    
         public Supplier? Supplier { get; set; }
 
-        [JsonIgnore]
+ 
         public ICollection<Comment>? comments { get; set; }
-        [JsonIgnore]
+
         public ICollection<Rate>? rates { get; set; }
-        [JsonIgnore]
+
         public ICollection<BookingCart>? bookingCarts { get; set; }
-        [JsonIgnore]
+
         public ICollection<Booking>? bookings { get; set; }
-        [JsonIgnore]
+
         public ICollection<Room>? rooms { get; set; }
-        [JsonIgnore]
+
         public ICollection<Voucher>? vouchers { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("PaymentInformation")]
     public class PaymentInformation
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

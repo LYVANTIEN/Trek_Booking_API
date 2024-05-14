@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("User")]
     public class User
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,7 +20,7 @@ namespace Trek_Booking_DataAccess
 
         [Required(ErrorMessage = "Email is not null")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        [StringLength(100, ErrorMessage = "The Email must be greater than 0 and less than or equal 100")]
+
         public string? Email { get; set; }
 
         [StringLength(12, ErrorMessage = "The Phone must be equal 12 number")]
@@ -30,10 +31,12 @@ namespace Trek_Booking_DataAccess
         public string? Address { get; set; }
 
         [Required(ErrorMessage = "Password is not null")]
-        [StringLength(50, ErrorMessage = "The Password must be greater than 0 and less than or equal 50")]
         public string? Password { get; set; }
         public bool Status { get; set; }
         public bool IsVerify { get; set; }
+        [ForeignKey("Role")]
+        public int RoleId { get; set; }
+        public Role? Role { get; set; }
         public ICollection<PaymentInformation>? paymentInformations { get; set; }
         public ICollection<CartTour>? cartTours { get; set; }
         public ICollection<TourOrder>? tourOrders { get; set; }

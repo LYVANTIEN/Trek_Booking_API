@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("Room3DImage")]
     public class Room3DImage
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,7 +20,7 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Room")]
         public int RoomId { get; set; }
-        [JsonIgnore]
+
         public Room? Room { get; set; }
     }
 }

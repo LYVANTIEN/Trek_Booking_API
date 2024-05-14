@@ -27,7 +27,6 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<Supplier> createSupplier(Supplier supplier)
         {
-
             supplier.IsVerify = true;
             _context.suppliers.Add(supplier);
             await _context.SaveChangesAsync();

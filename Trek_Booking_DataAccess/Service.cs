@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("Service")]
     public class Service
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

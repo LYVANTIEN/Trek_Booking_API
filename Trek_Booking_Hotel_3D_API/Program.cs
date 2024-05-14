@@ -27,6 +27,11 @@ builder.Services.AddScoped<ISupplierStaffRepository, SupplierStaffRepository>();
 builder.Services.AddScoped<IBookingCartRepository, BookingCartRepository>();
 builder.Services.AddScoped<IRoom3DImageRepository, Room3DImageRepository>();
 builder.Services.AddScoped<IVoucherRepository, VoucherRepository>();
+builder.Services.AddScoped<ITourRepository, TourRepository>();
+builder.Services.AddScoped<ITourImageRepository, TourImageRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPaymentInforRepository, PaymentInfoRepository>();
+builder.Services.AddScoped<IVoucherUsageHistoryRepository, VoucherUsageHistoryRepository>();
 
 
 var app = builder.Build();

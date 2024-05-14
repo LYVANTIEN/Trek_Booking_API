@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("Rate")]
     public class Rate
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,21 +22,21 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
-        [JsonIgnore]
+
         public Hotel? Hotel { get; set; }
 
         
 
         [ForeignKey("Booking")]
         public int BookingId { get; set; }
-        [JsonIgnore]
+
         public Booking? Booking { get; set; }
 
      
 
         [ForeignKey("User")]
         public int UserId { get; set; }
-        [JsonIgnore]
+
         public User? User { get; set; }
     }
 }

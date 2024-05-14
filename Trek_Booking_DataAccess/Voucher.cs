@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("Voucher")]
     public class Voucher
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -34,9 +35,9 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
-        [JsonIgnore]
+
         public Hotel? Hotel { get; set; }
-        [JsonIgnore]
+
         public ICollection<VoucherUsageHistory>? voucherUsageHistories { get; set; }
     }
 }

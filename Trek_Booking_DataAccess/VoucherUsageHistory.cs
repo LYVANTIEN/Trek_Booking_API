@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("VoucherUsageHistory")]
     public class VoucherUsageHistory
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

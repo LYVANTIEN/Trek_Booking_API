@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("CartTour")]
     public class CartTour
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

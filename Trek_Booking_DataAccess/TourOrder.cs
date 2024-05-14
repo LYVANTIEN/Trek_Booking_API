@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("TourOrder")]
     public class TourOrder
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

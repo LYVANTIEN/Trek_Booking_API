@@ -178,6 +178,31 @@ namespace Trek_Booking_DataAccess.Data
                 .HasOne(i => i.Room)
                 .WithMany(c => c.roomServices)
                 .HasForeignKey(f => f.RoomId);
+
+            // supplierstaff
+            modelBuilder.Entity<SupplierStaff>()
+                .HasOne(t => t.Supplier)
+                .WithMany(c => c.supplierStaffs)
+                .HasForeignKey(t => t.SupplierId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<SupplierStaff>()
+                .HasOne(t => t.Role)
+                .WithMany(c => c.supplierStaffs)
+                .HasForeignKey(t => t.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);
+            // cartour
+            modelBuilder.Entity<CartTour>()
+               .HasOne(t => t.Tour)
+               .WithMany(c => c.cartTours)
+               .HasForeignKey(t => t.TourId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CartTour>()
+                .HasOne(t => t.User)
+                .WithMany(c => c.cartTours)
+                .HasForeignKey(t => t.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("BookingCart")]
     public class BookingCart
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,20 +17,20 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("User")]
         public int UserId { get; set; }
-        [JsonIgnore]
+       
         public User? User { get; set; }
 
 
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
-        [JsonIgnore]
+        
         public Hotel? Hotel { get; set; }
 
 
 
         [ForeignKey("Room")]
         public int RoomId { get; set; }
-        [JsonIgnore]
+        
         public Room? Room { get; set; }
 
 
@@ -44,6 +45,7 @@ namespace Trek_Booking_DataAccess
         public decimal TotalPrice { get; set; }
         public int RoomQuantity { get; set; }
         public string? VoucherCode { get; set; }
+        public string? UserNote { get; set; }
 
     }
 }
