@@ -34,5 +34,6 @@ namespace Trek_Booking_DataAccess
         public decimal TourTotalPrice { get; set; } 
 
         public bool IsConfirmed { get; set; }   
+        public bool Status { get; set; }
     }
 }

@@ -57,6 +57,11 @@ namespace Trek_Booking_Repository.Repositories
             var hotels = await _context.hotels.Include(s => s.Supplier).ToListAsync();
             return hotels;
         }
+        public async Task<IEnumerable<Hotel>> getHotelsBySupplierId(int supplierId)
+        {
+            var hotelsBySupp = await _context.hotels.Where(s => s.SupplierId == supplierId).ToListAsync();
+            return hotelsBySupp;
+        }
 
         public async Task<Hotel> updateHotel(Hotel hotel)
         {
@@ -78,5 +83,7 @@ namespace Trek_Booking_Repository.Repositories
             }
             return null;
         }
+
+
     }
 }

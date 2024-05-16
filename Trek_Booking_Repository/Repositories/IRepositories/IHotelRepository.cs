@@ -9,6 +9,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<int> deleteHotel(int HotelId);
         public Task<Hotel> getHotelbyId(int hotelId);
         public Task<IEnumerable<Hotel>> getHotels();
+        public Task<IEnumerable<Hotel>> getHotelsBySupplierId (int supplierId);
 
         public Task<bool> checkExitsName(string name);
 

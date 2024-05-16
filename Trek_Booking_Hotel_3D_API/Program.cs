@@ -32,6 +32,9 @@ builder.Services.AddScoped<ITourImageRepository, TourImageRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPaymentInforRepository, PaymentInfoRepository>();
 builder.Services.AddScoped<IVoucherUsageHistoryRepository, VoucherUsageHistoryRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<ICartTourRepository, CartTourRepository>();
+builder.Services.AddScoped<ITourOrderRepository, TourOrderRepository>();
 
 
 var app = builder.Build();
