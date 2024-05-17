@@ -52,6 +52,16 @@ namespace Trek_Booking_Repository.Repositories
             return getHotel;
         }
 
+        public async Task<IEnumerable<Hotel>> getHotelBySupplierId(int supplierId)
+        {
+            var c = await _context.hotels.Where(t => t.SupplierId == supplierId).ToListAsync();
+            if (c.Any())
+            {
+                return c;
+            }
+            return null;
+        }
+
         public async Task<IEnumerable<Hotel>> getHotels()
         {
             var hotels = await _context.hotels.Include(s => s.Supplier).ToListAsync();
