@@ -18,9 +18,9 @@ namespace Trek_Booking_Repository.Repositories
             _context = context;
         }
 
-        public async Task<bool> checkExitsName(string name)
+        public async Task<bool> checkExitsEmail(string email)
         {
-            var check = await _context.users.AnyAsync(n => n.UserName == name);
+            var check = await _context.users.AnyAsync(u => u.Email == email);
             return check;
         }
 
@@ -36,7 +36,8 @@ namespace Trek_Booking_Repository.Repositories
             var deleteUser = await _context.users.FirstOrDefaultAsync(t => t.UserId == userId);
             if (deleteUser != null)
             {
-                _context.users.Remove(deleteUser);
+                deleteUser.Status = false;
+                _context.users.Update(deleteUser);
                 return await _context.SaveChangesAsync();
             }
             return 0;
@@ -48,29 +49,32 @@ namespace Trek_Booking_Repository.Repositories
             return getUser;
         }
 
+        public async Task<IEnumerable<User>> getUserByRoleId(int roleId)
+        {
+            var get = await _context.users.Where(t => t.RoleId == roleId).ToListAsync();
+            if (get.Any())
+            {
+                return get;
+            }
+            throw new Exception("Not found");
+        }
+
         public async Task<IEnumerable<User>> getUsers()
         {
             var users = await _context.users.ToListAsync();
             return users;
         }
 
-        public async Task<User> updateUser(User user)
+        public async Task<int> recoverUserDeleted(int userId)
         {
-            var findUser = await _context.users.FirstOrDefaultAsync(t => t.UserId == user.UserId);
-            if (findUser != null)
+            var deleteUser = await _context.users.FirstOrDefaultAsync(t => t.UserId == userId);
+            if (deleteUser != null)
             {
-                findUser.UserName = user.UserName;
-                findUser.Email = user.Email;
-                findUser.Phone = user.Phone;
-                findUser.Address = user.Address;
-                findUser.Password = user.Password;
-                findUser.Status = user.Status;
-                findUser.IsVerify = user.IsVerify;
-                _context.users.Update(findUser);
-                await _context.SaveChangesAsync();
-                return findUser;
+                deleteUser.Status = true;
+                _context.users.Update(deleteUser);
+                return await _context.SaveChangesAsync();
             }
-            return null;
+            return 0;
         }
     }
 }
