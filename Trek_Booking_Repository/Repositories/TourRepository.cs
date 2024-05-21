@@ -26,6 +26,7 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<Tour> createTour(Tour tour)
         {
+            tour.Status = true;
             _context.tours.Add(tour);
             await _context.SaveChangesAsync();
             return tour;
