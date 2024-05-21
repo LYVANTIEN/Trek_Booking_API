@@ -9,12 +9,17 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
 {
     public interface IUserRepository
     {
-        public Task<User> createUser(User user);
+
+        public Task<User> createUser(User registerRequest);
+        public Task<User> updateUser(User user);
         public Task<int> deleteUser(int userId);
         public Task<int> recoverUserDeleted(int userId);
-        public Task<User> getUserById(int userId);
-        public Task<IEnumerable<User>> getUsers();
         public Task<IEnumerable<User>> getUserByRoleId(int roleId);
         public Task<bool> checkExitsEmail(string email);
+        public Task<User> getUserById(int userId);
+        public Task<IEnumerable<User>> getUsers();
+        public Task<User> getUserByEmail(string email);
+        public Task<User> checkBannedUser(User user);
+
     }
 }

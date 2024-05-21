@@ -36,7 +36,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
         [HttpPost("/createService")]
-        public async Task<IActionResult> createService([FromBody] Service service)
+        public async Task<IActionResult> createService([FromBody] Services service)
         {
             if (service == null)
             {
@@ -50,7 +50,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return StatusCode(201, "Create Successfully!");
         }
         [HttpPut("/updateService")]
-        public async Task<IActionResult> updateService([FromBody] Service service)
+        public async Task<IActionResult> updateService([FromBody] Services service)
         {
             var check = await _repository.getServicebyId(service.ServiceId);
             if (check == null)
