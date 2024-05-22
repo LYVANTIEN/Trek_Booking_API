@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Trek_Booking_DataAccess;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
@@ -29,6 +30,16 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         public async Task<IActionResult> getTourById(int tourId)
         {
             var check = await _repository.getTourById(tourId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+        [HttpGet("/getTourBySupplierId/{supplierId}")]
+        public async Task<IActionResult> getTourBySupplierId(int supplierId)
+        {
+            var check = await _repository.getTourBySupplierId(supplierId);
             if (check == null)
             {
                 return NotFound("Not Found");
