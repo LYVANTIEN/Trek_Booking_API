@@ -41,6 +41,7 @@ namespace Trek_Booking_DataAccess
         public string? VoucherCode { get; set; }
         public string? UserNote { get; set; }
         public bool Status { get; set; }
+        public bool IsConfirmed { get; set; }
 
         public ICollection<VoucherUsageHistory>? voucherUsageHistory { get; set; }
         public ICollection<Comment>? comments { get; set; }
