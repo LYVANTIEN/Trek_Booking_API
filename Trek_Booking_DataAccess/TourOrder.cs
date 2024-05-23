@@ -26,7 +26,7 @@ namespace Trek_Booking_DataAccess
         public int TourId { get; set; }
         public Tour? Tour { get; set; }
 
-        [DataType(DataType.Date)]   
+        [DataType(DataType.DateTime)]   
         public DateTime? TourOrderDate { get; set; }
         [Required(ErrorMessage ="TourOrderQuantity is not null")]
         public int TourOrderQuantity { get; set; }

@@ -29,11 +29,11 @@ namespace Trek_Booking_DataAccess
         public Room? Room { get; set; }
 
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? CheckInDate { get; set; }
 
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? CheckOutDate { get; set; }
 
         public decimal TotalPrice { get; set; }
