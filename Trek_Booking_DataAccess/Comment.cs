@@ -21,7 +21,7 @@ namespace Trek_Booking_DataAccess
 
         [Required(ErrorMessage = "Message is not null")]
         public string? Message { get; set; }
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? DateSubmitted { get; set; }
 
         [ForeignKey("Hotel")]

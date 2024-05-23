@@ -39,6 +39,9 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Property<int>("HotelId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
@@ -531,6 +534,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
@@ -551,6 +557,9 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TourId"));
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
@@ -565,6 +574,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("TourDiscount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("TourName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -573,9 +585,8 @@ namespace Trek_Booking_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("TourTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("TourTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TourTransportation")
                         .IsRequired()

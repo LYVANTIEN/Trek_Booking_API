@@ -27,14 +27,16 @@ namespace Trek_Booking_DataAccess
         [Required(ErrorMessage = "TourAddress is not null")]
         public string? TourAddress { get; set; }
 
-        [Required(ErrorMessage = "TourTime is not null")]
-        public string? TourTime { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime? TourTime { get; set; }
 
         [Required(ErrorMessage = "TourTransportation is not null")]
         public string? TourTransportation { get; set; }
 
         [Required(ErrorMessage = "TourCapacity is not null")]
         public int TourCapacity { get; set; }
+        public decimal TourDiscount { get; set; }
+        public bool Status { get; set; }
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }

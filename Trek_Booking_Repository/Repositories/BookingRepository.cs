@@ -34,6 +34,7 @@ namespace Trek_Booking_Repository.Repositories
 
             booking.HotelId = findRoom.HotelId;
             booking.Status = true;
+            booking.IsConfirmed = true;
             _context.bookings.Add(booking);
             await _context.SaveChangesAsync();
             return booking;
@@ -67,6 +68,17 @@ namespace Trek_Booking_Repository.Repositories
         {
             var check = await _context.bookings.Where(t => t.RoomId == roomId).ToListAsync();
             return check;
+        }
+
+        public async Task<IEnumerable<Booking>> getBookingBySupplierId(int supplierId)
+        {
+            var bookings = await _context.bookings.Include(b => b.Hotel)
+                .ThenInclude(h => h.Supplier).Where(b => b.Hotel.Supplier.SupplierId == supplierId).ToListAsync();
+            if (bookings.Any())
+            {
+                return bookings;
+            }
+            return null;
         }
 
         public async Task<IEnumerable<Booking>> getBookingByUserId(int userId)

@@ -13,6 +13,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<Tour> updateTour(Tour tour);
         public Task<int> deleteTour(int tourId);
         public Task<Tour> getTourById(int tourId);
+        public Task<Tour> getTourBySupplierId(int supplierId);
         public Task<IEnumerable<Tour>> getTours();
         public Task<bool> checkExitsName(string name);
     }

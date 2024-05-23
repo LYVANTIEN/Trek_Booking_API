@@ -45,6 +45,17 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
 
+        [HttpGet("/getBookingBySupplierId/{supplierId}")]
+        public async Task<IActionResult> getBookingBySupplierId(int supplierId)
+        {
+            var check = await _repository.getBookingBySupplierId(supplierId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
         [HttpGet("/getBookingByHotelId/{hotelId}")]
         public async Task<IActionResult> getBookingByHotelId(int hotelId)
         {

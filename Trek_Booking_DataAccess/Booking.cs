@@ -33,11 +33,11 @@ namespace Trek_Booking_DataAccess
         public Room? Room { get; set; }
 
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? CheckInDate { get; set; }
 
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? CheckOutDate { get; set; }
 
         public decimal TotalPrice { get; set; }
@@ -45,6 +45,7 @@ namespace Trek_Booking_DataAccess
         public string? VoucherCode { get; set; }
         public string? UserNote { get; set; }
         public bool Status { get; set; }
+        public bool IsConfirmed { get; set; }
 
         [JsonIgnore]
 

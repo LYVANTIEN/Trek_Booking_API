@@ -35,6 +35,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(check);
         }
+
+        [HttpGet("/getTourBySupplierId/{supplierId}")]
+        public async Task<IActionResult> getTourBySupplierId(int supplierId)
+        {
+            var check = await _repository.getTourBySupplierId(supplierId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
         [HttpPost("/createTour")]
         public async Task<IActionResult> createTour([FromBody] Tour tour)
         {

@@ -12,6 +12,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<IEnumerable<Booking>> getBookingByUserId(int userId);
         public Task<IEnumerable<Booking>> getBookingByHotelId(int hotelId);
         public Task<IEnumerable<Booking>> getBookingByRoomId(int roomId);
+        public Task<IEnumerable<Booking>> getBookingBySupplierId(int supplierId);
         public Task<Booking> getBookingById(int bookingId);
         public Task<int> deleteBooking(int bookingId);
         public Task<int> recoverBookingDeleted(int bookingId);
