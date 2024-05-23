@@ -14,7 +14,7 @@ namespace Trek_Booking_DataAccess
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
-        [Required(ErrorMessage = "UserName is not null")]
+        
         [StringLength(20, ErrorMessage = "The UserName must be greater than 0 and less than or equal 20")]
         public string? UserName { get; set; }
 

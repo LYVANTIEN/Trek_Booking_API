@@ -28,7 +28,7 @@ namespace Trek_Booking_DataAccess.Data
         public DbSet<Room> rooms { get; set; }
         public DbSet<Room3DImage> room3DImages { get; set; }
         public DbSet<RoomImage> roomImages { get; set; }
-        public DbSet<Service> services { get; set; }
+        public DbSet<Services> services { get; set; }
         public DbSet<RoomService> roomServices { get; set; }
         public DbSet<Supplier> suppliers { get; set; }
         public DbSet<SupplierStaff> supplierStaff { get; set; }

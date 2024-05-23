@@ -10,9 +10,6 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class HotelAPIController : ControllerBase
     {
         private readonly IHotelRepository _repository;
-
-
-
         public HotelAPIController(IHotelRepository repository)
         {
             _repository = repository;
@@ -38,6 +35,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(c);
         }
+
+        [HttpGet("/searchHotelByName/{key}")]
+        public async Task<IActionResult> searchHotelByName(string key)
+        {
+            var c = await _repository.searchHotelByName(key);
+            if (c == null || !c.Any())
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(c);
+        }
+
         [HttpGet("/getHotelbyId/{hotelId}")]
         public async Task<IActionResult> getHotelbyId(int hotelId)
         {
@@ -59,6 +68,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             {
                 return BadRequest("HotelName already exits");
             }
+            else if (await _repository.checkExitsEmail(hotel.HotelEmail))
+            {
+                return BadRequest("HotelEmail already exits");
+            }
             var create = await _repository.createHotel(hotel);
             return StatusCode(201, "Create Successfully!");
         }
@@ -73,7 +86,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             var update = await _repository.updateHotel(hotel);
             return Ok(update);
         }
-        [HttpDelete("/deleteHotel/{hotelId}")]
+        [HttpPut("/deleteHotel/{hotelId}")]
         public async Task<IActionResult> deleteHotel(int hotelId)
         {
             var check = await _repository.getHotelbyId(hotelId);
@@ -83,6 +96,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             await _repository.deleteHotel(hotelId);
             return StatusCode(200, "Delele Successfully!");
+        }
+
+        [HttpPut("/recoverHotelDeleted/{hotelId}")]
+        public async Task<IActionResult> recoverHotelDeleted(int hotelId)
+        {
+            var check = await _repository.getHotelbyId(hotelId);
+            if (check == null)
+            {
+                return NotFound("Not found Hotel");
+            }
+            await _repository.recoverHotelDeleted(hotelId);
+            return StatusCode(200, "Recover Successfully!");
         }
     }
 }

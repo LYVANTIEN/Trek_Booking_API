@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
@@ -34,13 +35,17 @@ namespace Trek_Booking_DataAccess
 
         [Required(ErrorMessage = "TourCapacity is not null")]
         public int TourCapacity { get; set; }
+        public bool Status { get; set; }
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }
+        [JsonIgnore]
         public Supplier? Supplier { get; set; }
-
+        [JsonIgnore]
         public ICollection<CartTour>? cartTours { get; set; }
+        [JsonIgnore]
         public ICollection<TourImage>? tourImages { get; set; }
+        [JsonIgnore]
         public ICollection<TourOrder>? tourOrders { get; set; }
     }
 }

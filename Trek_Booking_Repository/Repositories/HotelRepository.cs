@@ -21,6 +21,12 @@ namespace Trek_Booking_Repository.Repositories
             _context = context;
         }
 
+        public async Task<bool> checkExitsEmail(string email)
+        {
+            var check = await _context.hotels.AnyAsync(t => t.HotelEmail == email);
+            return check;
+        }
+
         public async Task<bool> checkExitsName(string name)
         {
             var check = await _context.hotels.AnyAsync(n => n.HotelName == name);
@@ -35,12 +41,13 @@ namespace Trek_Booking_Repository.Repositories
             return hotel;
         }
 
-        public async Task<int> deleteHotel(int HotelId)
+        public async Task<int> deleteHotel(int hotelId)
         {
-            var deleteHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == HotelId);
+            var deleteHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == hotelId);
             if (deleteHotel != null)
             {
-                _context.hotels.Remove(deleteHotel);
+                deleteHotel.IsVerify = false;
+                _context.hotels.Update(deleteHotel);
                 return await _context.SaveChangesAsync();
             }
             return 0;
@@ -63,6 +70,31 @@ namespace Trek_Booking_Repository.Repositories
             return hotelsBySupp;
         }
 
+        public async Task<int> recoverHotelDeleted(int hotelId)
+        {
+            var deleteHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == hotelId);
+            if (deleteHotel != null)
+            {
+                deleteHotel.IsVerify = true;
+                _context.hotels.Update(deleteHotel);
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
+        }
+
+        public async Task<IEnumerable<Hotel>> searchHotelByName(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new ArgumentException("Search key cannot be null or empty", nameof(key));
+            }
+
+            var hotels = await _context.hotels.ToListAsync();
+
+            var result = hotels.Where(h => h.HotelName.Contains(key, StringComparison.OrdinalIgnoreCase));
+            return result;
+        }
+
         public async Task<Hotel> updateHotel(Hotel hotel)
         {
             var findHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == hotel.HotelId);
@@ -83,6 +115,7 @@ namespace Trek_Booking_Repository.Repositories
             }
             return null;
         }
+
 
 
     }

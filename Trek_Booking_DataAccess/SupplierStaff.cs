@@ -33,14 +33,16 @@ namespace Trek_Booking_DataAccess
 
         [StringLength(300, ErrorMessage = "The Address must be less than or equal 300")]
         public string? StaffAddress { get; set; }
+        public bool Status { get; set; }
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }
-
+        [JsonIgnore]
         public Supplier? Supplier { get; set; }
 
         [ForeignKey("Role")]
         public int RoleId { get; set; }
+        [JsonIgnore]
         public Role? Role { get; set; }
     }
 }

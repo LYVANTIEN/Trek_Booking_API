@@ -24,7 +24,7 @@ namespace Trek_Booking_Repository.Repositories
             return check;
         }
 
-        public async Task<Service> createService(Service service)
+        public async Task<Services> createService(Services service)
         {
             _context.services.Add(service);
             await _context.SaveChangesAsync();
@@ -42,19 +42,19 @@ namespace Trek_Booking_Repository.Repositories
             return 0;
         }
 
-        public async Task<Service> getServicebyId(int serviceId)
+        public async Task<Services> getServicebyId(int serviceId)
         {
             var get = await _context.services.FirstOrDefaultAsync(t => t.ServiceId == serviceId);
             return get;
         }
 
-        public async Task<IEnumerable<Service>> getServices()
+        public async Task<IEnumerable<Services>> getServices()
         {
             var services = await _context.services.ToListAsync();
             return services;
         }
 
-        public async Task<Service> updateService(Service service)
+        public async Task<Services> updateService(Services service)
         {
             var findService = await _context.services.FirstOrDefaultAsync(t => t.ServiceId == service.ServiceId);
             if (findService != null)

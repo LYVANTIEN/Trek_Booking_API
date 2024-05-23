@@ -39,17 +39,16 @@ namespace Trek_Booking_Repository.Repositories
             return booking;
         }
 
-        public async Task<Booking> deleteBooking(Booking booking)
+        public async Task<int> deleteBooking(int bookingId)
         {
-            var check = await _context.bookings.FirstOrDefaultAsync(t => t.BookingId == booking.BookingId);
+            var check = await _context.bookings.FirstOrDefaultAsync(t => t.BookingId == bookingId);
             if (check != null)
             {
                 check.Status = false;
                 _context.bookings.Update(check);
-                await _context.SaveChangesAsync();
-                return check;
+                return await _context.SaveChangesAsync();
             }
-            return null;
+            return 0;
         }
 
         public async Task<IEnumerable<Booking>> getBookingByHotelId(int hotelId)
@@ -81,6 +80,18 @@ namespace Trek_Booking_Repository.Repositories
             var listCart = await _context.bookings.Include(t => t.User).Include(h => h.Hotel)
                 .Include(r => r.Room).ToListAsync();
             return listCart;
+        }
+
+        public async Task<int> recoverBookingDeleted(int bookingId)
+        {
+            var check = await _context.bookings.FirstOrDefaultAsync(t => t.BookingId == bookingId);
+            if (check != null)
+            {
+                check.Status = true;
+                _context.bookings.Update(check);
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
         }
     }
 }

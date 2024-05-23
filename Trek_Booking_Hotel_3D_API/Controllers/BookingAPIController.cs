@@ -87,17 +87,30 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
         }
 
-        [HttpPut("/deleteBooking")]
-        public async Task<IActionResult> deleteBooking(Booking booking)
+        [HttpPut("/deleteBooking/{bookingId}")]
+        public async Task<IActionResult> deleteBooking(int bookingId)
         {
-            var checkCart = await _repository.getBookingById(booking.BookingId);
+            var checkCart = await _repository.getBookingById(bookingId);
             if (checkCart == null)
             {
                 return BadRequest("Booking is not exits");
             }
 
-            await _repository.deleteBooking(booking);
+            await _repository.deleteBooking(bookingId);
             return StatusCode(200, "Delete Successfully!");
+        }
+
+        [HttpPut("/recoverBookingDeleted/{bookingId}")]
+        public async Task<IActionResult> recoverBookingDeleted(int bookingId)
+        {
+            var checkCart = await _repository.getBookingById(bookingId);
+            if (checkCart == null)
+            {
+                return BadRequest("Booking is not exits");
+            }
+
+            await _repository.recoverBookingDeleted(bookingId);
+            return StatusCode(200, "Recover Successfully!");
         }
     }
 }

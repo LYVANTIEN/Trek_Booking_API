@@ -43,3 +43,5 @@ D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Repository\o
 D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Repository\obj\Debug\net7.0\refint\Trek_Booking_Repository.dll
 D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Repository\obj\Debug\net7.0\Trek_Booking_Repository.pdb
 D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Repository\obj\Debug\net7.0\ref\Trek_Booking_Repository.dll
+D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Repository\bin\Debug\net7.0\Trek_Booking_Repository.runtimeconfig.json
+D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Repository\obj\Debug\net7.0\Trek_Booking_Repository.genruntimeconfig.cache
