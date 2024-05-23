@@ -99,7 +99,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             {
                 return BadRequest();
             }
-            var result = await _authenticationUserRepository.checkPassword(user);
+            var result = await _authenticationUserRepository.checkPasswordClient(user);
             if (result != null)
             {
                 var checkBanned = await _repository.checkBannedUser(result);
