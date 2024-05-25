@@ -3453,19 +3453,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
       "projectName": "Trek_Booking_Repository",
       "projectPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
       "outputPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\obj\\",
-=======
-      "projectUniqueName": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
-      "projectName": "Trek_Booking_Repository",
-      "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
-      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\obj\\",
->>>>>>> d545ad44f83c7ab32db21c7918cb89b5486b6c81
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3482,13 +3474,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-<<<<<<< HEAD
             "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
               "projectPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
-=======
-            "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
-              "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
->>>>>>> d545ad44f83c7ab32db21c7918cb89b5486b6c81
             }
           }
         }
@@ -3533,5 +3520,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

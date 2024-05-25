@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {}
   },
   "projects": {
@@ -13,19 +12,6 @@
         "projectPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
         "outputPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\obj\\",
-=======
-    "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {}
-  },
-  "projects": {
-    "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
-        "projectName": "Trek_Booking_DataAccess",
-        "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
-        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\obj\\",
->>>>>>> d545ad44f83c7ab32db21c7918cb89b5486b6c81
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
