@@ -15,7 +15,7 @@ namespace Trek_Booking_DataAccess
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SupplierId { get; set; }
 
-        [Required(ErrorMessage = "SupplierName is not null")]
+
         [StringLength(100, ErrorMessage = "The SupplierName must be greater than 0 and less than or equal 100")]
         public string? SupplierName { get; set; }
 

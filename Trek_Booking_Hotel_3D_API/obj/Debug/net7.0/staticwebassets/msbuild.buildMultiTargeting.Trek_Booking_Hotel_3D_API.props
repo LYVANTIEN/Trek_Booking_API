@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\Trek_Booking_Hotel_3D_API.props" />
-</Project>

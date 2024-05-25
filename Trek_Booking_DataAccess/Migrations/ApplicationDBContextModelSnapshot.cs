@@ -430,7 +430,7 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.ToTable("RoomService");
                 });
 
-            modelBuilder.Entity("Trek_Booking_DataAccess.Service", b =>
+            modelBuilder.Entity("Trek_Booking_DataAccess.Services", b =>
                 {
                     b.Property<int>("ServiceId")
                         .ValueGeneratedOnAdd()
@@ -490,7 +490,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SupplierName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -698,7 +697,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
@@ -965,7 +963,7 @@ namespace Trek_Booking_DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Trek_Booking_DataAccess.Service", "Service")
+                    b.HasOne("Trek_Booking_DataAccess.Services", "Service")
                         .WithMany("roomServices")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1150,7 +1148,7 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Navigation("roomServices");
                 });
 
-            modelBuilder.Entity("Trek_Booking_DataAccess.Service", b =>
+            modelBuilder.Entity("Trek_Booking_DataAccess.Services", b =>
                 {
                     b.Navigation("roomServices");
                 });

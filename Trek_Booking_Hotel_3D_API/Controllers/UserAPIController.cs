@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Service;
+using Trek_Booking_Repository.Repositories;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -10,10 +12,16 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class UserAPIController : ControllerBase
     {
         private readonly IUserRepository _repository;
+        private readonly IAuthenticationUserRepository _authenticationUserRepository;
+        private readonly IJwtUtils _jwtUtils;
 
-        public UserAPIController(IUserRepository repository)
+
+        public UserAPIController(IUserRepository repository, IAuthenticationUserRepository authenticationUserRepository,
+            IJwtUtils jwtUtils)
         {
             _repository = repository;
+            _authenticationUserRepository = authenticationUserRepository;
+            _jwtUtils = jwtUtils;
         }
         [HttpGet("/getUsers")]
         public async Task<IActionResult> getUsers()
@@ -84,5 +92,59 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             await _repository.recoverUserDeleted(userId);
             return StatusCode(200, "Recover Successfully!");
         }
+<<<<<<< HEAD
+=======
+        [HttpPost("/loginClient")]
+        public async Task<IActionResult> loginClient([FromBody] User user)
+        {
+            if (user == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var result = await _authenticationUserRepository.checkPasswordClient(user);
+            if (result != null)
+            {
+                var checkBanned = await _repository.checkBannedUser(result);
+                if (checkBanned.Status == false)
+                {
+                    return BadRequest("The account of user is banned!");
+                }
+                var token = _jwtUtils.GenerateTokenClient(result);
+                return Ok(new UserResponse()
+                {
+                    IsAuthSuccessful = true,
+                    ToKen = token,
+                    User = new User()
+                    {
+                        UserName = result.UserName,
+                        UserId = result.UserId,
+                        Email = result.Email,
+                        Phone = result.Phone,
+                        RoleId = result.RoleId,
+                    },
+                    RoleId = result.RoleId
+                });
+            }
+            else
+            {
+                return Unauthorized(new UserResponse
+                {
+                    IsAuthSuccessful = false,
+                    ErrorMessage = "Email or password is not correct!"
+                });
+            }
+            return StatusCode(200);
+        }
+        [HttpPost("/registerClient")]
+        public async Task<IActionResult> RegisterClient([FromBody] User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            await _repository.createUser(user);
+            return StatusCode(200);
+        }
+>>>>>>> d545ad44f83c7ab32db21c7918cb89b5486b6c81
     }
 }

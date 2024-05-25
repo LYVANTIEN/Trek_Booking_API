@@ -9,11 +9,11 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
 {
     public interface IServiceRepository
     {
-        public Task<Service> createService(Service service);
-        public Task<Service> updateService(Service service);
+        public Task<Services> createService(Services service);
+        public Task<Services> updateService(Services service);
         public Task<int> deleteService(int serviceId);
-        public Task<Service> getServicebyId(int serviceId);
-        public Task<IEnumerable<Service>> getServices();
+        public Task<Services> getServicebyId(int serviceId);
+        public Task<IEnumerable<Services>> getServices();
 
         public Task<bool> checkExitsName(string name);
     }

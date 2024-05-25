@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Trek_Booking_DataAccess;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
@@ -35,7 +36,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(check);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> d545ad44f83c7ab32db21c7918cb89b5486b6c81
         [HttpGet("/getTourBySupplierId/{supplierId}")]
         public async Task<IActionResult> getTourBySupplierId(int supplierId)
         {
@@ -46,7 +50,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(check);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> d545ad44f83c7ab32db21c7918cb89b5486b6c81
         [HttpPost("/createTour")]
         public async Task<IActionResult> createTour([FromBody] Tour tour)
         {

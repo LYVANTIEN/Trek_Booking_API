@@ -241,6 +241,7 @@ D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API
 D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\Trek_Booking_Hotel_3D_API.pdb
 D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\Trek_Booking_Hotel_3D_API.genruntimeconfig.cache
 D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\ref\Trek_Booking_Hotel_3D_API.dll
+<<<<<<< HEAD
 D:\FPT_UNIVERSITY\SU24-DoAn\DOTNET\Project\DoAn\Trek_Booking_API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\appsettings.Development.json
 D:\FPT_UNIVERSITY\SU24-DoAn\DOTNET\Project\DoAn\Trek_Booking_API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\appsettings.json
 D:\FPT_UNIVERSITY\SU24-DoAn\DOTNET\Project\DoAn\Trek_Booking_API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Trek_Booking_Hotel_3D_API.exe
@@ -403,3 +404,11 @@ D:\FPT_UNIVERSITY\SU24-DoAn\DOTNET\Project\DoAn\Trek_Booking_API\Trek_Booking_Ho
 D:\FPT_UNIVERSITY\SU24-DoAn\DOTNET\Project\DoAn\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\Trek_Booking_Hotel_3D_API.pdb
 D:\FPT_UNIVERSITY\SU24-DoAn\DOTNET\Project\DoAn\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\Trek_Booking_Hotel_3D_API.genruntimeconfig.cache
 D:\FPT_UNIVERSITY\SU24-DoAn\DOTNET\Project\DoAn\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\ref\Trek_Booking_Hotel_3D_API.dll
+=======
+D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Humanizer.dll
+D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Mono.TextTemplating.dll
+D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\System.CodeDom.dll
+>>>>>>> d545ad44f83c7ab32db21c7918cb89b5486b6c81

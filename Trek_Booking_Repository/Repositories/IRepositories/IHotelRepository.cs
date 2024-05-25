@@ -14,7 +14,10 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<bool> checkExitsName(string name);
         public Task<bool> checkExitsEmail(string email);
         public Task<IEnumerable<Hotel>> searchHotelByName(string key);
+<<<<<<< HEAD
 
+=======
+>>>>>>> d545ad44f83c7ab32db21c7918cb89b5486b6c81
 
     }
 }

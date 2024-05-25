@@ -17,6 +17,6 @@ namespace Trek_Booking_DataAccess
 
         [Key]
         public int ServiceId { get; set; }
-        public Service? Service { get; set; }
+        public Services? Service { get; set; }
     }
 }

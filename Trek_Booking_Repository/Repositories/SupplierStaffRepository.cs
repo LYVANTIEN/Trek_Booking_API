@@ -27,7 +27,7 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<SupplierStaff> createSupplierStaff(SupplierStaff supplierStaff)
         {
-
+            supplierStaff.Status = true;
             _context.supplierStaff.Add(supplierStaff);
             await _context.SaveChangesAsync();
             return supplierStaff;
