@@ -93,5 +93,16 @@ namespace Trek_Booking_Repository.Repositories
             }
             return 0;
         }
+
+        public async Task<IEnumerable<Booking>> getBookingBySupplierId(int supplierId)
+        {
+            var bookings = await _context.bookings.Include(b => b.Hotel)
+                .ThenInclude(h => h.Supplier).Where(b => b.Hotel.Supplier.SupplierId == supplierId).ToListAsync();
+            if (bookings.Any())
+            {
+                return bookings;
+            }
+            return null;
+        }
     }
 }
