@@ -37,12 +37,10 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }
-        [JsonIgnore]
         public Supplier? Supplier { get; set; }
 
         [ForeignKey("Role")]
         public int RoleId { get; set; }
-        [JsonIgnore]
         public Role? Role { get; set; }
     }
 }

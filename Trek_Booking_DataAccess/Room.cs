@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
@@ -35,12 +36,16 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
-        public Hotel? Hotel { get; set; }
 
+        public Hotel? Hotel { get; set; }
         public ICollection<Room3DImage>? room3DImages { get; set; }
+
         public ICollection<RoomImage>? roomImages { get; set; }
+
         public ICollection<RoomService>? roomServices { get; set; }
+
         public ICollection<BookingCart>? bookingCarts { get; set; }
+
         public ICollection<Booking>? bookings { get; set; }
     }
 }
