@@ -3932,11 +3932,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj",
+      "projectUniqueName": "d:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj",
       "projectName": "Trek_Booking_Hotel_3D_API",
-      "projectPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj",
+      "projectPath": "d:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\obj\\",
+      "outputPath": "d:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3953,11 +3953,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
-              "projectPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
+            "d:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
+              "projectPath": "d:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
             },
-            "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj": {
-              "projectPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj"
+            "d:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj": {
+              "projectPath": "d:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj"
             }
           }
         }
