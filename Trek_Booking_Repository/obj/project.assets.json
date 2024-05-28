@@ -3448,19 +3448,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HP\\.nuget\\packages\\": {}
+    "C:\\Users\\ASUS\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
+      "projectUniqueName": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
       "projectName": "Trek_Booking_Repository",
-      "projectPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
-      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_Repository\\obj\\",
+      "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
+      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+      "outputPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3474,8 +3474,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
-              "projectPath": "D:\\FPT_UNIVERSITY\\SU24-DoAn\\DOTNET\\Project\\DoAn\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
+            "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
+              "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
             }
           }
         }
