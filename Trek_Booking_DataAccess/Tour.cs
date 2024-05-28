@@ -39,13 +39,12 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }
-        [JsonIgnore]
         public Supplier? Supplier { get; set; }
-        [JsonIgnore]
+
         public ICollection<CartTour>? cartTours { get; set; }
-        [JsonIgnore]
+
         public ICollection<TourImage>? tourImages { get; set; }
-        [JsonIgnore]
+
         public ICollection<TourOrder>? tourOrders { get; set; }
     }
 }
