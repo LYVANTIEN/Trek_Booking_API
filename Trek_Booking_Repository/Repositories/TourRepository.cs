@@ -74,9 +74,9 @@ namespace Trek_Booking_Repository.Repositories
             return null;
         }
 
-        public async Task<Tour> getTourBySupplierId(int supplierId)
+        public async Task<IEnumerable<Tour>> getTourBySupplierId(int supplierId)
         {
-            var getTour = await _context.tours.FirstOrDefaultAsync(t => t.SupplierId == supplierId);
+            var getTour = await _context.tours.Where(t => t.SupplierId == supplierId).ToListAsync();
             if (getTour == null)
             {
                 throw new Exception("Not found");
