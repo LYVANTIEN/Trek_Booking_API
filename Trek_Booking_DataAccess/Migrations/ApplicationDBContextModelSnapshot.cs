@@ -508,6 +508,9 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
 
+                    b.Property<bool>("IsVerify")
+                        .HasColumnType("bit");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
@@ -521,9 +524,7 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("StaffName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffPassword")
                         .IsRequired()
