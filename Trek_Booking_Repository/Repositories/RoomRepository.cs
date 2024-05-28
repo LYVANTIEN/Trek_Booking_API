@@ -38,7 +38,7 @@ namespace Trek_Booking_Repository.Repositories
             var deleteRoom = await _context.rooms.FirstOrDefaultAsync(t => t.RoomId == roomId);
             if (deleteRoom != null)
             {
-                _context.rooms.Remove(deleteRoom);
+                deleteRoom.RoomStatus = false;
                 return await _context.SaveChangesAsync();
             }
             return 0;
@@ -60,6 +60,17 @@ namespace Trek_Booking_Repository.Repositories
         {
             var c = await _context.rooms.Include(t => t.Hotel).ToListAsync();
             return c;
+        }
+
+        public async Task<int> RecoverRoomDeleted(int roomId)
+        {
+            var deleteRoom = await _context.rooms.FirstOrDefaultAsync(t => t.RoomId == roomId);
+            if (deleteRoom != null)
+            {
+                deleteRoom.RoomStatus = true;
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
         }
 
         public async Task<Room> updateRoom(Room room)
