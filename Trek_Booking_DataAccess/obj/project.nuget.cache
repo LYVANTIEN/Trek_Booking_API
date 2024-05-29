@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "KlW1DArPswf1YINH0eeK7FM/Y5ZHiQTG20QoyJPJ4L+1zz9W7vsZf+NOIXBrV+6qD99ooBiVQjZiL0JfZt2naQ==",
+  "dgSpecHash": "7XoMFjCjnaFyvlDPNlKtCqzi0qqCSCCugaC0KYPP03eP6qaz87v6dT3kKPTwJb86EmvbFqW8fe+QqzcordX98Q==",
   "success": true,
   "projectFilePath": "D:\\FPTCode\\Clone\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.18\\microsoft.aspnetcore.authentication.jwtbearer.7.0.18.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.18\\microsoft.aspnetcore.cryptography.internal.7.0.18.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.18\\microsoft.aspnetcore.cryptography.keyderivation.7.0.18.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.18\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.18.nupkg.sha512",

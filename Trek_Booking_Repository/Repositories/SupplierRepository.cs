@@ -13,22 +13,51 @@ namespace Trek_Booking_Repository.Repositories
     public class SupplierRepository : ISupplierRepository
     {
         private readonly ApplicationDBContext _context;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public SupplierRepository(ApplicationDBContext context)
+
+        public SupplierRepository(ApplicationDBContext context, IPasswordHasher passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
-        public async Task<bool> checkExitsName(string name)
+        public async Task<bool> checkExitsEmail(string email)
         {
-            var check = await _context.suppliers.AnyAsync(n => n.SupplierName == name);
+            var check = await _context.suppliers.AnyAsync(n => n.Email == email);
             return check;
         }
-
-        public async Task<Supplier> createSupplier(Supplier supplier)
+        public async Task<Supplier> checkBannedSupplier(Supplier supplier)
         {
+            var userStatus = await _context.suppliers.FirstOrDefaultAsync(u => u.Status == supplier.Status);
+            return userStatus;
+        }
+        public async Task<Supplier> getUserByEmail(string email)
+        {
+            var existingUser = await _context.suppliers.FirstOrDefaultAsync(u => u.Email == email);
+            return existingUser;
+        }
+        public async Task<Supplier> createSupplier(Supplier registerRequest)
+        {
+            var existingUser = await getUserByEmail(registerRequest.Email);
+            if (existingUser != null)
+            {
+                throw new Exception("Email already exists.");
+            }
+            var passwordHash = _passwordHasher.HashPassword(registerRequest.Password);
 
-            supplier.IsVerify = true;
+            // Add the new user to the database
+            var supplier = new Supplier
+            {
+                SupplierName = registerRequest.SupplierName,
+                Email = registerRequest.Email,
+                Password = passwordHash,
+                Address = registerRequest.Address,
+                Phone = registerRequest.Phone,
+                Status = true,
+                IsVerify = true,
+                RoleId = registerRequest.RoleId,
+            };
             _context.suppliers.Add(supplier);
             await _context.SaveChangesAsync();
             return supplier;

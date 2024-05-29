@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("TourOrder")]
     public class TourOrder
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,7 +26,7 @@ namespace Trek_Booking_DataAccess
         public int TourId { get; set; }
         public Tour? Tour { get; set; }
 
-        [DataType(DataType.Date)]   
+        [DataType(DataType.DateTime)]   
         public DateTime? TourOrderDate { get; set; }
         [Required(ErrorMessage ="TourOrderQuantity is not null")]
         public int TourOrderQuantity { get; set; }
@@ -33,5 +34,6 @@ namespace Trek_Booking_DataAccess
         public decimal TourTotalPrice { get; set; } 
 
         public bool IsConfirmed { get; set; }   
+        public bool Status { get; set; }
     }
 }

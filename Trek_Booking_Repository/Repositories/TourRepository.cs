@@ -26,6 +26,7 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<Tour> createTour(Tour tour)
         {
+            tour.Status = true;
             _context.tours.Add(tour);
             await _context.SaveChangesAsync();
             return tour;
@@ -71,6 +72,16 @@ namespace Trek_Booking_Repository.Repositories
                 return findTour;
             }
             return null;
+        }
+
+        public async Task<IEnumerable<Tour>> getTourBySupplierId(int supplierId)
+        {
+            var getTour = await _context.tours.Where(t => t.SupplierId == supplierId).ToListAsync();
+            if (getTour == null)
+            {
+                throw new Exception("Not found");
+            }
+            return getTour;
         }
     }
 }

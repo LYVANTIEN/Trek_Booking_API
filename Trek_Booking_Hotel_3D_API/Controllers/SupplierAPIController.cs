@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Service;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -9,10 +10,15 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class SupplierAPIController : ControllerBase
     {
         private readonly ISupplierRepository _repository;
+        private readonly IAuthenticationUserRepository _authenticationUserRepository;
+        private readonly IJwtUtils _jwtUtils;
 
-        public SupplierAPIController(ISupplierRepository repository)
+        public SupplierAPIController(ISupplierRepository repository, IAuthenticationUserRepository authenticationUserRepository,
+            IJwtUtils jwtUtils)
         {
             _repository = repository;
+            _authenticationUserRepository = authenticationUserRepository;
+            _jwtUtils = jwtUtils;
         }
         [HttpGet("/getSuppliers")]
         public async Task<IActionResult> getSuppliers()
@@ -25,7 +31,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(c);
         }
         [HttpGet("/getSupplierbyId/{supplierId}")]
-        public async Task<IActionResult> getHotelbyId(int supplierId)
+        public async Task<IActionResult> getSupplierbyId(int supplierId)
         {
             var check = await _repository.getSupplierbyId(supplierId);
             if (check == null)
@@ -41,9 +47,9 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             {
                 return BadRequest();
             }
-            else if (await _repository.checkExitsName(supplier.SupplierName))
+            else if (await _repository.checkExitsEmail(supplier.Email))
             {
-                return BadRequest("SupplierName already exits");
+                return BadRequest("SupplierEmail already exits");
             }
             var create = await _repository.createSupplier(supplier);
             return StatusCode(201, "Create Successfully!");
@@ -69,6 +75,58 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             await _repository.deleteSupplier(supplierId);
             return StatusCode(200, "Delele Successfully!");
+        }
+
+        [HttpPost("/loginSupplier")]
+        public async Task<IActionResult> loginSupplier([FromBody] Supplier supplier)
+        {
+            if (supplier == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var result = await _authenticationUserRepository.checkPasswordSupplier(supplier);
+            if (result != null)
+            {
+                var checkBanned = await _repository.checkBannedSupplier(result);
+                if (checkBanned.Status == false)
+                {
+                    return BadRequest("The account of supplier is banned!");
+                }
+                var token = _jwtUtils.GenerateTokenSupplier(result);
+                return Ok(new SupplierResponse()
+                {
+                    IsAuthSuccessful = true,
+                    ToKen = token,
+                    Supplier = new Supplier()
+                    {
+                        SupplierName = result.SupplierName,
+                        SupplierId = result.SupplierId,
+                        Email = result.Email,
+                        Phone = result.Phone,
+                        RoleId = result.RoleId,
+                    },
+                    RoleId = result.RoleId
+                });
+            }
+            else
+            {
+                return Unauthorized(new UserResponse
+                {
+                    IsAuthSuccessful = false,
+                    ErrorMessage = "Email or password is not correct!"
+                });
+            }
+            return StatusCode(200);
+        }
+        [HttpPost("/registerSupplier")]
+        public async Task<IActionResult> RegisterSupplier([FromBody] Supplier supplier)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            await _repository.createSupplier(supplier);
+            return StatusCode(200);
         }
     }
 }

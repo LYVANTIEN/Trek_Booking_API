@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("TourImage")]
     public class TourImage
     {
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]

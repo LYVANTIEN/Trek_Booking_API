@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("Supplier")]
     public class Supplier
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SupplierId { get; set; }
 
-        [Required(ErrorMessage = "SupplierName is not null")]
+
         [StringLength(100, ErrorMessage = "The SupplierName must be greater than 0 and less than or equal 100")]
         public string? SupplierName { get; set; }
 
@@ -31,21 +32,21 @@ namespace Trek_Booking_DataAccess
         public string? Address { get; set; }
 
         [Required(ErrorMessage = "Password is not null")]
-        [StringLength(50, ErrorMessage = "The Password must be greater than 0 and less than or equal 50")]
         public string? Password { get; set; }
 
         public bool Status { get; set; }
         public bool IsVerify { get; set; }
 
-        [Required(ErrorMessage = "Role is not null")]
-        public string? Role { get; set; }
-        [JsonIgnore]
+        [ForeignKey("Role")]
+        public int RoleId { get; set; }
+        public Role? Role { get; set; }
+
         public ICollection<SupplierStaff>? supplierStaffs { get; set; }
-        [JsonIgnore]
+
         public ICollection<Hotel>? hotels { get; set; }
-        [JsonIgnore]
+
         public ICollection<Tour>? tours { get; set; }
-        [JsonIgnore]
+
         public ICollection<TourOrder>? tourOrders { get; set; }
     }
 }

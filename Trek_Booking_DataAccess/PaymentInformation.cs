@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("PaymentInformation")]
     public class PaymentInformation
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,7 +23,7 @@ namespace Trek_Booking_DataAccess
         public decimal TotalPrice { get; set; }
         [Required(ErrorMessage = "TotalPrice is not null")]
         public decimal PaymentFee { get; set; }
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? PaidDate { get; set; }
 
         [ForeignKey("User")]

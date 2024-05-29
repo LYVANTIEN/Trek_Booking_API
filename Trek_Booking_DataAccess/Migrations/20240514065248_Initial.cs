@@ -12,7 +12,21 @@ namespace Trek_Booking_DataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "services",
+                name: "Role",
+                columns: table => new
+                {
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RoleDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.RoleId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Service",
                 columns: table => new
                 {
                     ServiceId = table.Column<int>(type: "int", nullable: false)
@@ -23,11 +37,11 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_services", x => x.ServiceId);
+                    table.PrimaryKey("PK_Service", x => x.ServiceId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "suppliers",
+                name: "Supplier",
                 columns: table => new
                 {
                     SupplierId = table.Column<int>(type: "int", nullable: false)
@@ -36,37 +50,50 @@ namespace Trek_Booking_DataAccess.Migrations
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     IsVerify = table.Column<bool>(type: "bit", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_suppliers", x => x.SupplierId);
+                    table.PrimaryKey("PK_Supplier", x => x.SupplierId);
+                    table.ForeignKey(
+                        name: "FK_Supplier_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "User",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
-                    IsVerify = table.Column<bool>(type: "bit", nullable: false)
+                    IsVerify = table.Column<bool>(type: "bit", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.UserId);
+                    table.PrimaryKey("PK_User", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_User_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "hotels",
+                name: "Hotel",
                 columns: table => new
                 {
                     HotelId = table.Column<int>(type: "int", nullable: false)
@@ -84,17 +111,17 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_hotels", x => x.HotelId);
+                    table.PrimaryKey("PK_Hotel", x => x.HotelId);
                     table.ForeignKey(
-                        name: "FK_hotels_suppliers_SupplierId",
+                        name: "FK_Hotel_Supplier_SupplierId",
                         column: x => x.SupplierId,
-                        principalTable: "suppliers",
+                        principalTable: "Supplier",
                         principalColumn: "SupplierId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "supplierStaff",
+                name: "SupplierStaff",
                 columns: table => new
                 {
                     StaffId = table.Column<int>(type: "int", nullable: false)
@@ -102,24 +129,30 @@ namespace Trek_Booking_DataAccess.Migrations
                     StaffName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     StaffPhoneNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     StaffEmail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    StaffPassword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    StaffPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StaffAddress = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_supplierStaff", x => x.StaffId);
+                    table.PrimaryKey("PK_SupplierStaff", x => x.StaffId);
                     table.ForeignKey(
-                        name: "FK_supplierStaff_suppliers_SupplierId",
+                        name: "FK_SupplierStaff_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SupplierStaff_Supplier_SupplierId",
                         column: x => x.SupplierId,
-                        principalTable: "suppliers",
+                        principalTable: "Supplier",
                         principalColumn: "SupplierId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "tours",
+                name: "Tour",
                 columns: table => new
                 {
                     TourId = table.Column<int>(type: "int", nullable: false)
@@ -135,17 +168,17 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tours", x => x.TourId);
+                    table.PrimaryKey("PK_Tour", x => x.TourId);
                     table.ForeignKey(
-                        name: "FK_tours_suppliers_SupplierId",
+                        name: "FK_Tour_Supplier_SupplierId",
                         column: x => x.SupplierId,
-                        principalTable: "suppliers",
+                        principalTable: "Supplier",
                         principalColumn: "SupplierId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "paymentInformations",
+                name: "PaymentInformation",
                 columns: table => new
                 {
                     PaymentInforId = table.Column<int>(type: "int", nullable: false)
@@ -159,17 +192,17 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_paymentInformations", x => x.PaymentInforId);
+                    table.PrimaryKey("PK_PaymentInformation", x => x.PaymentInforId);
                     table.ForeignKey(
-                        name: "FK_paymentInformations_users_UserId",
+                        name: "FK_PaymentInformation_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "users",
+                        principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "rooms",
+                name: "Room",
                 columns: table => new
                 {
                     RoomId = table.Column<int>(type: "int", nullable: false)
@@ -178,7 +211,7 @@ namespace Trek_Booking_DataAccess.Migrations
                     RoomDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RoomNote = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RoomStatus = table.Column<bool>(type: "bit", nullable: false),
-                    RoomAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    RoomAvailable = table.Column<int>(type: "int", nullable: false),
                     RoomPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     RoomCapacity = table.Column<int>(type: "int", nullable: false),
                     DiscountPercent = table.Column<float>(type: "real", nullable: false),
@@ -186,17 +219,17 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_rooms", x => x.RoomId);
+                    table.PrimaryKey("PK_Room", x => x.RoomId);
                     table.ForeignKey(
-                        name: "FK_rooms_hotels_HotelId",
+                        name: "FK_Room_Hotel_HotelId",
                         column: x => x.HotelId,
-                        principalTable: "hotels",
+                        principalTable: "Hotel",
                         principalColumn: "HotelId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "vouchers",
+                name: "Voucher",
                 columns: table => new
                 {
                     VoucherId = table.Column<int>(type: "int", nullable: false)
@@ -211,17 +244,17 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_vouchers", x => x.VoucherId);
+                    table.PrimaryKey("PK_Voucher", x => x.VoucherId);
                     table.ForeignKey(
-                        name: "FK_vouchers_hotels_HotelId",
+                        name: "FK_Voucher_Hotel_HotelId",
                         column: x => x.HotelId,
-                        principalTable: "hotels",
+                        principalTable: "Hotel",
                         principalColumn: "HotelId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "cartTours",
+                name: "CartTour",
                 columns: table => new
                 {
                     CartTourId = table.Column<int>(type: "int", nullable: false)
@@ -233,23 +266,23 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_cartTours", x => x.CartTourId);
+                    table.PrimaryKey("PK_CartTour", x => x.CartTourId);
                     table.ForeignKey(
-                        name: "FK_cartTours_tours_TourId",
+                        name: "FK_CartTour_Tour_TourId",
                         column: x => x.TourId,
-                        principalTable: "tours",
+                        principalTable: "Tour",
                         principalColumn: "TourId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_cartTours_users_UserId",
+                        name: "FK_CartTour_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "users",
+                        principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "tourImages",
+                name: "TourImage",
                 columns: table => new
                 {
                     TourImageId = table.Column<int>(type: "int", nullable: false)
@@ -259,17 +292,17 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tourImages", x => x.TourImageId);
+                    table.PrimaryKey("PK_TourImage", x => x.TourImageId);
                     table.ForeignKey(
-                        name: "FK_tourImages_tours_TourId",
+                        name: "FK_TourImage_Tour_TourId",
                         column: x => x.TourId,
-                        principalTable: "tours",
+                        principalTable: "Tour",
                         principalColumn: "TourId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "tourOrders",
+                name: "TourOrder",
                 columns: table => new
                 {
                     TourOrderId = table.Column<int>(type: "int", nullable: false)
@@ -284,67 +317,29 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tourOrders", x => x.TourOrderId);
+                    table.PrimaryKey("PK_TourOrder", x => x.TourOrderId);
                     table.ForeignKey(
-                        name: "FK_tourOrders_suppliers_SupplierId",
+                        name: "FK_TourOrder_Supplier_SupplierId",
                         column: x => x.SupplierId,
-                        principalTable: "suppliers",
+                        principalTable: "Supplier",
                         principalColumn: "SupplierId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_tourOrders_tours_TourId",
+                        name: "FK_TourOrder_Tour_TourId",
                         column: x => x.TourId,
-                        principalTable: "tours",
+                        principalTable: "Tour",
                         principalColumn: "TourId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_tourOrders_users_UserId",
+                        name: "FK_TourOrder_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "users",
+                        principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "bookingCarts",
-                columns: table => new
-                {
-                    BookingCartId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    HotelId = table.Column<int>(type: "int", nullable: false),
-                    RoomId = table.Column<int>(type: "int", nullable: false),
-                    CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RoomQuantity = table.Column<int>(type: "int", nullable: false),
-                    VoucherCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_bookingCarts", x => x.BookingCartId);
-                    table.ForeignKey(
-                        name: "FK_bookingCarts_hotels_HotelId",
-                        column: x => x.HotelId,
-                        principalTable: "hotels",
-                        principalColumn: "HotelId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_bookingCarts_rooms_RoomId",
-                        column: x => x.RoomId,
-                        principalTable: "rooms",
-                        principalColumn: "RoomId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_bookingCarts_users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "bookings",
+                name: "Booking",
                 columns: table => new
                 {
                     BookingId = table.Column<int>(type: "int", nullable: false)
@@ -356,33 +351,74 @@ namespace Trek_Booking_DataAccess.Migrations
                     CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     RoomQuantity = table.Column<int>(type: "int", nullable: false),
-                    VoucherCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    VoucherCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserNote = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_bookings", x => x.BookingId);
+                    table.PrimaryKey("PK_Booking", x => x.BookingId);
                     table.ForeignKey(
-                        name: "FK_bookings_hotels_HotelId",
+                        name: "FK_Booking_Hotel_HotelId",
                         column: x => x.HotelId,
-                        principalTable: "hotels",
+                        principalTable: "Hotel",
                         principalColumn: "HotelId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_bookings_rooms_RoomId",
+                        name: "FK_Booking_Room_RoomId",
                         column: x => x.RoomId,
-                        principalTable: "rooms",
+                        principalTable: "Room",
                         principalColumn: "RoomId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_bookings_users_UserId",
+                        name: "FK_Booking_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "users",
+                        principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "room3DImages",
+                name: "BookingCart",
+                columns: table => new
+                {
+                    BookingCartId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    HotelId = table.Column<int>(type: "int", nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RoomQuantity = table.Column<int>(type: "int", nullable: false),
+                    VoucherCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserNote = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingCart", x => x.BookingCartId);
+                    table.ForeignKey(
+                        name: "FK_BookingCart_Hotel_HotelId",
+                        column: x => x.HotelId,
+                        principalTable: "Hotel",
+                        principalColumn: "HotelId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BookingCart_Room_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Room",
+                        principalColumn: "RoomId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BookingCart_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Room3DImage",
                 columns: table => new
                 {
                     RoomImage3DId = table.Column<int>(type: "int", nullable: false)
@@ -392,17 +428,17 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_room3DImages", x => x.RoomImage3DId);
+                    table.PrimaryKey("PK_Room3DImage", x => x.RoomImage3DId);
                     table.ForeignKey(
-                        name: "FK_room3DImages_rooms_RoomId",
+                        name: "FK_Room3DImage_Room_RoomId",
                         column: x => x.RoomId,
-                        principalTable: "rooms",
+                        principalTable: "Room",
                         principalColumn: "RoomId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "roomImages",
+                name: "RoomImage",
                 columns: table => new
                 {
                     RoomImageId = table.Column<int>(type: "int", nullable: false)
@@ -412,17 +448,17 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_roomImages", x => x.RoomImageId);
+                    table.PrimaryKey("PK_RoomImage", x => x.RoomImageId);
                     table.ForeignKey(
-                        name: "FK_roomImages_rooms_RoomId",
+                        name: "FK_RoomImage_Room_RoomId",
                         column: x => x.RoomId,
-                        principalTable: "rooms",
+                        principalTable: "Room",
                         principalColumn: "RoomId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "roomServices",
+                name: "RoomService",
                 columns: table => new
                 {
                     RoomId = table.Column<int>(type: "int", nullable: false),
@@ -430,23 +466,23 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_roomServices", x => new { x.ServiceId, x.RoomId });
+                    table.PrimaryKey("PK_RoomService", x => new { x.ServiceId, x.RoomId });
                     table.ForeignKey(
-                        name: "FK_roomServices_rooms_RoomId",
+                        name: "FK_RoomService_Room_RoomId",
                         column: x => x.RoomId,
-                        principalTable: "rooms",
+                        principalTable: "Room",
                         principalColumn: "RoomId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_roomServices_services_ServiceId",
+                        name: "FK_RoomService_Service_ServiceId",
                         column: x => x.ServiceId,
-                        principalTable: "services",
+                        principalTable: "Service",
                         principalColumn: "ServiceId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "comments",
+                name: "Comment",
                 columns: table => new
                 {
                     CommentId = table.Column<int>(type: "int", nullable: false)
@@ -459,29 +495,29 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_comments", x => x.CommentId);
+                    table.PrimaryKey("PK_Comment", x => x.CommentId);
                     table.ForeignKey(
-                        name: "FK_comments_bookings_BookingId",
+                        name: "FK_Comment_Booking_BookingId",
                         column: x => x.BookingId,
-                        principalTable: "bookings",
+                        principalTable: "Booking",
                         principalColumn: "BookingId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_comments_hotels_HotelId",
+                        name: "FK_Comment_Hotel_HotelId",
                         column: x => x.HotelId,
-                        principalTable: "hotels",
+                        principalTable: "Hotel",
                         principalColumn: "HotelId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_comments_users_UserId",
+                        name: "FK_Comment_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "users",
+                        principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "rates",
+                name: "Rate",
                 columns: table => new
                 {
                     RateId = table.Column<int>(type: "int", nullable: false)
@@ -493,29 +529,29 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_rates", x => x.RateId);
+                    table.PrimaryKey("PK_Rate", x => x.RateId);
                     table.ForeignKey(
-                        name: "FK_rates_bookings_BookingId",
+                        name: "FK_Rate_Booking_BookingId",
                         column: x => x.BookingId,
-                        principalTable: "bookings",
+                        principalTable: "Booking",
                         principalColumn: "BookingId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_rates_hotels_HotelId",
+                        name: "FK_Rate_Hotel_HotelId",
                         column: x => x.HotelId,
-                        principalTable: "hotels",
+                        principalTable: "Hotel",
                         principalColumn: "HotelId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_rates_users_UserId",
+                        name: "FK_Rate_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "users",
+                        principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "voucherUsageHistories",
+                name: "VoucherUsageHistory",
                 columns: table => new
                 {
                     UserVoucherId = table.Column<int>(type: "int", nullable: false)
@@ -526,175 +562,190 @@ namespace Trek_Booking_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_voucherUsageHistories", x => x.UserVoucherId);
+                    table.PrimaryKey("PK_VoucherUsageHistory", x => x.UserVoucherId);
                     table.ForeignKey(
-                        name: "FK_voucherUsageHistories_bookings_BookingId",
+                        name: "FK_VoucherUsageHistory_Booking_BookingId",
                         column: x => x.BookingId,
-                        principalTable: "bookings",
+                        principalTable: "Booking",
                         principalColumn: "BookingId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_voucherUsageHistories_users_UserId",
+                        name: "FK_VoucherUsageHistory_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "users",
+                        principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_voucherUsageHistories_vouchers_VoucherId",
+                        name: "FK_VoucherUsageHistory_Voucher_VoucherId",
                         column: x => x.VoucherId,
-                        principalTable: "vouchers",
+                        principalTable: "Voucher",
                         principalColumn: "VoucherId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_bookingCarts_HotelId",
-                table: "bookingCarts",
+                name: "IX_Booking_HotelId",
+                table: "Booking",
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_bookingCarts_RoomId",
-                table: "bookingCarts",
+                name: "IX_Booking_RoomId",
+                table: "Booking",
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_bookingCarts_UserId",
-                table: "bookingCarts",
+                name: "IX_Booking_UserId",
+                table: "Booking",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_bookings_HotelId",
-                table: "bookings",
+                name: "IX_BookingCart_HotelId",
+                table: "BookingCart",
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_bookings_RoomId",
-                table: "bookings",
+                name: "IX_BookingCart_RoomId",
+                table: "BookingCart",
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_bookings_UserId",
-                table: "bookings",
+                name: "IX_BookingCart_UserId",
+                table: "BookingCart",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_cartTours_TourId",
-                table: "cartTours",
+                name: "IX_CartTour_TourId",
+                table: "CartTour",
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_cartTours_UserId",
-                table: "cartTours",
+                name: "IX_CartTour_UserId",
+                table: "CartTour",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_comments_BookingId",
-                table: "comments",
+                name: "IX_Comment_BookingId",
+                table: "Comment",
                 column: "BookingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_comments_HotelId",
-                table: "comments",
+                name: "IX_Comment_HotelId",
+                table: "Comment",
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_comments_UserId",
-                table: "comments",
+                name: "IX_Comment_UserId",
+                table: "Comment",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_hotels_SupplierId",
-                table: "hotels",
+                name: "IX_Hotel_SupplierId",
+                table: "Hotel",
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_paymentInformations_UserId",
-                table: "paymentInformations",
+                name: "IX_PaymentInformation_UserId",
+                table: "PaymentInformation",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_rates_BookingId",
-                table: "rates",
+                name: "IX_Rate_BookingId",
+                table: "Rate",
                 column: "BookingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_rates_HotelId",
-                table: "rates",
+                name: "IX_Rate_HotelId",
+                table: "Rate",
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_rates_UserId",
-                table: "rates",
+                name: "IX_Rate_UserId",
+                table: "Rate",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_room3DImages_RoomId",
-                table: "room3DImages",
-                column: "RoomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_roomImages_RoomId",
-                table: "roomImages",
-                column: "RoomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_rooms_HotelId",
-                table: "rooms",
+                name: "IX_Room_HotelId",
+                table: "Room",
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_roomServices_RoomId",
-                table: "roomServices",
+                name: "IX_Room3DImage_RoomId",
+                table: "Room3DImage",
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_supplierStaff_SupplierId",
-                table: "supplierStaff",
+                name: "IX_RoomImage_RoomId",
+                table: "RoomImage",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoomService_RoomId",
+                table: "RoomService",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Supplier_RoleId",
+                table: "Supplier",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierStaff_RoleId",
+                table: "SupplierStaff",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierStaff_SupplierId",
+                table: "SupplierStaff",
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tourImages_TourId",
-                table: "tourImages",
+                name: "IX_Tour_SupplierId",
+                table: "Tour",
+                column: "SupplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TourImage_TourId",
+                table: "TourImage",
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tourOrders_SupplierId",
-                table: "tourOrders",
+                name: "IX_TourOrder_SupplierId",
+                table: "TourOrder",
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tourOrders_TourId",
-                table: "tourOrders",
+                name: "IX_TourOrder_TourId",
+                table: "TourOrder",
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tourOrders_UserId",
-                table: "tourOrders",
+                name: "IX_TourOrder_UserId",
+                table: "TourOrder",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tours_SupplierId",
-                table: "tours",
-                column: "SupplierId");
+                name: "IX_User_RoleId",
+                table: "User",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_vouchers_HotelId",
-                table: "vouchers",
+                name: "IX_Voucher_HotelId",
+                table: "Voucher",
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_voucherUsageHistories_BookingId",
-                table: "voucherUsageHistories",
+                name: "IX_VoucherUsageHistory_BookingId",
+                table: "VoucherUsageHistory",
                 column: "BookingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_voucherUsageHistories_UserId",
-                table: "voucherUsageHistories",
+                name: "IX_VoucherUsageHistory_UserId",
+                table: "VoucherUsageHistory",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_voucherUsageHistories_VoucherId",
-                table: "voucherUsageHistories",
+                name: "IX_VoucherUsageHistory_VoucherId",
+                table: "VoucherUsageHistory",
                 column: "VoucherId");
         }
 
@@ -702,64 +753,67 @@ namespace Trek_Booking_DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "bookingCarts");
+                name: "BookingCart");
 
             migrationBuilder.DropTable(
-                name: "cartTours");
+                name: "CartTour");
 
             migrationBuilder.DropTable(
-                name: "comments");
+                name: "Comment");
 
             migrationBuilder.DropTable(
-                name: "paymentInformations");
+                name: "PaymentInformation");
 
             migrationBuilder.DropTable(
-                name: "rates");
+                name: "Rate");
 
             migrationBuilder.DropTable(
-                name: "room3DImages");
+                name: "Room3DImage");
 
             migrationBuilder.DropTable(
-                name: "roomImages");
+                name: "RoomImage");
 
             migrationBuilder.DropTable(
-                name: "roomServices");
+                name: "RoomService");
 
             migrationBuilder.DropTable(
-                name: "supplierStaff");
+                name: "SupplierStaff");
 
             migrationBuilder.DropTable(
-                name: "tourImages");
+                name: "TourImage");
 
             migrationBuilder.DropTable(
-                name: "tourOrders");
+                name: "TourOrder");
 
             migrationBuilder.DropTable(
-                name: "voucherUsageHistories");
+                name: "VoucherUsageHistory");
 
             migrationBuilder.DropTable(
-                name: "services");
+                name: "Service");
 
             migrationBuilder.DropTable(
-                name: "tours");
+                name: "Tour");
 
             migrationBuilder.DropTable(
-                name: "bookings");
+                name: "Booking");
 
             migrationBuilder.DropTable(
-                name: "vouchers");
+                name: "Voucher");
 
             migrationBuilder.DropTable(
-                name: "rooms");
+                name: "Room");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "User");
 
             migrationBuilder.DropTable(
-                name: "hotels");
+                name: "Hotel");
 
             migrationBuilder.DropTable(
-                name: "suppliers");
+                name: "Supplier");
+
+            migrationBuilder.DropTable(
+                name: "Role");
         }
     }
 }

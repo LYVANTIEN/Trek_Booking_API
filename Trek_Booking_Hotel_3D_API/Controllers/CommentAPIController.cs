@@ -15,6 +15,16 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             _repository = repository;
         }
 
+        [HttpPost("/createComment")]
+        public async Task<IActionResult> createComment([FromBody] Comment comment)
+        {
+            //if (comment == null)
+            //{
+            //    return BadRequest();
+            //}
+            var create = await _repository.createComment(comment);
+            return StatusCode(201, "Create Successfully!");
+        }
 
         [HttpGet("/getCommentByHotelId/{hotelId}")]
         public async Task<IActionResult> getCommentByHotelId(int hotelId)

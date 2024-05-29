@@ -4,10 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
 {
+    [Table("Voucher")]
     public class Voucher
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,10 +19,10 @@ namespace Trek_Booking_DataAccess
         [StringLength(50, ErrorMessage = "VoucherCode is not null")]
         public string? VoucherCode { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? AvailableDate { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? ExpireDate { get; set; }
 
         [Required(ErrorMessage = "VoucherQuantity is not null")]
@@ -33,7 +35,9 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
+
         public Hotel? Hotel { get; set; }
+
         public ICollection<VoucherUsageHistory>? voucherUsageHistories { get; set; }
     }
 }
