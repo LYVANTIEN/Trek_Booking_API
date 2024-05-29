@@ -9,6 +9,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
 {
     public interface IAuthenticationUserRepository
     {
-        public Task<User> checkPassword(User user);
+        public Task<User> checkPasswordClient(User user);
+        public Task<Supplier> checkPasswordSupplier(Supplier supplier);
     }
 }

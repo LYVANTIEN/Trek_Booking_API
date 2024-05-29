@@ -18,5 +18,6 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<Booking> createBooking(Booking booking);
         public Task<bool> checkBookingExists(int userId, int roomId);
         public Task<IEnumerable<Booking>> getBookings();
+        public Task<IEnumerable<Booking>> getBookingBySupplierId(int supplierId);
     }
 }

@@ -15,15 +15,17 @@ namespace Trek_Booking_Repository.Repositories
         private readonly ApplicationDBContext _context;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUserRepository _userRepository;
+        private readonly ISupplierRepository _supplierRepository;
 
         public AuthenticationUserRepository(ApplicationDBContext context, IPasswordHasher passwordHasher,
-            IUserRepository userRepository) 
-        { 
+            IUserRepository userRepository, ISupplierRepository supplierRepository)
+        {
             _context = context;
             _passwordHasher = passwordHasher;
             _userRepository = userRepository;
+            _supplierRepository = supplierRepository;
         }
-        public async Task<User> checkPassword(User loginRequest)
+        public async Task<User> checkPasswordClient(User loginRequest)
         {
             var user = await _userRepository.getUserByEmail(loginRequest.Email);
             if (user == null)
@@ -36,6 +38,21 @@ namespace Trek_Booking_Repository.Repositories
                 throw new Exception("Email or password is not correct!");
             }
             return user;
+        }
+
+        public async Task<Supplier> checkPasswordSupplier(Supplier loginRequest)
+        {
+            var supplier = await _supplierRepository.getUserByEmail(loginRequest.Email);
+            if (supplier == null)
+            {
+                throw new Exception("Email is not found!");
+            }
+            var result = _passwordHasher.Verify(supplier.Password, loginRequest.Password);
+            if (!result)
+            {
+                throw new Exception("Email or password is not correct!");
+            }
+            return supplier;
         }
     }
 }

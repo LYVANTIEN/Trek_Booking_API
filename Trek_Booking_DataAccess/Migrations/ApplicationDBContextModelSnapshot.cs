@@ -581,9 +581,8 @@ namespace Trek_Booking_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("TourTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("TourTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TourTransportation")
                         .IsRequired()

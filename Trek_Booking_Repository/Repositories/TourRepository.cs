@@ -7,6 +7,7 @@ using Trek_Booking_DataAccess.Data;
 using Trek_Booking_DataAccess;
 using Trek_Booking_Repository.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Trek_Booking_Repository.Repositories
 {
@@ -74,14 +75,35 @@ namespace Trek_Booking_Repository.Repositories
             return null;
         }
 
-        public async Task<Tour> getTourBySupplierId(int supplierId)
+     
+        public async Task<IEnumerable<Tour>> getTourBySupplierId(int supplierId)
         {
-            var getTour = await _context.tours.FirstOrDefaultAsync(t => t.SupplierId == supplierId);
-            if (getTour == null)
+            var toursBySupp = await _context.tours.Where(s => s.SupplierId == supplierId).ToListAsync();
+            return toursBySupp;
+        }
+
+        public async Task<IActionResult> ToggleStatus(ToggleTourRequest request)
+        {
+            var tour = await _context.tours.FindAsync(request.TourId);
+            if (tour == null)
             {
-                throw new Exception("Not found");
+                return new NotFoundResult();
             }
-            return getTour;
+
+            tour.Status = !tour.Status;
+            _context.Entry(tour).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+           
+                    throw;
+                
+            }
+            return new NoContentResult();
         }
     }
 }

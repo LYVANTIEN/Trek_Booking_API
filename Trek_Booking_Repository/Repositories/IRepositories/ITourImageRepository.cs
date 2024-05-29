@@ -14,5 +14,6 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<int> deleteTourImage(int tourImageId);
         public Task<TourImage> getTourImageById(int tourImageId);
         public Task<IEnumerable<TourImage>> getTourImages();
+        public Task<IEnumerable<TourImage>> getTourImageByTourId(int tourId);
     }
 }

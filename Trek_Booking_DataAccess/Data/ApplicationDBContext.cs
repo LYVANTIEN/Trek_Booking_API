@@ -37,6 +37,8 @@ namespace Trek_Booking_DataAccess.Data
         public DbSet<TourOrder> tourOrders { get; set; }
         public DbSet<User> users { get; set; }
         public DbSet<Voucher> vouchers { get; set; }
+        public DbSet<Role> roles { get; set; }
+
         public DbSet<VoucherUsageHistory> voucherUsageHistories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

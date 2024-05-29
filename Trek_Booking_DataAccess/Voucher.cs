@@ -19,10 +19,10 @@ namespace Trek_Booking_DataAccess
         [StringLength(50, ErrorMessage = "VoucherCode is not null")]
         public string? VoucherCode { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? AvailableDate { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? ExpireDate { get; set; }
 
         [Required(ErrorMessage = "VoucherQuantity is not null")]

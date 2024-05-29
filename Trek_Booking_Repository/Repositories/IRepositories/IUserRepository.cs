@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<IEnumerable<User>> getUsers();
         public Task<User> getUserByEmail(string email);
         public Task<User> checkBannedUser(User user);
+
+        Task<IActionResult> ToggleStatus(ToggleUserRequest request);
 
     }
 }

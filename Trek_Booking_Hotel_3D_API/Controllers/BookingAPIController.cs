@@ -112,5 +112,15 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             await _repository.recoverBookingDeleted(bookingId);
             return StatusCode(200, "Recover Successfully!");
         }
+        [HttpGet("/getBookingBySupplierId/{supplierId}")]
+        public async Task<IActionResult> getBookingBySupplierId(int supplierId)
+        {
+            var check = await _repository.getBookingBySupplierId(supplierId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
     }
 }

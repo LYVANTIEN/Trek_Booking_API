@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<Tour> getTourById(int tourId);
         public Task<IEnumerable<Tour>> getTours();
         public Task<bool> checkExitsName(string name);
-        public Task<Tour> getTourBySupplierId(int supplierId);
+        public Task<IEnumerable<Tour>> getTourBySupplierId(int supplierId);
+
+        Task<IActionResult> ToggleStatus(ToggleTourRequest request);
     }
 }

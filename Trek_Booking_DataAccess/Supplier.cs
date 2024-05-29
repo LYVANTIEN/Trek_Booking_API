@@ -40,12 +40,15 @@ namespace Trek_Booking_DataAccess
         [ForeignKey("Role")]
         public int RoleId { get; set; }
         public Role? Role { get; set; }
-
+        [JsonIgnore]
         public ICollection<SupplierStaff>? supplierStaffs { get; set; }
+        [JsonIgnore]
 
         public ICollection<Hotel>? hotels { get; set; }
+        [JsonIgnore]
 
         public ICollection<Tour>? tours { get; set; }
+        [JsonIgnore]
 
         public ICollection<TourOrder>? tourOrders { get; set; }
     }
