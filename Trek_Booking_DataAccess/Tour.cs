@@ -35,6 +35,7 @@ namespace Trek_Booking_DataAccess
 
         [Required(ErrorMessage = "TourCapacity is not null")]
         public int TourCapacity { get; set; }
+        public decimal TourDiscount { get; set; }
         public bool Status { get; set; }
 
         [ForeignKey("Supplier")]
