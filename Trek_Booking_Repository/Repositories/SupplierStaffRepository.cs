@@ -13,10 +13,12 @@ namespace Trek_Booking_Repository.Repositories
     public class SupplierStaffRepository : ISupplierStaffRepository
     {
         private readonly ApplicationDBContext _context;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public SupplierStaffRepository(ApplicationDBContext context)
+        public SupplierStaffRepository(ApplicationDBContext context, IPasswordHasher passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<bool> checkExitsEmail(string email)
@@ -27,10 +29,23 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<SupplierStaff> createSupplierStaff(SupplierStaff supplierStaff)
         {
+            var hashPassword = _passwordHasher.HashPassword(supplierStaff.StaffPassword);
             supplierStaff.Status = true;
-            _context.supplierStaff.Add(supplierStaff);
+            var supStaff = new SupplierStaff
+            {
+                StaffName = supplierStaff.StaffName,
+                StaffPhoneNumber = supplierStaff.StaffPhoneNumber,
+                StaffEmail = supplierStaff.StaffEmail,
+                StaffPassword = hashPassword,
+                StaffAddress = supplierStaff.StaffAddress,
+                Status = true,
+                IsVerify = true,
+                SupplierId = supplierStaff.SupplierId,
+                RoleId = supplierStaff.RoleId,
+            };
+            _context.supplierStaff.Add(supStaff);
             await _context.SaveChangesAsync();
-            return supplierStaff;
+            return supStaff;
         }
 
         public async Task<int> deleteSupplierStaff(int staffId)
@@ -71,7 +86,7 @@ namespace Trek_Booking_Repository.Repositories
                 findSupplierStaff.StaffPassword = supplierStaff.StaffPassword;
                 findSupplierStaff.StaffAddress = supplierStaff.StaffAddress;
 
-               
+
                 _context.supplierStaff.Update(findSupplierStaff);
                 await _context.SaveChangesAsync();
                 return findSupplierStaff;
