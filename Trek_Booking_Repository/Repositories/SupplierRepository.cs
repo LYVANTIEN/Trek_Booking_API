@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,6 +105,29 @@ namespace Trek_Booking_Repository.Repositories
                 return findSupplier;
             }
             return null;
+        }
+        public async Task<IActionResult> ToggleStatus(ToggleSupplierRequest request)
+        {
+            var supplier = await _context.suppliers.FindAsync(request.SupplierId);
+            if (supplier == null)
+            {
+                return new NotFoundResult();
+            }
+
+            supplier.Status = !supplier.Status;
+            _context.Entry(supplier).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                throw;
+
+            }
+            return new NoContentResult();
         }
     }
 }
