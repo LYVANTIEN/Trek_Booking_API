@@ -19,6 +19,13 @@ namespace Trek_Booking_Repository.Repositories
         {
             _context = context;
         }
+
+        public async Task<bool> checkExitsName(string name)
+        {
+            var check = await _context.vouchers.AnyAsync(n => n.VoucherCode == name);
+            return check;
+        }
+
         public async Task<Voucher> createVoucher(Voucher voucher)
         {
             _context.vouchers.Add(voucher);
@@ -54,6 +61,7 @@ namespace Trek_Booking_Repository.Repositories
             var findvoucher = await _context.vouchers.FirstOrDefaultAsync(t => t.VoucherId == voucher.VoucherId);
             if (findvoucher != null)
             {
+                findvoucher.VoucherCode = voucher.VoucherCode;  
                 findvoucher.AvailableDate = voucher.AvailableDate;
                 findvoucher.ExpireDate = voucher.ExpireDate;
                 findvoucher.VoucherQuantity = voucher.VoucherQuantity;
