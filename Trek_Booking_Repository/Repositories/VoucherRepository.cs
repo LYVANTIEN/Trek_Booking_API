@@ -49,17 +49,23 @@ namespace Trek_Booking_Repository.Repositories
             return voucher;
         }
 
+        public async Task<bool> checkExitsName(string name)
+        {
+            var check = await _context.vouchers.AnyAsync(t => t.VoucherCode == name);
+            return check;
+        }
         public async Task<Voucher> updateVouchher(Voucher voucher)
         {
             var findvoucher = await _context.vouchers.FirstOrDefaultAsync(t => t.VoucherId == voucher.VoucherId);
             if (findvoucher != null)
             {
+                findvoucher.VoucherCode = voucher.VoucherCode;
                 findvoucher.AvailableDate = voucher.AvailableDate;
                 findvoucher.ExpireDate = voucher.ExpireDate;
                 findvoucher.VoucherQuantity = voucher.VoucherQuantity;
                 findvoucher.DiscountPercent = voucher.DiscountPercent;
                 findvoucher.VoucherStatus = voucher.VoucherStatus;
-                
+
                 _context.vouchers.Update(findvoucher);
                 await _context.SaveChangesAsync();
                 return findvoucher;
