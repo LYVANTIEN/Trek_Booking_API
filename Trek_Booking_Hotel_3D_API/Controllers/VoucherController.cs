@@ -66,10 +66,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
 
-        [HttpDelete("/deleteVoucher/{voucherId}")]
+        [HttpPut("/deleteVoucher/{voucherId}")]
         public async Task<IActionResult> deleteVoucher(int voucherId)
         {
-            var check = await _repository.deleteVoucher(voucherId);
+            var check = await _repository.getVoucherById(voucherId);
             if (check == null)
             {
                 return NotFound("Not found Voucher");
