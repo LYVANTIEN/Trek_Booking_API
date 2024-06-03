@@ -16,7 +16,7 @@ namespace Trek_Booking_DataAccess
         public int VoucherId { get; set; }
 
         [Required(ErrorMessage = "VoucherCode is not null")]
-        [StringLength(50, ErrorMessage = "VoucherCode is not null")]
+        [StringLength(50, ErrorMessage = "VoucherCode must be less than 50")]
         public string? VoucherCode { get; set; }
 
         [DataType(DataType.DateTime)]

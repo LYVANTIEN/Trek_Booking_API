@@ -14,6 +14,8 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<int> deleteVoucher(int voucherId);
         public Task<Voucher> getVoucherById(int voucherId);
         public Task<IEnumerable<Voucher>> getVoucherByHotelId(int hotelId);
-        
+        public Task<bool> checkExitsName(string name);
+
+
     }
 }

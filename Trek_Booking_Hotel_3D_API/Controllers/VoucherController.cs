@@ -19,7 +19,14 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPost("/createVoucher")]
         public async Task<IActionResult> createVoucher([FromBody] Voucher voucher)
         {
-            
+            if (voucher == null)
+            {
+                return BadRequest();
+            }
+            else if (await _repository.checkExitsName(voucher.VoucherCode))
+            {
+                return BadRequest("VoucherCode already exits");
+            }
             var create = await _repository.createVoucher(voucher);
             return StatusCode(201, "Create Successfully!");
         }
@@ -59,10 +66,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
 
-        [HttpDelete("/deleteVoucher/{voucherId}")]
+        [HttpPut("/deleteVoucher/{voucherId}")]
         public async Task<IActionResult> deleteVoucher(int voucherId)
         {
-            var check = await _repository.deleteVoucher(voucherId);
+            var check = await _repository.getVoucherById(voucherId);
             if (check == null)
             {
                 return NotFound("Not found Voucher");

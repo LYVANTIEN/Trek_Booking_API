@@ -18,10 +18,8 @@ namespace Trek_Booking_DataAccess
         [Required(ErrorMessage = "RoomName is not null")]
         public string? RoomName { get; set; }
 
-        [Required(ErrorMessage = "RoomDescription is not null")]
         public string? RoomDescription { get; set; }
 
-        [Required(ErrorMessage = "RoomNote is not null")]
         public string? RoomNote { get; set; }
 
         public bool RoomStatus { get; set; }
