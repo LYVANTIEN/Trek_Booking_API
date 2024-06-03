@@ -65,7 +65,7 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<IEnumerable<TourOrder>> getTourOrderBySupplierId(int supplierId)
         {
-            var tourOrder = await _context.tourOrders.Where(t => t.SupplierId == supplierId).ToListAsync();
+            var tourOrder = await _context.tourOrders.Include(t => t.User).Include(t => t.Supplier).Include(t => t.Tour).Where(t => t.SupplierId == supplierId).ToListAsync();
             if (tourOrder != null)
             {
                 return tourOrder;

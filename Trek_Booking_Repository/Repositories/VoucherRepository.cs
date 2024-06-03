@@ -31,7 +31,8 @@ namespace Trek_Booking_Repository.Repositories
             var deleteVoucher = await _context.vouchers.FirstOrDefaultAsync(t => t.VoucherId == voucherId);
             if (deleteVoucher != null)
             {
-                _context.vouchers.Remove(deleteVoucher);
+                deleteVoucher.VoucherStatus = false;
+                _context.vouchers.Update(deleteVoucher);
                 return await _context.SaveChangesAsync();
             }
             return 0;

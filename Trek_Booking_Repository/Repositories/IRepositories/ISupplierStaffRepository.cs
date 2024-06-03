@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,6 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<IEnumerable<SupplierStaff>> getSupplierStaffs();
 
         public Task<bool> checkExitsEmail(string email);
+        Task<IActionResult> ToggleStatus(ToggleSupplierStaffRequest request);
     }
 }

@@ -17,6 +17,7 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("User")]
         public int UserId { get; set; }
+
         public User? User { get; set; }
 
 
@@ -43,11 +44,11 @@ namespace Trek_Booking_DataAccess
         public string? UserNote { get; set; }
         public bool Status { get; set; }
         public bool IsConfirmed { get; set; }
-
+        [JsonIgnore]
         public ICollection<VoucherUsageHistory>? voucherUsageHistory { get; set; }
-
+        [JsonIgnore]
         public ICollection<Comment>? comments { get; set; }
-
+        [JsonIgnore]
         public ICollection<Rate>? rates { get; set; }
     }
 }

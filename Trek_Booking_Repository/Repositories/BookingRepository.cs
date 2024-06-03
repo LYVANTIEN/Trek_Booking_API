@@ -96,8 +96,8 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<IEnumerable<Booking>> getBookingBySupplierId(int supplierId)
         {
-            var bookings = await _context.bookings.Include(b => b.Hotel)
-                .ThenInclude(h => h.Supplier).Where(b => b.Hotel.Supplier.SupplierId == supplierId).ToListAsync();
+            var bookings = await _context.bookings.Include(b => b.User).Include(b => b.Room).Include(b => b.Hotel)
+               .ThenInclude(b => b.Supplier).Where(b => b.Hotel.Supplier.SupplierId == supplierId).ToListAsync();
             if (bookings.Any())
             {
                 return bookings;
