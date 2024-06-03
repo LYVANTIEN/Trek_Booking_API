@@ -8,6 +8,7 @@ using Trek_Booking_DataAccess;
 using Trek_Booking_Repository.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Trek_Booking_Repository.Repositories
 {
@@ -93,6 +94,29 @@ namespace Trek_Booking_Repository.Repositories
                 return findSupplierStaff;
             }
             return null;
+        }
+        public async Task<IActionResult> ToggleStatus(ToggleSupplierStaffRequest request)
+        {
+            var supplierStaff = await _context.supplierStaff.FindAsync(request.StaffId);
+            if (supplierStaff == null)
+            {
+                return new NotFoundResult();
+            }
+
+            supplierStaff.Status = !supplierStaff.Status;
+            _context.Entry(supplierStaff).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                throw;
+
+            }
+            return new NoContentResult();
         }
     }
 }
