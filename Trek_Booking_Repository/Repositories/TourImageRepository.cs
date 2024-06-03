@@ -41,6 +41,12 @@ namespace Trek_Booking_Repository.Repositories
             return getTourImage;
         }
 
+        public async Task<IEnumerable<TourImage>> getTourImageByTourId(int tourId)
+        {
+            var getTourImage = await _context.tourImages.Where(t => t.TourId == tourId).ToListAsync();
+            return getTourImage;
+        }
+
         public async Task<IEnumerable<TourImage>> getTourImages()
         {
             var tours = await _context.tourImages.ToListAsync();

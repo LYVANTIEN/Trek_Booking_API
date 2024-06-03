@@ -7,6 +7,7 @@ using Trek_Booking_DataAccess.Data;
 using Trek_Booking_DataAccess;
 using Trek_Booking_Repository.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Trek_Booking_Repository.Repositories
 {
@@ -124,6 +125,29 @@ namespace Trek_Booking_Repository.Repositories
                 return findUser;
             }
             return null;
+        }
+        public async Task<IActionResult> ToggleStatus(ToggleUserRequest request)
+        {
+            var user = await _context.users.FindAsync(request.UserId);
+            if (user == null)
+            {
+                return new NotFoundResult();
+            }
+
+            user.Status = !user.Status;
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                throw;
+
+            }
+            return new NoContentResult();
         }
     }
 }

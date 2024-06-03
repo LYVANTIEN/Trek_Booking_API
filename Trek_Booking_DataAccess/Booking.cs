@@ -17,19 +17,16 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("User")]
         public int UserId { get; set; }
-        [JsonIgnore]
         public User? User { get; set; }
 
 
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
-        [JsonIgnore]
         public Hotel? Hotel { get; set; }
 
 
         [ForeignKey("Room")]
         public int RoomId { get; set; }
-        [JsonIgnore]
         public Room? Room { get; set; }
 
 
@@ -47,11 +44,10 @@ namespace Trek_Booking_DataAccess
         public bool Status { get; set; }
         public bool IsConfirmed { get; set; }
 
-        [JsonIgnore]
         public ICollection<VoucherUsageHistory>? voucherUsageHistory { get; set; }
-        [JsonIgnore]
+
         public ICollection<Comment>? comments { get; set; }
-        [JsonIgnore]
+
         public ICollection<Rate>? rates { get; set; }
     }
 }

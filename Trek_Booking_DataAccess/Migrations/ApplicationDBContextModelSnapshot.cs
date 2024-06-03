@@ -347,7 +347,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("RoomDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoomName")
@@ -355,7 +354,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoomNote")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RoomPrice")
@@ -524,17 +522,15 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("StaffName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffPhoneNumber")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -575,6 +571,9 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Property<string>("TourDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TourDiscount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("TourName")
                         .IsRequired()

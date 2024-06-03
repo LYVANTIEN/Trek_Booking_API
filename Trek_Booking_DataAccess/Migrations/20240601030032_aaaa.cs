@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trek_Booking_DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class aaaa : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,7 +46,7 @@ namespace Trek_Booking_DataAccess.Migrations
                 {
                     SupplierId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    SupplierName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
@@ -72,7 +72,7 @@ namespace Trek_Booking_DataAccess.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
@@ -126,11 +126,13 @@ namespace Trek_Booking_DataAccess.Migrations
                 {
                     StaffId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StaffName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    StaffName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StaffPhoneNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     StaffEmail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     StaffPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StaffAddress = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    IsVerify = table.Column<bool>(type: "bit", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -161,9 +163,11 @@ namespace Trek_Booking_DataAccess.Migrations
                     TourDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TourPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TourAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TourTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TourTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TourTransportation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TourCapacity = table.Column<int>(type: "int", nullable: false),
+                    TourDiscount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -313,7 +317,8 @@ namespace Trek_Booking_DataAccess.Migrations
                     TourOrderDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TourOrderQuantity = table.Column<int>(type: "int", nullable: false),
                     TourTotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsConfirmed = table.Column<bool>(type: "bit", nullable: false)
+                    IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -353,7 +358,8 @@ namespace Trek_Booking_DataAccess.Migrations
                     RoomQuantity = table.Column<int>(type: "int", nullable: false),
                     VoucherCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserNote = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    IsConfirmed = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

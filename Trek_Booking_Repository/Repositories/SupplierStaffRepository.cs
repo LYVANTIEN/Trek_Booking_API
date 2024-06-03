@@ -7,14 +7,14 @@ using Trek_Booking_DataAccess.Data;
 using Trek_Booking_DataAccess;
 using Trek_Booking_Repository.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Trek_Booking_Repository.Repositories
 {
     public class SupplierStaffRepository : ISupplierStaffRepository
     {
         private readonly ApplicationDBContext _context;
-        protected readonly IPasswordHasher _passwordHasher;
-
+        private readonly IPasswordHasher _passwordHasher;
         public SupplierStaffRepository(ApplicationDBContext context, IPasswordHasher passwordHasher)
         {
             _context = context;
@@ -25,7 +25,8 @@ namespace Trek_Booking_Repository.Repositories
         {
             var check = await _context.supplierStaff.AnyAsync(n => n.StaffEmail == email);
             return check;
-        }       
+        }
+
         public async Task<SupplierStaff> createSupplierStaff(SupplierStaff supplierStaff)
         {
             var hashPassword = _passwordHasher.HashPassword(supplierStaff.StaffPassword);
@@ -45,6 +46,7 @@ namespace Trek_Booking_Repository.Repositories
             _context.supplierStaff.Add(supStaff);
             await _context.SaveChangesAsync();
             return supStaff;
+
         }
 
         public async Task<int> deleteSupplierStaff(int staffId)

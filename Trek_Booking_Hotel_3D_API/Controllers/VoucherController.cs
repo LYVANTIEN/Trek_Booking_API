@@ -19,7 +19,14 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPost("/createVoucher")]
         public async Task<IActionResult> createVoucher([FromBody] Voucher voucher)
         {
-            
+            if (voucher == null)
+            {
+                return BadRequest();
+            }
+            else if (await _repository.checkExitsName(voucher.VoucherCode))
+            {
+                return BadRequest("VoucherCode already exits");
+            }
             var create = await _repository.createVoucher(voucher);
             return StatusCode(201, "Create Successfully!");
         }

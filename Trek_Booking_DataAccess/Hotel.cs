@@ -48,12 +48,9 @@ namespace Trek_Booking_DataAccess
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }
-    
         public Supplier? Supplier { get; set; }
 
- 
         public ICollection<Comment>? comments { get; set; }
-
         public ICollection<Rate>? rates { get; set; }
 
         public ICollection<BookingCart>? bookingCarts { get; set; }

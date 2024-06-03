@@ -72,16 +72,28 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             var update = await _repository.updateRoom(room);
             return Ok(update);
         }
-        [HttpDelete("/deleteRoom/{roomId}")]
+        [HttpPut("/deleteRoom/{roomId}")]
         public async Task<IActionResult> deleteRoom(int roomId)
         {
             var check = await _repository.getRoombyId(roomId);
             if (check == null)
             {
-                return NotFound("Not found Hotel");
+                return NotFound("Not found Room");
             }
             await _repository.deleteRoom(roomId);
             return StatusCode(200, "Delele Successfully!");
+        }
+
+        [HttpPut("/recoverRoomDeleted/{roomId}")]
+        public async Task<IActionResult> recoverRoomDeleted(int roomId)
+        {
+            var check = await _repository.getRoombyId(roomId);
+            if (check == null)
+            {
+                return NotFound("Not found Room");
+            }
+            await _repository.recoverRoomDeleted(roomId);
+            return StatusCode(200, "Recover Successfully!");
         }
     }
 }
