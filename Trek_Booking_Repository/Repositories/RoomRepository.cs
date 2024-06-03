@@ -38,12 +38,23 @@ namespace Trek_Booking_Repository.Repositories
             var deleteRoom = await _context.rooms.FirstOrDefaultAsync(t => t.RoomId == roomId);
             if (deleteRoom != null)
             {
-                _context.rooms.Remove(deleteRoom);
+                deleteRoom.RoomStatus = false;
+                _context.rooms.Update(deleteRoom);
                 return await _context.SaveChangesAsync();
             }
             return 0;
         }
-
+        public async Task<int> recoverRoomDeleted(int roomId)
+        {
+            var recoverDele = await _context.rooms.FirstOrDefaultAsync(t => t.RoomId == roomId);
+            if (recoverDele != null)
+            {
+                recoverDele.RoomStatus = true;
+                _context.rooms.Update(recoverDele);
+                return await _context.SaveChangesAsync();
+            }
+            return 0;
+        }
         public async Task<IEnumerable<Room>> getRoombyHotelId(int hotelId)
         {
             var check = await _context.rooms.Where(t => t.HotelId == hotelId).ToListAsync();
