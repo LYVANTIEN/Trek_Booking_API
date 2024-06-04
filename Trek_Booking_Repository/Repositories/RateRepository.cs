@@ -55,8 +55,8 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<IEnumerable<Rate>> getRateByHotelId(int hotelId)
         {
-            
-            var rates = await _context.rates.Where(t => t.HotelId == hotelId).ToListAsync();
+
+            var rates = await _context.rates.Include(t => t.User).Include(t => t.Booking).Include(t => t.Hotel).Where(t => t.HotelId == hotelId).ToListAsync();
 
             return rates;
         }

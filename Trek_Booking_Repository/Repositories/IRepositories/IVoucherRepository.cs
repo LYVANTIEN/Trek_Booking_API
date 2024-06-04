@@ -16,6 +16,5 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<IEnumerable<Voucher>> getVoucherByHotelId(int hotelId);
         public Task<bool> checkExitsName(string name);
 
-
     }
 }

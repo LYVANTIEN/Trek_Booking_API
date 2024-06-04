@@ -36,14 +36,15 @@ namespace Trek_Booking_DataAccess
         public int HotelId { get; set; }
 
         public Hotel? Hotel { get; set; }
+        [JsonIgnore]
         public ICollection<Room3DImage>? room3DImages { get; set; }
-
+        [JsonIgnore]
         public ICollection<RoomImage>? roomImages { get; set; }
-
+        [JsonIgnore]
         public ICollection<RoomService>? roomServices { get; set; }
-
+        [JsonIgnore]
         public ICollection<BookingCart>? bookingCarts { get; set; }
-
+        [JsonIgnore]
         public ICollection<Booking>? bookings { get; set; }
     }
 }

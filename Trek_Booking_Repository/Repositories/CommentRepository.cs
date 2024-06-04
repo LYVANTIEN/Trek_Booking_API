@@ -57,10 +57,11 @@ namespace Trek_Booking_Repository.Repositories
         {
             //var getHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == hotelId);
             //var comments = await _context.comments.Where(c => c.Hotel == getHotel).ToListAsync();
-            var comments = await _context.comments.Where(t => t.HotelId == hotelId).ToListAsync();
+            var comments = await _context.comments.Include(t => t.User).Include(t => t.Booking).Include(t => t.Hotel).Where(t => t.HotelId == hotelId).ToListAsync();
 
             return comments;
         }
+
 
 
         public async Task<IEnumerable<Comment>> getCommentByUserId(int userId)

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Trek_Booking_DataAccess
@@ -37,13 +38,21 @@ namespace Trek_Booking_DataAccess
         [ForeignKey("Role")]
         public int RoleId { get; set; }
         public Role? Role { get; set; }
+        [JsonIgnore]
         public ICollection<PaymentInformation>? paymentInformations { get; set; }
+        [JsonIgnore]
         public ICollection<CartTour>? cartTours { get; set; }
+        [JsonIgnore]
         public ICollection<TourOrder>? tourOrders { get; set; }
+        [JsonIgnore]
         public ICollection<Comment>? comments { get; set; }
+        [JsonIgnore]
         public ICollection<Rate>? rates { get; set; }
+        [JsonIgnore]
         public ICollection<BookingCart>? bookingCarts { get; set; }
+        [JsonIgnore]
         public ICollection<Booking>? bookings { get; set; }
+        [JsonIgnore]
         public ICollection<VoucherUsageHistory>? voucherUsageHistories { get; set; }
     }
 }

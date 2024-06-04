@@ -16,7 +16,7 @@ namespace Trek_Booking_DataAccess
         public int StaffId { get; set; }
         public string? StaffName { get; set; }
 
-        [StringLength(12, ErrorMessage = "The Phone must be equal 12 number")]
+        [StringLength(10, ErrorMessage = "The Phone must be equal 10 number")]
         [DataType(DataType.PhoneNumber)]
         public string? StaffPhoneNumber { get; set; }
 
