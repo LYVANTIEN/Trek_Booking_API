@@ -86,6 +86,19 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             var update = await _repository.updateHotel(hotel);
             return Ok(update);
         }
+
+        [HttpPut("/updateHotelAvatar")]
+        public async Task<IActionResult> updateHotelAvatar([FromBody] Hotel hotel)
+        {
+            var check = await _repository.getHotelbyId(hotel.HotelId);
+            if (check == null)
+            {
+                return BadRequest("Not found Hotel");
+            }
+            var update = await _repository.updateHotelAvatar(hotel);
+            return Ok(update);
+        }
+
         [HttpPut("/deleteHotel/{hotelId}")]
         public async Task<IActionResult> deleteHotel(int hotelId)
         {

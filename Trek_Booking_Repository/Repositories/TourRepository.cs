@@ -67,6 +67,7 @@ namespace Trek_Booking_Repository.Repositories
                 findTour.TourAddress = tour.TourAddress;
                 findTour.TourTime = tour.TourTime;
                 findTour.TourTransportation = tour.TourTransportation;
+                findTour.TourDiscount = tour.TourDiscount;
                 findTour.TourCapacity = tour.TourCapacity;
                 _context.tours.Update(findTour);
                 await _context.SaveChangesAsync();

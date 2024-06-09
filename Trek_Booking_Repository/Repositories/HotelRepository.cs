@@ -116,6 +116,42 @@ namespace Trek_Booking_Repository.Repositories
             return null;
         }
 
+        public async Task<Hotel> updateHotelAvatar(Hotel hotel)
+        {
+            var findHotel = await _context.hotels.FirstOrDefaultAsync(t => t.HotelId == hotel.HotelId);
+            if (findHotel != null)
+            {
+                // Kiểm tra xem SupplierId có hợp lệ hay không
+                var supplierExists = await _context.suppliers.AnyAsync(s => s.SupplierId == findHotel.SupplierId);
+                if (!supplierExists)
+                {
+                    throw new InvalidOperationException("Invalid SupplierId.");
+                }
+
+                // Cập nhật trường HotelAvatar
+                findHotel.HotelAvatar = hotel.HotelAvatar;
+
+                // Giữ nguyên các giá trị khác
+                findHotel.HotelName = findHotel.HotelName;
+                findHotel.HotelPhone = findHotel.HotelPhone;
+                findHotel.HotelEmail = findHotel.HotelEmail;
+                findHotel.HotelFulDescription = findHotel.HotelFulDescription;
+                findHotel.HotelDistrict = findHotel.HotelDistrict;
+                findHotel.HotelCity = findHotel.HotelCity;
+                findHotel.HotelInformation = findHotel.HotelInformation;
+                findHotel.SupplierId = findHotel.SupplierId;
+
+                // Chỉ cập nhật trường HotelAvatar
+                _context.hotels.Update(findHotel);
+                await _context.SaveChangesAsync();
+                return findHotel;
+            }
+            return null;
+        }
+
+
+
+
 
 
     }
