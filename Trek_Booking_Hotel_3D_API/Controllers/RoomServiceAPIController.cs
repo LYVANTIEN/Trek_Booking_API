@@ -52,7 +52,7 @@ namespace Trek_Booking_API.Controllers
         }
 
         // POST: api/RoomService
-        [HttpPost]
+        [HttpPost("/createRoomService")]
         public async Task<ActionResult<RoomService>> CreateRoomService(RoomService roomService)
         {
             var createdRoomService = await _roomServiceRepository.createRoomService(roomService);
@@ -60,7 +60,7 @@ namespace Trek_Booking_API.Controllers
         }
 
         // DELETE: api/RoomService
-        [HttpDelete]
+        [HttpDelete("/deleteRoomService")]
         public async Task<ActionResult<RoomService>> DeleteRoomService(RoomService roomService)
         {
             var deletedRoomService = await _roomServiceRepository.deleteRoomService(roomService);
