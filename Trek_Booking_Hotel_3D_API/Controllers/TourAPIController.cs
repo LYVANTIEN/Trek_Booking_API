@@ -82,11 +82,5 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             await _repository.deleteTour(tourId);
             return StatusCode(200, "Delele Successfully!");
         }
-        [HttpPut("ToggleTour")]
-        public async Task<IActionResult> ToggleStatus([FromBody] ToggleTourRequest request)
-        {
-            return await _repository.ToggleStatus(request);
-        }
-
     }
 }

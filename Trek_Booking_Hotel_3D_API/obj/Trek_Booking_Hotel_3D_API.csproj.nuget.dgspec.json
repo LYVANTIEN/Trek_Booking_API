@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj": {}
+    "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj": {}
   },
   "projects": {
-    "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
+    "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
+        "projectUniqueName": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
         "projectName": "Trek_Booking_DataAccess",
-        "projectPath": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
-        "packagesPath": "C:\\Users\\NGO VU HUY\\.nuget\\packages\\",
-        "outputPath": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_DataAccess\\obj\\",
+        "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj",
+        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+        "outputPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\NGO VU HUY\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -102,25 +97,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj": {
+    "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj",
+        "projectUniqueName": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj",
         "projectName": "Trek_Booking_Hotel_3D_API",
-        "projectPath": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj",
-        "packagesPath": "C:\\Users\\NGO VU HUY\\.nuget\\packages\\",
-        "outputPath": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\obj\\",
+        "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj",
+        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+        "outputPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\NGO VU HUY\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -128,19 +119,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
-                "projectPath": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
+              "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
+                "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
               },
-              "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj": {
-                "projectPath": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj"
+              "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj": {
+                "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj"
               }
             }
           }
@@ -197,25 +186,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj": {
+    "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
+        "projectUniqueName": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
         "projectName": "Trek_Booking_Repository",
-        "projectPath": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
-        "packagesPath": "C:\\Users\\NGO VU HUY\\.nuget\\packages\\",
-        "outputPath": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_Repository\\obj\\",
+        "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\Trek_Booking_Repository.csproj",
+        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+        "outputPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Repository\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\NGO VU HUY\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -223,15 +208,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
-                "projectPath": "E:\\FinalProject_Summer24\\BE_Trek\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
+              "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj": {
+                "projectPath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_DataAccess\\Trek_Booking_DataAccess.csproj"
               }
             }
           }
@@ -273,7 +257,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

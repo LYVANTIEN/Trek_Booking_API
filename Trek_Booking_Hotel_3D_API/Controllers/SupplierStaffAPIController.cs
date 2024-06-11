@@ -14,6 +14,12 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         {
             _repository = repository;
         }
+
+        [HttpPut("ToggleSupplierStaff")]
+        public async Task<IActionResult> ToggleStatus([FromBody] ToggleSupplierStaffRequest request)
+        {
+            return await _repository.ToggleStatus(request);
+        }
         [HttpGet("/getSupplierStaffs")]
         public async Task<IActionResult> getSupplierStaffs()
         {

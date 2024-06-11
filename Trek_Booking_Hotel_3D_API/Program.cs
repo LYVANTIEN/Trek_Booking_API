@@ -97,6 +97,7 @@ builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IRoomServiceRepository, RoomServiceRepository>();
 builder.Services.AddScoped<IRoomImageRepository, RoomImageRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRateRepository, RateRepository>();
@@ -112,7 +113,6 @@ builder.Services.AddScoped<IVoucherUsageHistoryRepository, VoucherUsageHistoryRe
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<ICartTourRepository, CartTourRepository>();
 builder.Services.AddScoped<ITourOrderRepository, TourOrderRepository>();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthenticationUserRepository, AuthenticationUserRepository>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();

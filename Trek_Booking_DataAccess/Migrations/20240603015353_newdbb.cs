@@ -5,35 +5,35 @@
 namespace Trek_Booking_DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class updatedb : Migration
+    public partial class newdbb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "UserName",
-                table: "User",
-                type: "nvarchar(20)",
-                maxLength: 20,
+                name: "StaffPhoneNumber",
+                table: "SupplierStaff",
+                type: "nvarchar(10)",
+                maxLength: 10,
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(20)",
-                oldMaxLength: 20);
+                oldType: "nvarchar(12)",
+                oldMaxLength: 12,
+                oldNullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "UserName",
-                table: "User",
-                type: "nvarchar(20)",
-                maxLength: 20,
-                nullable: false,
-                defaultValue: "",
+                name: "StaffPhoneNumber",
+                table: "SupplierStaff",
+                type: "nvarchar(12)",
+                maxLength: 12,
+                nullable: true,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(20)",
-                oldMaxLength: 20,
+                oldType: "nvarchar(10)",
+                oldMaxLength: 10,
                 oldNullable: true);
         }
     }

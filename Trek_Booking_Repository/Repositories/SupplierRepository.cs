@@ -106,7 +106,6 @@ namespace Trek_Booking_Repository.Repositories
             }
             return null;
         }
-
         public async Task<IActionResult> ToggleStatus(ToggleSupplierRequest request)
         {
             var supplier = await _context.suppliers.FindAsync(request.SupplierId);
@@ -131,5 +130,4 @@ namespace Trek_Booking_Repository.Repositories
             return new NoContentResult();
         }
     }
-    }
-
+}

@@ -35,6 +35,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(check);
         }
+
+        [HttpGet("/getTourImageByTourId/{tourId}")]
+        public async Task<IActionResult> getTourImageByTourId(int tourId)
+        {
+            var check = await _repository.getTourImageByTourId(tourId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }   
+
         [HttpPost("/createTourImage")]
         public async Task<IActionResult> createTourImage([FromBody] TourImage tourImage)
         {
@@ -66,17 +78,6 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             await _repository.deleteTourImage(tourImageId);
             return StatusCode(200, "Delele Successfully!");
-        }
-
-        [HttpGet("/getTourImageByTourId/{tourId}")]
-        public async Task<IActionResult> getTourImageByTourId(int tourId)
-        {
-            var check = await _repository.getTourImageByTourId(tourId);
-            if (check == null)
-            {
-                return NotFound("Not Found");
-            }
-            return Ok(check);
         }
     }
 }

@@ -126,7 +126,6 @@ namespace Trek_Booking_Repository.Repositories
             }
             return null;
         }
-
         public async Task<IActionResult> ToggleStatus(ToggleUserRequest request)
         {
             var user = await _context.users.FindAsync(request.UserId);
@@ -151,5 +150,4 @@ namespace Trek_Booking_Repository.Repositories
             return new NoContentResult();
         }
     }
-    }
-
+}

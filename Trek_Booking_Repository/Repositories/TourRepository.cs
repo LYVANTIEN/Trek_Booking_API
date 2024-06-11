@@ -67,6 +67,7 @@ namespace Trek_Booking_Repository.Repositories
                 findTour.TourAddress = tour.TourAddress;
                 findTour.TourTime = tour.TourTime;
                 findTour.TourTransportation = tour.TourTransportation;
+                findTour.TourDiscount = tour.TourDiscount;
                 findTour.TourCapacity = tour.TourCapacity;
                 _context.tours.Update(findTour);
                 await _context.SaveChangesAsync();
@@ -75,13 +76,11 @@ namespace Trek_Booking_Repository.Repositories
             return null;
         }
 
-     
         public async Task<IEnumerable<Tour>> getTourBySupplierId(int supplierId)
         {
-            var toursBySupp = await _context.tours.Where(s => s.SupplierId == supplierId).ToListAsync();
-            return toursBySupp;
+            var tourBySup = await _context.tours.Where(s => s.SupplierId == supplierId).ToListAsync();
+            return tourBySup;
         }
-
         public async Task<IActionResult> ToggleStatus(ToggleTourRequest request)
         {
             var tour = await _context.tours.FindAsync(request.TourId);
@@ -99,9 +98,9 @@ namespace Trek_Booking_Repository.Repositories
             }
             catch (DbUpdateConcurrencyException)
             {
-           
-                    throw;
-                
+
+                throw;
+
             }
             return new NoContentResult();
         }

@@ -128,10 +128,5 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             await _repository.createSupplier(supplier);
             return StatusCode(200);
         }
-        [HttpPut("ToggleSupplier")]
-        public async Task<IActionResult> ToggleStatus([FromBody] ToggleSupplierRequest request)
-        {
-            return await _repository.ToggleStatus(request);
-        }
     }
 }

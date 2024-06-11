@@ -143,11 +143,5 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             await _repository.createUser(user);
             return StatusCode(200);
         }
-
-        [HttpPut("ToggleUser")]
-        public async Task<IActionResult> ToggleStatus([FromBody] ToggleUserRequest request)
-        {
-            return await _repository.ToggleStatus(request);
-        }
     }
 }

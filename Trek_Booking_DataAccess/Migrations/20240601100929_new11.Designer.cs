@@ -12,8 +12,8 @@ using Trek_Booking_DataAccess.Data;
 namespace Trek_Booking_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240521054618_UserReponse")]
-    partial class UserReponse
+    [Migration("20240601100929_new11")]
+    partial class new11
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,9 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     b.Property<int>("HotelId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -347,7 +350,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("RoomDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoomName")
@@ -355,7 +357,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoomNote")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RoomPrice")
@@ -490,7 +491,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SupplierName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -509,6 +509,9 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
 
+                    b.Property<bool>("IsVerify")
+                        .HasColumnType("bit");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
@@ -522,9 +525,7 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("StaffName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffPassword")
                         .IsRequired()
@@ -574,6 +575,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("TourDiscount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("TourName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -582,9 +586,8 @@ namespace Trek_Booking_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("TourTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("TourTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TourTransportation")
                         .IsRequired()
@@ -696,7 +699,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
