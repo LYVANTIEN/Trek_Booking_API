@@ -104,5 +104,28 @@ namespace Trek_Booking_Repository.Repositories
             }
             return null;
         }
+        public async Task<Booking> updateBooking(Booking booking)
+        {
+            var findBooking = await _context.bookings.FirstOrDefaultAsync(b => b.BookingId == booking.BookingId);
+            if (findBooking != null)
+            {
+                findBooking.UserId = booking.UserId;
+                findBooking.HotelId = booking.HotelId;
+                findBooking.RoomId = booking.RoomId;
+                findBooking.CheckInDate = booking.CheckInDate;
+                findBooking.CheckOutDate = booking.CheckOutDate;
+                findBooking.TotalPrice = booking.TotalPrice;
+                findBooking.RoomQuantity = booking.RoomQuantity;
+                findBooking.VoucherCode = booking.VoucherCode;
+                findBooking.UserNote = booking.UserNote;
+                findBooking.Status = booking.Status;
+                findBooking.IsConfirmed = booking.IsConfirmed;
+                _context.bookings.Update(findBooking);
+                await _context.SaveChangesAsync();
+                return findBooking;
+            }
+            return null;
+        }
+
     }
 }
