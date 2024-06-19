@@ -149,33 +149,21 @@ namespace Trek_Booking_Repository.Repositories
             }
             return null;
         }
+        // search hotel by city
+        public async Task<IEnumerable<Hotel>> SearchHotelByCity(string city)
+        {
+            var hotels = await _context.hotels
+                .Where(h => EF.Functions.Like(h.HotelCity, $"%{city}%"))
+                .ToListAsync();
+
+            return hotels;
+        }
+
+
 
 
         ////search by schedule
-        //public async Task<IEnumerable<Hotel>> SearchHotelSchedule(DateTime checkInDate, DateTime checkOutDate)
-        //{
-        //    var hotels = await _context.hotels
-        //        .Include(h => h.rooms)
-        //        .ThenInclude(r => r.bookings)
-        //        .Where(h => h.rooms.Any(r => r.RoomStatus == true))
-        //        .Select(h => new
-        //        {
-        //            Hotel = h,
-        //            AvailableRooms = h.rooms.Sum(r => r.RoomAvailable - r.bookings
-        //                .Where(b => b.IsConfirmed == true &&
-        //                            ((checkInDate >= b.CheckInDate && checkInDate < b.CheckOutDate) ||
-        //                             (checkOutDate > b.CheckInDate && checkOutDate <= b.CheckOutDate) ||
-        //                             (checkInDate <= b.CheckInDate && checkOutDate >= b.CheckOutDate)))
-        //                .Sum(b => b.RoomQuantity))
-        //        })
-        //        .Where(h => h.AvailableRooms > 0)
-        //        .Select(h => h.Hotel)
-        //        .ToListAsync();
-
-        //    return hotels;
-        //}
-
-        public async Task<IEnumerable<Hotel>> SearchHotelSchedule(DateTime checkInDate, DateTime checkOutDate)
+        public async Task<IEnumerable<Hotel>> SearchHotelSchedule(DateTime checkInDate, DateTime checkOutDate, string city)
         {
             // Lấy tất cả các phòng và các booking của chúng
             var rooms = await _context.rooms
@@ -207,14 +195,57 @@ namespace Trek_Booking_Repository.Repositories
                 .Where(h => h.AvailableRooms > 0)
                 .ToList();
 
-            // Lấy danh sách các khách sạn có phòng trống
+            // Lấy danh sách các khách sạn có phòng trống và lọc theo thành phố
             var hotelIds = hotelRoomAvailability.Select(h => h.HotelId).ToList();
             var hotels = await _context.hotels
-                .Where(h => hotelIds.Contains(h.HotelId))
+                .Where(h => hotelIds.Contains(h.HotelId) && EF.Functions.Like(h.HotelCity, $"%{city}%"))
                 .ToListAsync();
 
             return hotels;
         }
+
+        //public async Task<IEnumerable<Hotel>> SearchHotelSchedule(DateTime checkInDate, DateTime checkOutDate)
+        //{
+        //    // Lấy tất cả các phòng và các booking của chúng
+        //    var rooms = await _context.rooms
+        //        .Include(r => r.bookings)
+        //        .Where(r => r.RoomStatus == true)
+        //        .ToListAsync();
+
+        //    // Tính toán số lượng phòng trống cho từng phòng
+        //    var roomAvailability = rooms.Select(r => new
+        //    {
+        //        r.HotelId,
+        //        r.RoomId,
+        //        AvailableRooms = r.RoomAvailable - r.bookings
+        //            .Where(b => b.IsConfirmed == true &&
+        //                        ((checkInDate >= b.CheckInDate && checkInDate < b.CheckOutDate) ||
+        //                         (checkOutDate > b.CheckInDate && checkOutDate <= b.CheckOutDate) ||
+        //                         (checkInDate <= b.CheckInDate && checkOutDate >= b.CheckOutDate)))
+        //            .Sum(b => b.RoomQuantity)
+        //    }).ToList();
+
+        //    // Tính toán số lượng phòng trống cho từng khách sạn
+        //    var hotelRoomAvailability = roomAvailability
+        //        .GroupBy(rb => rb.HotelId)
+        //        .Select(g => new
+        //        {
+        //            HotelId = g.Key,
+        //            AvailableRooms = g.Sum(rb => rb.AvailableRooms)
+        //        })
+        //        .Where(h => h.AvailableRooms > 0)
+        //        .ToList();
+
+        //    // Lấy danh sách các khách sạn có phòng trống
+        //    var hotelIds = hotelRoomAvailability.Select(h => h.HotelId).ToList();
+        //    var hotels = await _context.hotels
+        //        .Where(h => hotelIds.Contains(h.HotelId))
+        //        .ToListAsync();
+
+        //    return hotels;
+        //}
+
+
 
 
 
