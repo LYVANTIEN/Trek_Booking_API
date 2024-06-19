@@ -17,5 +17,9 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
 
         public Task<Hotel> updateHotelAvatar(Hotel hotel);
 
+
+        public Task<IEnumerable<Hotel>> SearchHotelSchedule(DateTime checkInDate, DateTime checkOutDate);
+
+
     }
 }

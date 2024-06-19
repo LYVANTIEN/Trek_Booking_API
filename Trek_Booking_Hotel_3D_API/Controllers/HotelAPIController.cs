@@ -122,5 +122,16 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             await _repository.recoverHotelDeleted(hotelId);
             return StatusCode(200, "Recover Successfully!");
         }
+
+        [HttpGet("/searchHotelSchedule")]
+        public async Task<IActionResult> SearchHotelSchedule([FromQuery] DateTime checkInDate, [FromQuery] DateTime checkOutDate)
+        {
+            var hotels = await _repository.SearchHotelSchedule(checkInDate, checkOutDate);
+            if (hotels == null || !hotels.Any())
+            {
+                return NotFound("No hotels found with available rooms for the specified dates.");
+            }
+            return Ok(hotels);
+        }
     }
 }
