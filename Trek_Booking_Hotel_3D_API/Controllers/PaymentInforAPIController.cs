@@ -55,6 +55,17 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             var update = await _repository.updatePaymentInfor(paymentInformation);
             return Ok(update);
-        }        
+        }
+
+        [HttpGet("/getPaymentInforByUserId/{userId}")]
+        public async Task<IActionResult> getPaymentInforByUserId(int userId)
+        {
+            var check = await _repository.getPaymentInforByUserId(userId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
     }
 }
