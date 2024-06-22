@@ -425,3 +425,5 @@ E:\FinalProject_Summer24\BE_Trek\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\
 E:\FinalProject_Summer24\BE_Trek\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Stripe.net.dll
 D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\Trek-Booking3D_KL_SU24\Project\API\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Stripe.net.dll
+D:\FPT_UNIVERSITY\SU24-DoAn\DOTNET\Project\DoAn\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Newtonsoft.Json.dll
+D:\FPT_UNIVERSITY\SU24-DoAn\DOTNET\Project\DoAn\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Stripe.net.dll

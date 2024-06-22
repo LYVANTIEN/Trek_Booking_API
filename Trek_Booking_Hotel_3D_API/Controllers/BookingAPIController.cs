@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -10,10 +11,12 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class BookingAPIController : ControllerBase
     {
         private readonly IBookingRepository _repository;
+        private readonly AuthMiddleWare _authMiddleWare;
 
-        public BookingAPIController(IBookingRepository repository)
+        public BookingAPIController(IBookingRepository repository, AuthMiddleWare authMiddleWare)
         {
             _repository = repository;
+            _authMiddleWare = authMiddleWare;
         }
 
         [HttpGet("/getBookings")]
@@ -86,7 +89,6 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
                 return BadRequest("User or Room not exits");
             }
         }
-
         [HttpPut("/deleteBooking/{bookingId}")]
         public async Task<IActionResult> deleteBooking(int bookingId)
         {
@@ -112,15 +114,23 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             await _repository.recoverBookingDeleted(bookingId);
             return StatusCode(200, "Recover Successfully!");
         }
-        [HttpGet("/getBookingBySupplierId/{supplierId}")]
-        public async Task<IActionResult> getBookingBySupplierId(int supplierId)
+        [HttpGet("/getBookingBySupplierId")]
+        public async Task<IActionResult> getBookingBySupplierId()
         {
-            var check = await _repository.getBookingBySupplierId(supplierId);
-            if (check == null)
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            if (supplierId != null && supplierId != 0)
             {
-                return NotFound("Not Found");
+                var check = await _repository.getBookingBySupplierId(supplierId.Value);
+                if (check == null)
+                {
+                    return NotFound("Not Found");
+                }
+                return Ok(check);
             }
-            return Ok(check);
+            else
+            {
+                return BadRequest(403);
+            }
         }
     }
 }
