@@ -46,5 +46,7 @@ namespace Trek_Booking_DataAccess
         public ICollection<BookingCart>? bookingCarts { get; set; }
         [JsonIgnore]
         public ICollection<Booking>? bookings { get; set; }
+        public ICollection<OrderHotelDetail>? OrderHotelDetails { get; set; }
+
     }
 }
