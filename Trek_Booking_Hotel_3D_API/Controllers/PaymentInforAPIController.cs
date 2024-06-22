@@ -23,8 +23,20 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             {
                 return NotFound("Not Found");
             }
-            return Ok(c);
+            return Ok(c); 
         }
+
+        [HttpGet("/getPaymentInforByUserId/{userId}")]
+        public async Task<IActionResult> getPaymentInforByUserId(int userId)
+        {
+            var check = await _repository.getPaymentInforByUserId(userId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
         [HttpGet("/getPaymentInforById/{paymentInforId}")]
         public async Task<IActionResult> getPaymentInforById(int paymentInforId)
         {

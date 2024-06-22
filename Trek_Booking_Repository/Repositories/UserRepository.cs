@@ -90,12 +90,12 @@ namespace Trek_Booking_Repository.Repositories
             var deleteUser = await _context.users.FirstOrDefaultAsync(t => t.UserId == userId);
             if (deleteUser != null)
             {
-                _context.users.Remove(deleteUser);
+                deleteUser.Status = false;
+                _context.users.Update(deleteUser);
                 return await _context.SaveChangesAsync();
             }
             return 0;
         }
-
         public async Task<User> getUserById(int userId)
         {
             var getUser = await _context.users.FirstOrDefaultAsync(t => t.UserId == userId);
@@ -114,12 +114,9 @@ namespace Trek_Booking_Repository.Repositories
             if (findUser != null)
             {
                 findUser.UserName = user.UserName;
-                findUser.Email = user.Email;
+                findUser.Avatar = user.Avatar;
                 findUser.Phone = user.Phone;
                 findUser.Address = user.Address;
-                findUser.Password = user.Password;
-                findUser.Status = user.Status;
-                findUser.IsVerify = user.IsVerify;
                 _context.users.Update(findUser);
                 await _context.SaveChangesAsync();
                 return findUser;

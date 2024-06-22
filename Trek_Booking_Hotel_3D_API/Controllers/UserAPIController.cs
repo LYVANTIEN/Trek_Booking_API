@@ -70,6 +70,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return StatusCode(201, "Create Successfully!");
         }
 
+        [HttpPut("/updateUser")]
+        public async Task<IActionResult> updateUser([FromBody] User user )
+        {
+            var check = await _repository.getUserById(user.UserId);
+            if (check == null)
+            {
+                return NotFound("Not found User");
+            }
+            await _repository.updateUser(user);
+            return StatusCode(200, "Update Successfully!");
+        }
+
         [HttpPut("/deleteUser/{userId}")]
         public async Task<IActionResult> deleteUser(int userId)
         {

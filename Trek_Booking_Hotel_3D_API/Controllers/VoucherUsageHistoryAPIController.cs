@@ -35,6 +35,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(check);
         }
+
+        [HttpGet("/getVoucherUsageHistoryByUserId/{userId}")]
+        public async Task<IActionResult> getVoucherUsageHistoryByUserId(int userId)
+        {
+            var check = await _repository.getVoucherUsageHistoryByUserId(userId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
         [HttpPost("/createVoucherUsageHistory")]
         public async Task<IActionResult> createVoucherUsageHistory([FromBody] VoucherUsageHistory voucherUsageHistory)
         {

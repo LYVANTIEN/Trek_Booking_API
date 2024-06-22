@@ -31,6 +31,12 @@ namespace Trek_Booking_Repository.Repositories
             return getPaymentInfor;
         }
 
+        public async Task<IEnumerable<PaymentInformation>> getPaymentInforByUserId(int userId)
+        {
+            var check = await _context.paymentInformations.Where(t => t.UserId == userId).ToListAsync();
+            return check;
+        }
+
         public async Task<IEnumerable<PaymentInformation>> getPaymentInfors()
         {
             var paymentinfors = await _context.paymentInformations.ToListAsync();
