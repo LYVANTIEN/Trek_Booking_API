@@ -45,9 +45,37 @@ namespace Trek_Booking_Hotel_3D_API.Service
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+        //authen
+        public int? ValidateSupplierToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey); // Chuyển đổi secret key sang dạng byte array
+            try
+            {
+                // Thiết lập các thuộc tính của xác thực token
+                var tokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero // Không cho phép độ lệch thời gian
+                };
 
+                // Xác thực token và lấy thông tin về xác thực (Claims)
+                var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
+                var supplierId = int.Parse(principal.Claims.FirstOrDefault(c => c.Type == "supplierId")?.Value);
 
-        public int? ValidateToken(string token)
+                return supplierId; // Trả về userid
+                /*return true;*/ // Token hợp lệ
+            }
+            catch
+            {
+                return 0; // Token không hợp lệ
+            }
+        }
+
+        public int? ValidateUserToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey); // Chuyển đổi secret key sang dạng byte array

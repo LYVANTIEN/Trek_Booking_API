@@ -115,6 +115,8 @@ builder.Services.AddScoped<ICartTourRepository, CartTourRepository>();
 builder.Services.AddScoped<ITourOrderRepository, TourOrderRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthenticationUserRepository, AuthenticationUserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<AuthMiddleWare>();
 
