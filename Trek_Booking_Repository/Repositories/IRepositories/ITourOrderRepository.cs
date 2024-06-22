@@ -17,6 +17,5 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<TourOrder> createTourOrder(TourOrder tourOder);
         public Task<bool> checkTourOders(int userId, int tourId);
         public Task<IEnumerable<TourOrder>> getTourOrders();
-        public Task<TourOrder> updateTourOrder(TourOrder tourOrder);
     }
 }

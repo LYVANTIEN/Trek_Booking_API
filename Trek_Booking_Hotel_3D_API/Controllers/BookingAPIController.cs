@@ -122,20 +122,5 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(check);
         }
-        [HttpPut("/updateBooking/{bookingId}")]
-        public async Task<IActionResult> updateBooking(int bookingId, Booking booking)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            var check = await _repository.getBookingById(booking.BookingId);
-            if (check == null)
-            {
-                return BadRequest("Not found Booking");
-            }
-            var update = await _repository.updateBooking(booking);
-            return Ok(update);
-        }
     }
 }

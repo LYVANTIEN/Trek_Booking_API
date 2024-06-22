@@ -105,20 +105,5 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             await _repository.deleteTourOder(tourOrder);
             return StatusCode(200, "Delete Successfully!");
         }
-        [HttpPut("/updateTourOrder/{tourOrderId}")]
-        public async Task<IActionResult> updateTourOrder(int tourOrderId, TourOrder tourOrder)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            var check = await _repository.getTourOrderById(tourOrder.TourOrderId);
-            if (check == null)
-            {
-                return BadRequest("Not found tour order");
-            }
-            var update = await _repository.updateTourOrder(tourOrder);
-            return Ok(update);
-        }
     }
 }

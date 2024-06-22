@@ -35,6 +35,17 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(check);
         }
+        [HttpPost("/createVoucherUsageHistory")]
+        public async Task<IActionResult> createVoucherUsageHistory([FromBody] VoucherUsageHistory voucherUsageHistory)
+        {
+            if (voucherUsageHistory == null)
+            {
+                return BadRequest();
+            }
+            var create = await _repository.createVoucherUsageHistory(voucherUsageHistory);
+            return StatusCode(201, "Create Successfully!");
+        }
+
 
         [HttpGet("/getVoucherUsageHistoryByUserId/{userId}")]
         public async Task<IActionResult> getVoucherUsageHistoryByUserId(int userId)
@@ -46,16 +57,5 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(check);
         }
-
-        [HttpPost("/createVoucherUsageHistory")]
-        public async Task<IActionResult> createVoucherUsageHistory([FromBody] VoucherUsageHistory voucherUsageHistory)
-        {
-            if (voucherUsageHistory == null)
-            {
-                return BadRequest();
-            }
-            var create = await _repository.createVoucherUsageHistory(voucherUsageHistory);
-            return StatusCode(201, "Create Successfully!");
-        }        
     }
 }
