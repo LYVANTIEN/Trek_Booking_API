@@ -42,6 +42,10 @@ namespace Trek_Booking_DataAccess.Data
         public DbSet<OrderHotelDetail> OrderHotelDetails { get; set; }
         public DbSet<OrderHotelHeader> OrderHotelHeaders { get; set; }
 
+        public DbSet<OrderTourDetail> OrderTourDetails { get; set; }
+        public DbSet<OrderTourHeader> OrderTourHeaders { get; set; }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

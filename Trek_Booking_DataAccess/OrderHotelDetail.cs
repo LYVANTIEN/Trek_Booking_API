@@ -8,8 +8,6 @@ public class OrderHotelDetail
     [Key]
     public int Id { get; set; }
 
-
- 
     public int? OrderHotelHeaderlId { get; set; }
 
     [ForeignKey("Hotel")]

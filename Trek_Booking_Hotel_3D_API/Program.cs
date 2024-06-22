@@ -102,6 +102,7 @@ builder.Services.AddScoped<IRoomServiceRepository, RoomServiceRepository>();
 builder.Services.AddScoped<IRoomImageRepository, RoomImageRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRateRepository, RateRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ISupplierStaffRepository, SupplierStaffRepository>();
 builder.Services.AddScoped<IBookingCartRepository, BookingCartRepository>();
 builder.Services.AddScoped<IRoom3DImageRepository, Room3DImageRepository>();

@@ -16,7 +16,8 @@ namespace Trek_Booking_DataAccess
 
         public string? ToKen { get; set; }
 
-        public User? User { get; set; }
+        public string? UserName { get; set; }
         public int RoleId { get; set; }
+        public string? RoleName { get; set; }
     }
 }

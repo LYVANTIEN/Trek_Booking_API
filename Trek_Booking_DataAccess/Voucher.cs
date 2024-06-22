@@ -38,6 +38,7 @@ namespace Trek_Booking_DataAccess
 
         public Hotel? Hotel { get; set; }
 
+        [JsonIgnore]
         public ICollection<VoucherUsageHistory>? voucherUsageHistories { get; set; }
     }
 }

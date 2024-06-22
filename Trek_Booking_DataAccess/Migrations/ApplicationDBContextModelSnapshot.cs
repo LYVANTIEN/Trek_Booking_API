@@ -316,6 +316,75 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.ToTable("OrderHotelHeader");
                 });
 
+            modelBuilder.Entity("Trek_Booking_DataAccess.OrderTourDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("OrderTourHeaderlId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TourId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TourName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TourOrderQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TourTotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("OrderTourDetail");
+                });
+
+            modelBuilder.Entity("Trek_Booking_DataAccess.OrderTourHeader", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("TourOrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OrderTourHeader");
+                });
+
             modelBuilder.Entity("Trek_Booking_DataAccess.PaymentInformation", b =>
                 {
                     b.Property<int>("PaymentInforId")
@@ -976,6 +1045,26 @@ namespace Trek_Booking_DataAccess.Migrations
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.OrderHotelHeader", b =>
+                {
+                    b.HasOne("Trek_Booking_DataAccess.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Trek_Booking_DataAccess.OrderTourDetail", b =>
+                {
+                    b.HasOne("Trek_Booking_DataAccess.Tour", "Tour")
+                        .WithMany()
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tour");
+                });
+
+            modelBuilder.Entity("Trek_Booking_DataAccess.OrderTourHeader", b =>
                 {
                     b.HasOne("Trek_Booking_DataAccess.User", "User")
                         .WithMany()

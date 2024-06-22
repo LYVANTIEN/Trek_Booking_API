@@ -12,6 +12,8 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<PaymentInformation> createPaymentInfor(PaymentInformation paymentInformation);
         public Task<PaymentInformation> updatePaymentInfor(PaymentInformation paymentInformation);        
         public Task<PaymentInformation> getPaymentInforById(int paymentInforId);
-        public Task<IEnumerable<PaymentInformation>> getPaymentInfors();        
+        public Task<IEnumerable<PaymentInformation>> getPaymentInfors();
+
+        public Task<IEnumerable<PaymentInformation>> getPaymentInforByUserId(int userId);
     }
 }

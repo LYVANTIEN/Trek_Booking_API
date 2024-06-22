@@ -44,6 +44,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             var create = await _repository.createVoucherUsageHistory(voucherUsageHistory);
             return StatusCode(201, "Create Successfully!");
-        }        
+        }
+
+
+        [HttpGet("/getVoucherUsageHistoryByUserId/{userId}")]
+        public async Task<IActionResult> getVoucherUsageHistoryByUserId(int userId)
+        {
+            var check = await _repository.getVoucherUsageHistoryByUserId(userId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
     }
 }
