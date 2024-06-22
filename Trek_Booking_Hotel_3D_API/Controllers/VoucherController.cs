@@ -25,7 +25,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             else if (await _repository.checkExitsName(voucher.VoucherCode))
             {
-                return StatusCode(409, "Voucher Code already exits");
+                return BadRequest("VoucherCode already exits");
             }
             var create = await _repository.createVoucher(voucher);
             return StatusCode(201, "Create Successfully!");

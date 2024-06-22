@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jx1MWgonJt9vO5qgfMe2G/XbKnwMJgTNbAENUIjpfAmGFp7mmvKKaUVAh6NONuxAfJU27uohIUIZ/ppeyeF+eQ==",
+  "dgSpecHash": "kgb8uwBAUUOzEg2lI4+qp4IeEtNSrxMkGCkaY0Nvw8F4eiMQ87/IepE5jhvbJ8c/oalXs1dhCZbiffi3tmC5aA==",
   "success": true,
   "projectFilePath": "D:\\Trek-Booking3D_KL_SU24\\Project\\API\\Trek_Booking_API\\Trek_Booking_Hotel_3D_API\\Trek_Booking_Hotel_3D_API.csproj",
   "expectedPackageFiles": [
@@ -55,6 +55,8 @@
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\ASUS\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\ASUS\\.nuget\\packages\\stripe.net\\39.83.0\\stripe.net.39.83.0.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",

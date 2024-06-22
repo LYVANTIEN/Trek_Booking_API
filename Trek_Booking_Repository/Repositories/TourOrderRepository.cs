@@ -103,24 +103,5 @@ namespace Trek_Booking_Repository.Repositories
             }
             return tourOrders;
         }
-        public async Task<TourOrder> updateTourOrder(TourOrder tourOrder)
-        {
-            var findTourOrder = await _context.tourOrders.FirstOrDefaultAsync(b => b.TourOrderId == tourOrder.TourOrderId);
-            if (findTourOrder != null)
-            {
-                findTourOrder.UserId = tourOrder.UserId;
-                findTourOrder.SupplierId = tourOrder.SupplierId;
-                findTourOrder.TourId = tourOrder.TourId;
-                findTourOrder.TourOrderDate = tourOrder.TourOrderDate;
-                findTourOrder.TourOrderQuantity = tourOrder.TourOrderQuantity;
-                findTourOrder.TourTotalPrice = tourOrder.TourTotalPrice;
-                findTourOrder.Status = tourOrder.Status;
-                findTourOrder.IsConfirmed = tourOrder.IsConfirmed;
-                _context.tourOrders.Update(findTourOrder);
-                await _context.SaveChangesAsync();
-                return findTourOrder;
-            }
-            return null;
-        }
     }
 }

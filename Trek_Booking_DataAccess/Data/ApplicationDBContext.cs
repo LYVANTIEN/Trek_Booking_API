@@ -39,6 +39,13 @@ namespace Trek_Booking_DataAccess.Data
         public DbSet<Voucher> vouchers { get; set; }
         public DbSet<VoucherUsageHistory> voucherUsageHistories { get; set; }
         public DbSet<Role> roles { get; set; }
+        public DbSet<OrderHotelDetail> OrderHotelDetails { get; set; }
+        public DbSet<OrderHotelHeader> OrderHotelHeaders { get; set; }
+
+        public DbSet<OrderTourDetail> OrderTourDetails { get; set; }
+        public DbSet<OrderTourHeader> OrderTourHeaders { get; set; }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -204,6 +211,20 @@ namespace Trek_Booking_DataAccess.Data
                 .WithMany(c => c.cartTours)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+            // 
+            modelBuilder.Entity<OrderHotelDetail>()
+                .HasOne(t => t.Hotel)
+                .WithMany(c => c.OrderHotelDetails)
+                .HasForeignKey(t => t.HotelId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<OrderHotelDetail>()
+             .HasOne(t => t.Room)
+             .WithMany(c => c.OrderHotelDetails)
+             .HasForeignKey(t => t.RoomId)
+             .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

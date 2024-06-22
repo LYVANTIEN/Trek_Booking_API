@@ -16,9 +16,8 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         private readonly IJwtUtils _jwtUtils;
         private readonly IRoleRepository _roleRepository;
 
-
         public UserAPIController(IUserRepository repository, IAuthenticationUserRepository authenticationUserRepository,
-             IJwtUtils jwtUtils, IRoleRepository roleRepository)
+            IJwtUtils jwtUtils, IRoleRepository roleRepository)
         {
             _repository = repository;
             _authenticationUserRepository = authenticationUserRepository;
@@ -70,17 +69,6 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             var create = await _repository.createUser(user);
             return StatusCode(201, "Create Successfully!");
-        }
-        [HttpPut("/updateUser")]
-        public async Task<IActionResult> updateUser([FromBody] User user)
-        {
-            var check = await _repository.getUserById(user.UserId);
-            if (check == null)
-            {
-                return NotFound("Not found User");
-            }
-            await _repository.updateUser(user);
-            return StatusCode(200, "Update Successfully!");
         }
 
         [HttpPut("/deleteUser/{userId}")]
@@ -150,6 +138,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             await _repository.createUser(user);
             return StatusCode(200);
+        }
+
+        [HttpPut("/updateUser")]
+        public async Task<IActionResult> updateUser([FromBody] User user)
+        {
+            var check = await _repository.getUserById(user.UserId);
+            if (check == null)
+            {
+                return NotFound("Not found User");
+            }
+            await _repository.updateUser(user);
+            return StatusCode(200, "Update Successfully!");
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
-using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -11,14 +10,10 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class BookingAPIController : ControllerBase
     {
         private readonly IBookingRepository _repository;
-        //authen
-        private readonly AuthMiddleWare _authMiddleWare;
 
-
-        public BookingAPIController(IBookingRepository repository, AuthMiddleWare authMiddleWare)
+        public BookingAPIController(IBookingRepository repository)
         {
             _repository = repository;
-            _authMiddleWare = authMiddleWare;
         }
 
         [HttpGet("/getBookings")]
@@ -117,41 +112,15 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             await _repository.recoverBookingDeleted(bookingId);
             return StatusCode(200, "Recover Successfully!");
         }
-        //authen
-        [HttpGet("/getBookingBySupplierId")]
-        public async Task<IActionResult> getBookingBySupplierId()
+        [HttpGet("/getBookingBySupplierId/{supplierId}")]
+        public async Task<IActionResult> getBookingBySupplierId(int supplierId)
         {
-            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
-            if (supplierId != null && supplierId != 0)
-            {
-                var check = await _repository.getBookingBySupplierId(supplierId.Value);
-                if (check == null)
-                {
-                    return NotFound("Not Found");
-                }
-                return Ok(check);
-            }
-            else
-            {
-                return BadRequest(403);
-            }
-        }
-        [HttpPut("/updateBooking/{bookingId}")]
-        public async Task<IActionResult> updateBooking(int bookingId, Booking booking)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            var check = await _repository.getBookingById(booking.BookingId);
+            var check = await _repository.getBookingBySupplierId(supplierId);
             if (check == null)
             {
-                return BadRequest("Not found Booking");
+                return NotFound("Not Found");
             }
-            var update = await _repository.updateBooking(booking);
-            return Ok(update);
+            return Ok(check);
         }
-
-
     }
 }

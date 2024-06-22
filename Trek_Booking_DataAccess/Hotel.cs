@@ -61,5 +61,8 @@ namespace Trek_Booking_DataAccess
         public ICollection<Room>? rooms { get; set; }
         [JsonIgnore]
         public ICollection<Voucher>? vouchers { get; set; }
+
+        public ICollection<OrderHotelDetail>? OrderHotelDetails { get; set; }
+
     }
 }

@@ -12,7 +12,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<VoucherUsageHistory> createVoucherUsageHistory(VoucherUsageHistory voucherUsageHistory);        
         public Task<VoucherUsageHistory> getVoucherUsageHistoryById(int UserVoucherId);
         public Task<IEnumerable<VoucherUsageHistory>> getVoucherUsageHistories();
-        public Task<IEnumerable<VoucherUsageHistory>> getVoucherUsageHistoryByUserId(int userId);
 
+        public Task<IEnumerable<VoucherUsageHistory>> getVoucherUsageHistoryByUserId(int userId);
     }
 }

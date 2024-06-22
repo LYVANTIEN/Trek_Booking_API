@@ -123,6 +123,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return StatusCode(200, "Recover Successfully!");
         }
 
+
         [HttpGet("/searchHotelByCity")]
         public async Task<IActionResult> SearchHotelByCity([FromQuery] string city)
         {

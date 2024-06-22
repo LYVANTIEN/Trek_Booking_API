@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Stripe;
 using System.Text;
 using System.Text.Json.Serialization;
 using Trek_Booking_DataAccess.Data;
@@ -101,6 +102,7 @@ builder.Services.AddScoped<IRoomServiceRepository, RoomServiceRepository>();
 builder.Services.AddScoped<IRoomImageRepository, RoomImageRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRateRepository, RateRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ISupplierStaffRepository, SupplierStaffRepository>();
 builder.Services.AddScoped<IBookingCartRepository, BookingCartRepository>();
 builder.Services.AddScoped<IRoom3DImageRepository, Room3DImageRepository>();
@@ -113,16 +115,15 @@ builder.Services.AddScoped<IVoucherUsageHistoryRepository, VoucherUsageHistoryRe
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<ICartTourRepository, CartTourRepository>();
 builder.Services.AddScoped<ITourOrderRepository, TourOrderRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthenticationUserRepository, AuthenticationUserRepository>();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<AuthMiddleWare>();
 
 
 var app = builder.Build();
-
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["ApiKey"];
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
