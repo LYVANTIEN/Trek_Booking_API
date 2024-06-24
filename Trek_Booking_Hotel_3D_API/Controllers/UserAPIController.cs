@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Hotel_3D_API.Service;
 using Trek_Booking_Repository.Repositories;
 using Trek_Booking_Repository.Repositories.IRepositories;
@@ -15,14 +16,16 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         private readonly IAuthenticationUserRepository _authenticationUserRepository;
         private readonly IJwtUtils _jwtUtils;
         private readonly IRoleRepository _roleRepository;
+        private readonly AuthMiddleWare _authMiddleWare;
 
         public UserAPIController(IUserRepository repository, IAuthenticationUserRepository authenticationUserRepository,
-            IJwtUtils jwtUtils, IRoleRepository roleRepository)
+            IJwtUtils jwtUtils, IRoleRepository roleRepository, AuthMiddleWare authMiddleWare)
         {
             _repository = repository;
             _authenticationUserRepository = authenticationUserRepository;
             _jwtUtils = jwtUtils;
             _roleRepository = roleRepository;
+            _authMiddleWare = authMiddleWare;
         }
         [HttpGet("/getUsers")]
         public async Task<IActionResult> getUsers()
@@ -34,10 +37,11 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(c);
         }
-        [HttpGet("/getUserById/{userId}")]
-        public async Task<IActionResult> getUserById(int userId)
+        [HttpGet("/getUserById")]
+        public async Task<IActionResult> getUserById()
         {
-            var check = await _repository.getUserById(userId);
+            var userId = _authMiddleWare.GetUserIdFromToken(HttpContext);
+            var check = await _repository.getUserById(userId.Value);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -143,7 +147,8 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPut("/updateUser")]
         public async Task<IActionResult> updateUser([FromBody] User user)
         {
-            var check = await _repository.getUserById(user.UserId);
+            var userId = _authMiddleWare.GetUserIdFromToken(HttpContext);
+            var check = await _repository.getUserById(userId.Value);
             if (check == null)
             {
                 return NotFound("Not found User");

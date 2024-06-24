@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -10,10 +11,12 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class PaymentInforAPIController : ControllerBase
     {
         private readonly IPaymentInforRepository _repository;
+        private readonly AuthMiddleWare _authMiddleWare;
 
-        public PaymentInforAPIController(IPaymentInforRepository repository)
+        public PaymentInforAPIController(IPaymentInforRepository repository, AuthMiddleWare authMiddleWare)
         {
             _repository = repository;
+            _authMiddleWare = authMiddleWare;
         }
         [HttpGet("/getPaymentInfors")]
         public async Task<IActionResult> getPaymentInfors()
@@ -57,10 +60,11 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(update);
         }
 
-        [HttpGet("/getPaymentInforByUserId/{userId}")]
-        public async Task<IActionResult> getPaymentInforByUserId(int userId)
+        [HttpGet("/getPaymentInforByUserId")]
+        public async Task<IActionResult> getPaymentInforByUserId()
         {
-            var check = await _repository.getPaymentInforByUserId(userId);
+            var userId = _authMiddleWare.GetUserIdFromToken(HttpContext);
+            var check = await _repository.getPaymentInforByUserId(userId.Value);
             if (check == null)
             {
                 return NotFound("Not Found");

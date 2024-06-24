@@ -609,6 +609,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -650,6 +653,9 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsVerify")
                         .HasColumnType("bit");
 
@@ -673,8 +679,8 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffPhoneNumber")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -818,6 +824,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -826,12 +835,11 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -840,8 +848,7 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
