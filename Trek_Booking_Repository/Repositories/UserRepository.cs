@@ -117,6 +117,7 @@ namespace Trek_Booking_Repository.Repositories
                 findUser.Email = user.Email;
                 findUser.Phone = user.Phone;
                 findUser.Address = user.Address;
+                findUser.Avatar = user.Avatar;
                 findUser.Password = user.Password;
                 findUser.Status = user.Status;
                 findUser.IsVerify = user.IsVerify;

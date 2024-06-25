@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -10,10 +11,12 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class TourOrderAPIController : ControllerBase
     {
         private readonly ITourOrderRepository _repository;
+        private readonly AuthMiddleWare _authMiddleWare;
 
-        public TourOrderAPIController(ITourOrderRepository repository)
+        public TourOrderAPIController(ITourOrderRepository repository, AuthMiddleWare authMiddleWare)
         {
             _repository = repository;
+            _authMiddleWare = authMiddleWare;   
         }
 
         [HttpGet("/getTourOrders")]
@@ -38,16 +41,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
 
-        [HttpGet("/getTourOrderByUserId/{userId}")]
-        public async Task<IActionResult> getTourOrderByUserId(int userId)
+        [HttpGet("/getTourOrderByUserId")]
+        public async Task<IActionResult> getTourOrderByUserId()
         {
-            var check = await _repository.getTourOrderByUserId(userId);
+            var userId = _authMiddleWare.GetUserIdFromToken(HttpContext);
+            var check = await _repository.getTourOrderByUserId(userId.Value);
             if (check == null)
             {
                 return NotFound("Not Found");
             }
             return Ok(check);
         }
+
 
         [HttpGet("/getTourOrderByTourId/{tourId}")]
         public async Task<IActionResult> getTourOrderByTourId(int tourId)

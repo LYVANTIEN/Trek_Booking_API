@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -10,10 +11,12 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class VoucherUsageHistoryAPIController : ControllerBase
     {
         private readonly IVoucherUsageHistoryRepository _repository;
+        private readonly AuthMiddleWare _authMiddle;
 
-        public VoucherUsageHistoryAPIController(IVoucherUsageHistoryRepository repository)
+        public VoucherUsageHistoryAPIController(IVoucherUsageHistoryRepository repository, AuthMiddleWare authMiddle)
         {
             _repository = repository;
+            _authMiddle = authMiddle;
         }
         [HttpGet("/getVoucherUsageHistories")]
         public async Task<IActionResult> getVoucherUsageHistories()
@@ -47,15 +50,23 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         }
 
 
-        [HttpGet("/getVoucherUsageHistoryByUserId/{userId}")]
-        public async Task<IActionResult> getVoucherUsageHistoryByUserId(int userId)
+        [HttpGet("/getVoucherUsageHistoryByUserId")]
+        public async Task<IActionResult> getVoucherUsageHistoryByUserId()
         {
-            var check = await _repository.getVoucherUsageHistoryByUserId(userId);
-            if (check == null)
+            var userId = _authMiddle.GetUserIdFromToken(HttpContext);
+            if (userId != null && userId != 0)
             {
-                return NotFound("Not Found");
+                var check = await _repository.getVoucherUsageHistoryByUserId(userId.Value);
+                if (check == null)
+                {
+                    return NotFound("Not Found");
+                }
+                return Ok(check);
             }
-            return Ok(check);
+            else
+            {
+                return BadRequest(403);
+            }
         }
     }
 }

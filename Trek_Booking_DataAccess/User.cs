@@ -15,8 +15,6 @@ namespace Trek_Booking_DataAccess
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
-        
-        [StringLength(20, ErrorMessage = "The UserName must be greater than 0 and less than or equal 20")]
         public string? UserName { get; set; }
 
         [Required(ErrorMessage = "Email is not null")]
@@ -24,14 +22,13 @@ namespace Trek_Booking_DataAccess
 
         public string? Email { get; set; }
 
-        [StringLength(12, ErrorMessage = "The Phone must be equal 12 number")]
+        [StringLength(11, ErrorMessage = "The Phone must be equal 11 number")]
         [DataType(DataType.PhoneNumber)]
         public string? Phone { get; set; }
 
         [StringLength(300, ErrorMessage = "The Address must be less than or equal 300")]
         public string? Address { get; set; }
-
-        [Required(ErrorMessage = "Password is not null")]
+        public string? Avatar { get; set; }
         public string? Password { get; set; }
         public bool Status { get; set; }
         public bool IsVerify { get; set; }
