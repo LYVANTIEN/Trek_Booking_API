@@ -16,7 +16,8 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<SupplierStaff> getSupplierStaffbyId(int staffId);
         public Task<IEnumerable<SupplierStaff>> getSupplierStaffBySupplierId(int supplierId);
         public Task<IEnumerable<SupplierStaff>> getSupplierStaffs();
-
+        public Task<SupplierStaff> checkBannedSupplierStaff(SupplierStaff supplierStaff);
+        public Task<SupplierStaff> getUserByEmail(string email);
         public Task<bool> checkExitsEmail(string email);
         Task<IActionResult> ToggleStatus(ToggleSupplierStaffRequest request);
     }

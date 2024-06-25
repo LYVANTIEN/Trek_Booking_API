@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Service;
+using Trek_Booking_Repository.Repositories;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -9,10 +11,20 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class SupplierStaffAPIController : ControllerBase
     {
         private readonly ISupplierStaffRepository _repository;
+        private readonly IJwtUtils _jwtUtils;
+        private readonly IRoleRepository _roleRepository;
+        private readonly IAuthenticationUserRepository _authenticationUserRepository;
+        private readonly ISupplierRepository _supplierRepository;
 
-        public SupplierStaffAPIController(ISupplierStaffRepository repository)
+
+        public SupplierStaffAPIController(ISupplierStaffRepository repository, IJwtUtils jwtUtils,
+            IRoleRepository roleRepository, IAuthenticationUserRepository authenticationUserRepository, ISupplierRepository supplierRepository)
         {
             _repository = repository;
+            _jwtUtils = jwtUtils;
+            _roleRepository = roleRepository;
+            _authenticationUserRepository = authenticationUserRepository;
+            _supplierRepository = supplierRepository;
         }
 
         [HttpPut("ToggleSupplierStaff")]
@@ -85,6 +97,44 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             await _repository.deleteSupplierStaff(staffId);
             return StatusCode(200, "Delele Successfully!");
+        }
+        [HttpPost("/loginSupplierStaff")]
+        public async Task<IActionResult> loginSupplierStaff([FromBody] SupplierStaff supplierStaff)
+        {
+            if (supplierStaff == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var result = await _authenticationUserRepository.checkPasswordSupplierStaff(supplierStaff);
+            if (result != null)
+            {
+                var checkBanned = await _repository.checkBannedSupplierStaff(result);
+                if (checkBanned.Status == false)
+                {
+                    return BadRequest("The account of supplier staff is banned!");
+                }
+                var supplier = await _supplierRepository.getSupplierbyId(result.SupplierId);
+                var role = await _roleRepository.getRoleById(result.RoleId);
+                var tokenStaff = _jwtUtils.GenerateTokenSupplierStaff(result);
+                var tokenSupplier = _jwtUtils.GenerateTokenSupplier(supplier);
+                return Ok(new SupplierStaffResponse()
+                {
+                    IsAuthSuccessful = true,
+                    ToKen = tokenStaff,
+                    TokenSupplier = tokenSupplier,
+                    StaffName = result.StaffName,
+                    RoleName = role?.RoleName
+                });
+            }
+            else
+            {
+                return Unauthorized(new SupplierStaffResponse
+                {
+                    IsAuthSuccessful = false,
+                    ErrorMessage = "Email or password is not correct!"
+                });
+            }
+            return StatusCode(200);
         }
     }
 }
