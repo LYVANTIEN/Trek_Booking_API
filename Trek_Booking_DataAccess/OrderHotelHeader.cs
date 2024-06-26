@@ -44,5 +44,7 @@ namespace Trek_Booking_DataAccess
         public string? Phone { get; set; }
 
         public string? Requirement { get; set; }
+
+        public ICollection<OrderHotelDetail>? orderHotelDetails { get; set; }
     }
 }
