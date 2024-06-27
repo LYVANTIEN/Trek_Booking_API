@@ -161,99 +161,46 @@ namespace Trek_Booking_Repository.Repositories
 
 
         ////search by schedule
-        //public async Task<IEnumerable<Hotel>> SearchHotelSchedule(DateTime checkInDate, DateTime checkOutDate, string city)
-        //{
-        //    // Lấy tất cả các phòng và các booking của chúng
-        //    var rooms = await _context.rooms
-        //        .Include(r => r.bookings)
-        //        .Where(r => r.RoomStatus == true)
-        //        .ToListAsync();
+        public async Task<IEnumerable<Hotel>> SearchHotelSchedule(DateTime checkInDate, DateTime checkOutDate, string city)
+        {
+            // Lấy tất cả các phòng và các booking của chúng
+            var rooms = await _context.rooms
+                .Include(r => r.bookings)
+                .Where(r => r.RoomStatus == true)
+                .ToListAsync();
 
-        //    // Tính toán số lượng phòng trống cho từng phòng
-        //    var roomAvailability = rooms.Select(r => new
-        //    {
-        //        r.HotelId,
-        //        r.RoomId,
-        //        AvailableRooms = r.RoomAvailable - r.bookings
-        //            .Where(b => b.IsConfirmed == true &&
-        //                        ((checkInDate >= b.CheckInDate && checkInDate < b.CheckOutDate) ||
-        //                         (checkOutDate > b.CheckInDate && checkOutDate <= b.CheckOutDate) ||
-        //                         (checkInDate <= b.CheckInDate && checkOutDate >= b.CheckOutDate)))
-        //            .Sum(b => b.RoomQuantity)
-        //    }).ToList();
+            // Tính toán số lượng phòng trống cho từng phòng
+            var roomAvailability = rooms.Select(r => new
+            {
+                r.HotelId,
+                r.RoomId,
+                AvailableRooms = r.RoomAvailable - r.bookings
+                    .Where(b => b.IsConfirmed == true &&
+                                ((checkInDate >= b.CheckInDate && checkInDate < b.CheckOutDate) ||
+                                 (checkOutDate > b.CheckInDate && checkOutDate <= b.CheckOutDate) ||
+                                 (checkInDate <= b.CheckInDate && checkOutDate >= b.CheckOutDate)))
+                    .Sum(b => b.RoomQuantity)
+            }).ToList();
 
-        //    // Tính toán số lượng phòng trống cho từng khách sạn
-        //    var hotelRoomAvailability = roomAvailability
-        //        .GroupBy(rb => rb.HotelId)
-        //        .Select(g => new
-        //        {
-        //            HotelId = g.Key,
-        //            AvailableRooms = g.Sum(rb => rb.AvailableRooms)
-        //        })
-        //        .Where(h => h.AvailableRooms > 0)
-        //        .ToList();
+            // Tính toán số lượng phòng trống cho từng khách sạn
+            var hotelRoomAvailability = roomAvailability
+                .GroupBy(rb => rb.HotelId)
+                .Select(g => new
+                {
+                    HotelId = g.Key,
+                    AvailableRooms = g.Sum(rb => rb.AvailableRooms)
+                })
+                .Where(h => h.AvailableRooms > 0)
+                .ToList();
 
-        //    // Lấy danh sách các khách sạn có phòng trống và lọc theo thành phố
-        //    var hotelIds = hotelRoomAvailability.Select(h => h.HotelId).ToList();
-        //    var hotels = await _context.hotels
-        //        .Where(h => hotelIds.Contains(h.HotelId) && EF.Functions.Like(h.HotelCity, $"%{city}%"))
-        //        .ToListAsync();
+            // Lấy danh sách các khách sạn có phòng trống và lọc theo thành phố
+            var hotelIds = hotelRoomAvailability.Select(h => h.HotelId).ToList();
+            var hotels = await _context.hotels
+                .Where(h => hotelIds.Contains(h.HotelId) && EF.Functions.Like(h.HotelCity, $"%{city}%"))
+                .ToListAsync();
 
-        //    return hotels;
-        //}
-
-
-        //public async Task<IEnumerable<Hotel>> SearchHotelSchedule(DateTime checkInDate, DateTime checkOutDate, string city)
-        //{
-        //    // Retrieve all orders (headers) within the specified date range
-        //    var orders = await _context.OrderHotelHeaders
-        //        .Where(o => o.CheckInDate <= checkOutDate && o.CheckOutDate >= checkInDate)
-        //        .Include(o => o.orderHotelDetails) // Corrected navigation property name
-        //        .ToListAsync();
-
-        //    // Flatten all booked rooms into a single list for easier processing
-        //    var bookedRooms = orders
-        //        .SelectMany(order => order.orderHotelDetails) // Corrected lambda parameter name
-        //        .Where(d => d.RoomId != null && d.HotelId != null && d.RoomQuantity.HasValue)
-        //        .Where(d => (checkInDate >= order.CheckInDate && checkInDate < order.CheckOutDate) || // Corrected variable reference
-        //                    (checkOutDate > order.CheckInDate && checkOutDate <= order.CheckOutDate) ||
-        //                    (checkInDate <= order.CheckInDate && checkOutDate >= order.CheckOutDate))
-        //        .ToList();
-
-        //    // Group and sum booked room quantities by HotelId and RoomId
-        //    var roomAvailability = bookedRooms
-        //        .GroupBy(d => new { d.HotelId, d.RoomId })
-        //        .Select(g => new
-        //        {
-        //            HotelId = g.Key.HotelId,
-        //            RoomId = g.Key.RoomId,
-        //            BookedRooms = g.Sum(d => d.RoomQuantity ?? 0)
-        //        })
-        //        .ToList();
-
-        //    // Retrieve all hotels with available rooms in the specified city
-        //    var hotelIdsWithBookedRooms = roomAvailability.Select(r => r.HotelId).Distinct().ToList();
-        //    var hotels = await _context.hotels
-        //        .Where(h => hotelIdsWithBookedRooms.Contains(h.HotelId) && EF.Functions.Like(h.HotelCity, $"%{city}%"))
-        //        .ToListAsync();
-
-        //    // Calculate available rooms for each hotel
-        //    foreach (var hotel in hotels)
-        //    {
-        //        var hotelRoomAvailability = roomAvailability
-        //            .Where(r => r.HotelId == hotel.HotelId)
-        //            .ToList();
-
-        //        var totalBookedRooms = hotelRoomAvailability.Sum(r => r.BookedRooms);
-        //        hotel.AvailableRooms = hotel.TotalRooms - totalBookedRooms; // Assuming TotalRooms is a property of Hotel
-        //    }
-
-        //    // Filter hotels with available rooms
-        //    hotels = hotels.Where(h => h.AvailableRooms > 0).ToList();
-
-        //    return hotels;
-        //}
-
+            return hotels;
+        }
 
 
 

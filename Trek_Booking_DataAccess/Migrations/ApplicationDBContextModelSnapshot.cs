@@ -51,16 +51,11 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Property<int?>("RoomQuantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("orderHotelHeaderId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("HotelId");
 
                     b.HasIndex("RoomId");
-
-                    b.HasIndex("orderHotelHeaderId");
 
                     b.ToTable("OrderHotelDetail");
                 });
@@ -940,15 +935,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Trek_Booking_DataAccess.OrderHotelHeader", "orderHotelHeader")
-                        .WithMany("orderHotelDetails")
-                        .HasForeignKey("orderHotelHeaderId");
-
                     b.Navigation("Hotel");
 
                     b.Navigation("Room");
-
-                    b.Navigation("orderHotelHeader");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Booking", b =>
@@ -1333,11 +1322,6 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Navigation("rooms");
 
                     b.Navigation("vouchers");
-                });
-
-            modelBuilder.Entity("Trek_Booking_DataAccess.OrderHotelHeader", b =>
-                {
-                    b.Navigation("orderHotelDetails");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Role", b =>

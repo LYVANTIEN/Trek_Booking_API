@@ -8,9 +8,7 @@ public class OrderHotelDetail
     [Key]
     public int Id { get; set; }
 
-    [ForeignKey("OrderHotelHeader")]
     public int? OrderHotelHeaderlId { get; set; }
-    public OrderHotelHeader? orderHotelHeader { get; set; }
 
     [ForeignKey("Hotel")]
     public int? HotelId { get; set; }
