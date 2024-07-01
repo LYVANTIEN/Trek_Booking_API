@@ -4,5 +4,6 @@
     <ActiveDebugProfile>https</ActiveDebugProfile>
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
+    <NameOfLastUsedPublishProfile>D:\FPT_Edu\Deploy\Trek_Booking_API\.github\workflows\TrekbookingAPI.yml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

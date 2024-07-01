@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Trek_Booking_Repository")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1904d4668de92b86c2bead61086a12fc9de377f6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Trek_Booking_Repository")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Trek_Booking_Repository")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

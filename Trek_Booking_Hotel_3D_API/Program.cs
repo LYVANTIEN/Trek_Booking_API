@@ -125,11 +125,10 @@ builder.Services.AddScoped<AuthMiddleWare>();
 var app = builder.Build();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["ApiKey"];
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 app.UseRouting();
