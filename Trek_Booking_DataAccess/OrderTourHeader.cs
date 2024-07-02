@@ -39,6 +39,10 @@ namespace Trek_Booking_DataAccess
 
         public string? Phone { get; set; }
 
-     
+        public string? Process { get; set; }
+
+        public bool Completed { get; set; }
+
+
     }
 }

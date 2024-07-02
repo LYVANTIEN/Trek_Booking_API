@@ -64,5 +64,7 @@ namespace Trek_Booking_DataAccess
 
         public ICollection<OrderHotelDetail>? OrderHotelDetails { get; set; }
 
+        public ICollection<HotelImage>? hotelImages { get; set; }
+
     }
 }

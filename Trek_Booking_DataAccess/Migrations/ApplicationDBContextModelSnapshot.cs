@@ -271,6 +271,28 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.ToTable("Hotel");
                 });
 
+            modelBuilder.Entity("Trek_Booking_DataAccess.HotelImage", b =>
+                {
+                    b.Property<int>("HotelImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HotelImageId"));
+
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HotelImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HotelImageId");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("HotelImage");
+                });
+
             modelBuilder.Entity("Trek_Booking_DataAccess.OrderHotelHeader", b =>
                 {
                     b.Property<int>("Id")
@@ -285,6 +307,9 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Property<DateTime?>("CheckOutDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("Completed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -295,6 +320,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Process")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Requirement")
@@ -354,6 +382,9 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Completed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -364,6 +395,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Process")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SessionId")
@@ -610,6 +644,15 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BankAccount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BankNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -1051,6 +1094,17 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Navigation("Supplier");
                 });
 
+            modelBuilder.Entity("Trek_Booking_DataAccess.HotelImage", b =>
+                {
+                    b.HasOne("Trek_Booking_DataAccess.Hotel", "Hotel")
+                        .WithMany("hotelImages")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+                });
+
             modelBuilder.Entity("Trek_Booking_DataAccess.OrderHotelHeader", b =>
                 {
                     b.HasOne("Trek_Booking_DataAccess.User", "User")
@@ -1316,6 +1370,8 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.Navigation("bookings");
 
                     b.Navigation("comments");
+
+                    b.Navigation("hotelImages");
 
                     b.Navigation("rates");
 
