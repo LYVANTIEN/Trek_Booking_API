@@ -22,6 +22,16 @@ namespace Trek_Booking_Repository.Repositories
             _passwordHasher = passwordHasher;
         }
 
+        public async Task<SupplierStaff> checkBannedSupplierStaff(SupplierStaff supplierStaff)
+        {
+            var userStatus = await _context.supplierStaff.FirstOrDefaultAsync(u => u.Status == supplierStaff.Status);
+            return userStatus;
+        }
+        public async Task<SupplierStaff> getUserByEmail(string email)
+        {
+            var existingUser = await _context.supplierStaff.FirstOrDefaultAsync(u => u.StaffEmail == email);
+            return existingUser;
+        }
         public async Task<bool> checkExitsEmail(string email)
         {
             var check = await _context.supplierStaff.AnyAsync(n => n.StaffEmail == email);
@@ -63,17 +73,17 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<SupplierStaff> getSupplierStaffbyId(int staffId)
         {
-            var getSupplierStaff = await _context.supplierStaff.FirstOrDefaultAsync(t => t.StaffId == staffId);
+            var getSupplierStaff = await _context.supplierStaff.Include(s => s.Supplier).FirstOrDefaultAsync(t => t.StaffId == staffId);
             return getSupplierStaff;
         }
         public async Task<IEnumerable<SupplierStaff>> getSupplierStaffBySupplierId(int supplierId)
         {
-            var getSupplierStaffBySupplierId = await _context.supplierStaff.Where(t => t.SupplierId == supplierId).ToListAsync();
+            var getSupplierStaffBySupplierId = await _context.supplierStaff.Include(s => s.Supplier).Where(t => t.SupplierId == supplierId).ToListAsync();
             return getSupplierStaffBySupplierId;
         }
         public async Task<IEnumerable<SupplierStaff>> getSupplierStaffs()
         {
-            var supplierStaff = await _context.supplierStaff.ToListAsync();
+            var supplierStaff = await _context.supplierStaff.Include(s => s.Supplier).ToListAsync();
             return supplierStaff;
         }
 
@@ -88,7 +98,7 @@ namespace Trek_Booking_Repository.Repositories
                 findSupplierStaff.StaffPassword = supplierStaff.StaffPassword;
                 findSupplierStaff.StaffAddress = supplierStaff.StaffAddress;
 
-               
+
                 _context.supplierStaff.Update(findSupplierStaff);
                 await _context.SaveChangesAsync();
                 return findSupplierStaff;

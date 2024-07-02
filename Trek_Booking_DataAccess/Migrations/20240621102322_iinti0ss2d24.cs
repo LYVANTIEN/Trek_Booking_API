@@ -5,7 +5,7 @@
 namespace Trek_Booking_DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class newMigration : Migration
+    public partial class iinti0ss2d24 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

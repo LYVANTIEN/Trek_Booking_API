@@ -12,8 +12,8 @@ using Trek_Booking_DataAccess.Data;
 namespace Trek_Booking_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240601030032_aaaa")]
-    partial class aaaa
+    [Migration("20240621084235_init-pay")]
+    partial class initpay
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,38 @@ namespace Trek_Booking_DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("OrderHotelDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderHotelHeaderlId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("OrderHotelDetail");
+                });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Booking", b =>
                 {
@@ -196,38 +228,30 @@ namespace Trek_Booking_DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HotelId"));
 
                     b.Property<string>("HotelAvatar")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HotelCity")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("HotelDistrict")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HotelEmail")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("HotelFulDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HotelInformation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HotelName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("HotelPhone")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -242,6 +266,54 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.HasIndex("SupplierId");
 
                     b.ToTable("Hotel");
+                });
+
+            modelBuilder.Entity("Trek_Booking_DataAccess.OrderHotelHeader", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CheckInDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CheckOutDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Requirement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OrderHotelHeader");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.PaymentInformation", b =>
@@ -350,7 +422,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("RoomDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoomName")
@@ -358,7 +429,6 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoomNote")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RoomPrice")
@@ -534,8 +604,8 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffPhoneNumber")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -777,6 +847,25 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.ToTable("VoucherUsageHistory");
                 });
 
+            modelBuilder.Entity("OrderHotelDetail", b =>
+                {
+                    b.HasOne("Trek_Booking_DataAccess.Hotel", "Hotel")
+                        .WithMany("OrderHotelDetails")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Trek_Booking_DataAccess.Room", "Room")
+                        .WithMany("OrderHotelDetails")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+
+                    b.Navigation("Room");
+                });
+
             modelBuilder.Entity("Trek_Booking_DataAccess.Booking", b =>
                 {
                     b.HasOne("Trek_Booking_DataAccess.Hotel", "Hotel")
@@ -886,6 +975,17 @@ namespace Trek_Booking_DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("Trek_Booking_DataAccess.OrderHotelHeader", b =>
+                {
+                    b.HasOne("Trek_Booking_DataAccess.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Trek_Booking_DataAccess.PaymentInformation", b =>
@@ -1117,6 +1217,8 @@ namespace Trek_Booking_DataAccess.Migrations
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Hotel", b =>
                 {
+                    b.Navigation("OrderHotelDetails");
+
                     b.Navigation("bookingCarts");
 
                     b.Navigation("bookings");
@@ -1141,6 +1243,8 @@ namespace Trek_Booking_DataAccess.Migrations
 
             modelBuilder.Entity("Trek_Booking_DataAccess.Room", b =>
                 {
+                    b.Navigation("OrderHotelDetails");
+
                     b.Navigation("bookingCarts");
 
                     b.Navigation("bookings");

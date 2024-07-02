@@ -11,5 +11,6 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
     {
         public Task<User> checkPasswordClient(User user);
         public Task<Supplier> checkPasswordSupplier(Supplier supplier);
+        public Task<SupplierStaff> checkPasswordSupplierStaff(SupplierStaff supplierStaff);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Trek_Booking_DataAccess;
+﻿using System.Threading.Tasks;
+using Trek_Booking_DataAccess;
 
 namespace Trek_Booking_Repository.Repositories.IRepositories
 {
@@ -15,5 +16,8 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<bool> checkExitsEmail(string email);
         public Task<IEnumerable<Hotel>> searchHotelByName(string key);
 
+        public Task<Hotel> updateHotelAvatar(Hotel hotel);
+        Task<IEnumerable<Hotel>> SearchHotelByCity(string city);
+        public Task<IEnumerable<Hotel>> SearchHotelSchedule(DateTime checkInDate, DateTime checkOutDate, string city);
     }
 }

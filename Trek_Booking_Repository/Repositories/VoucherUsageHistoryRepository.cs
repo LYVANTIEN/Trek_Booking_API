@@ -35,6 +35,12 @@ namespace Trek_Booking_Repository.Repositories
         {
             var voucherUsageHistories = await _context.voucherUsageHistories.ToListAsync();
             return voucherUsageHistories;
-        }        
+        }
+
+        public async Task<IEnumerable<VoucherUsageHistory>> getVoucherUsageHistoryByUserId(int userId)
+        {
+            var check = await _context.voucherUsageHistories.Include(b => b.Booking).ThenInclude(h => h.Hotel).Include(v => v.Voucher).Where(t => t.UserId == userId).ToListAsync();
+            return check;
+        }
     }
 }

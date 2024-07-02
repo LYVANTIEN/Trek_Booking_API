@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Hotel_3D_API.Service;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
@@ -12,13 +13,18 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         private readonly ISupplierRepository _repository;
         private readonly IAuthenticationUserRepository _authenticationUserRepository;
         private readonly IJwtUtils _jwtUtils;
+        private readonly IRoleRepository _roleRepository;
+        private readonly AuthMiddleWare _authMiddleWare;
 
         public SupplierAPIController(ISupplierRepository repository, IAuthenticationUserRepository authenticationUserRepository,
-            IJwtUtils jwtUtils)
+            IJwtUtils jwtUtils, IRoleRepository roleRepository, AuthMiddleWare authMiddleWare)
         {
             _repository = repository;
             _authenticationUserRepository = authenticationUserRepository;
             _jwtUtils = jwtUtils;
+            _roleRepository = roleRepository;
+            _authMiddleWare = authMiddleWare;
+
         }
         [HttpGet("/getSuppliers")]
         public async Task<IActionResult> getSuppliers()
@@ -30,15 +36,23 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(c);
         }
-        [HttpGet("/getSupplierbyId/{supplierId}")]
-        public async Task<IActionResult> getSupplierbyId(int supplierId)
+        [HttpGet("/getSupplierbyId")]
+        public async Task<IActionResult> getSupplierbyId()
         {
-            var check = await _repository.getSupplierbyId(supplierId);
-            if (check == null)
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            if (supplierId != null && supplierId != 0)
             {
-                return NotFound("Not Found");
+                var check = await _repository.getSupplierbyId(supplierId.Value);
+                if (check == null)
+                {
+                    return NotFound("Not Found");
+                }
+                return Ok(check);
             }
-            return Ok(check);
+            else
+            {
+                return BadRequest(403);
+            }
         }
         [HttpPost("/createSupplier")]
         public async Task<IActionResult> createSupplier([FromBody] Supplier supplier)
@@ -57,13 +71,14 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPut("/updateSupplier")]
         public async Task<IActionResult> updateSupplier([FromBody] Supplier supplier)
         {
-            var check = await _repository.getSupplierbyId(supplier.SupplierId);
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.getSupplierbyId(supplierId.Value);
             if (check == null)
             {
                 return BadRequest("Not found Supplier");
             }
-            var update = await _repository.updateSupplier(supplier);
-            return Ok(update);
+            await _repository.updateSupplier(supplier);
+            return StatusCode(200, "Update Successfully!");
         }
         [HttpDelete("/deleteSupplier/{supplierId}")]
         public async Task<IActionResult> deleteSupplier(int supplierId)
@@ -92,6 +107,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
                 {
                     return BadRequest("The account of supplier is banned!");
                 }
+                var role = await _roleRepository.getRoleById(result.RoleId);
                 var token = _jwtUtils.GenerateTokenSupplier(result);
                 return Ok(new SupplierResponse()
                 {
@@ -105,7 +121,9 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
                         Phone = result.Phone,
                         RoleId = result.RoleId,
                     },
-                    RoleId = result.RoleId
+                    SupplierName = result.SupplierName,
+                    RoleId = result.RoleId,
+                    RoleName = role?.RoleName
                 });
             }
             else

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trek_Booking_DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class aaaa : Migration
+    public partial class initpay : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,14 +98,14 @@ namespace Trek_Booking_DataAccess.Migrations
                 {
                     HotelId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HotelName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    HotelPhone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    HotelEmail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    HotelAvatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HotelFulDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HotelDistrict = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HotelCity = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    HotelInformation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HotelName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    HotelPhone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    HotelEmail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    HotelAvatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HotelFulDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HotelDistrict = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HotelCity = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    HotelInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsVerify = table.Column<bool>(type: "bit", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -127,7 +127,7 @@ namespace Trek_Booking_DataAccess.Migrations
                     StaffId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StaffName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StaffPhoneNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
+                    StaffPhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     StaffEmail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     StaffPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StaffAddress = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
@@ -182,6 +182,34 @@ namespace Trek_Booking_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderHotelHeader",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    SessionId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PaymentIntentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Requirement = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderHotelHeader", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderHotelHeader_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PaymentInformation",
                 columns: table => new
                 {
@@ -212,8 +240,8 @@ namespace Trek_Booking_DataAccess.Migrations
                     RoomId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoomDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoomNote = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RoomDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoomNote = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoomStatus = table.Column<bool>(type: "bit", nullable: false),
                     RoomAvailable = table.Column<int>(type: "int", nullable: false),
                     RoomPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -421,6 +449,35 @@ namespace Trek_Booking_DataAccess.Migrations
                         principalTable: "User",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderHotelDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderHotelHeaderlId = table.Column<int>(type: "int", nullable: false),
+                    HotelId = table.Column<int>(type: "int", nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    RoomQuantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderHotelDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderHotelDetail_Hotel_HotelId",
+                        column: x => x.HotelId,
+                        principalTable: "Hotel",
+                        principalColumn: "HotelId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderHotelDetail_Room_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Room",
+                        principalColumn: "RoomId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -650,6 +707,21 @@ namespace Trek_Booking_DataAccess.Migrations
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderHotelDetail_HotelId",
+                table: "OrderHotelDetail",
+                column: "HotelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderHotelDetail_RoomId",
+                table: "OrderHotelDetail",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderHotelHeader_UserId",
+                table: "OrderHotelHeader",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PaymentInformation_UserId",
                 table: "PaymentInformation",
                 column: "UserId");
@@ -766,6 +838,12 @@ namespace Trek_Booking_DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comment");
+
+            migrationBuilder.DropTable(
+                name: "OrderHotelDetail");
+
+            migrationBuilder.DropTable(
+                name: "OrderHotelHeader");
 
             migrationBuilder.DropTable(
                 name: "PaymentInformation");

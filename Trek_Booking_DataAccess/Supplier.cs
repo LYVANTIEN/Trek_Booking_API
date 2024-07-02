@@ -33,6 +33,7 @@ namespace Trek_Booking_DataAccess
 
         [Required(ErrorMessage = "Password is not null")]
         public string? Password { get; set; }
+        public string? Avatar { get; set; }
 
         public bool Status { get; set; }
         public bool IsVerify { get; set; }

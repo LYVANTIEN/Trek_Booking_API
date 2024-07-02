@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Hotel_3D_API.Service;
 using Trek_Booking_Repository.Repositories;
 using Trek_Booking_Repository.Repositories.IRepositories;
@@ -14,14 +15,17 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         private readonly IUserRepository _repository;
         private readonly IAuthenticationUserRepository _authenticationUserRepository;
         private readonly IJwtUtils _jwtUtils;
-
+        private readonly IRoleRepository _roleRepository;
+        private readonly AuthMiddleWare _authMiddleWare;
 
         public UserAPIController(IUserRepository repository, IAuthenticationUserRepository authenticationUserRepository,
-            IJwtUtils jwtUtils)
+            IJwtUtils jwtUtils, IRoleRepository roleRepository, AuthMiddleWare authMiddleWare)
         {
             _repository = repository;
             _authenticationUserRepository = authenticationUserRepository;
             _jwtUtils = jwtUtils;
+            _roleRepository = roleRepository;
+            _authMiddleWare = authMiddleWare;
         }
         [HttpGet("/getUsers")]
         public async Task<IActionResult> getUsers()
@@ -33,10 +37,11 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             return Ok(c);
         }
-        [HttpGet("/getUserById/{userId}")]
-        public async Task<IActionResult> getUserById(int userId)
+        [HttpGet("/getUserById")]
+        public async Task<IActionResult> getUserById()
         {
-            var check = await _repository.getUserById(userId);
+            var userId = _authMiddleWare.GetUserIdFromToken(HttpContext);
+            var check = await _repository.getUserById(userId.Value);
             if (check == null)
             {
                 return NotFound("Not Found");
@@ -107,20 +112,15 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
                 {
                     return BadRequest("The account of user is banned!");
                 }
+                var role = await _roleRepository.getRoleById(result.RoleId);
                 var token = _jwtUtils.GenerateTokenClient(result);
                 return Ok(new UserResponse()
                 {
                     IsAuthSuccessful = true,
                     ToKen = token,
-                    User = new User()
-                    {
-                        UserName = result.UserName,
-                        UserId = result.UserId,
-                        Email = result.Email,
-                        Phone = result.Phone,
-                        RoleId = result.RoleId,
-                    },
-                    RoleId = result.RoleId
+                    UserName = result.UserName,
+                    RoleId = result.RoleId,
+                    RoleName = role?.RoleName
                 });
             }
             else
@@ -142,6 +142,19 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             await _repository.createUser(user);
             return StatusCode(200);
+        }
+
+        [HttpPut("/updateUser")]
+        public async Task<IActionResult> updateUser([FromBody] User user)
+        {
+            var userId = _authMiddleWare.GetUserIdFromToken(HttpContext);
+            var check = await _repository.getUserById(userId.Value);
+            if (check == null)
+            {
+                return NotFound("Not found User");
+            }
+            await _repository.updateUser(user);
+            return StatusCode(200, "Update Successfully!");
         }
     }
 }
