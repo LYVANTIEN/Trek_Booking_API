@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -7,10 +8,11 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class HotelImageAPIController : Controller
     {
         private readonly IHotelImageRepository _repository;
-
-        public HotelImageAPIController(IHotelImageRepository repository)
+        private readonly AuthMiddleWare _authMiddleWare;
+        public HotelImageAPIController(IHotelImageRepository repository, AuthMiddleWare authMiddleWare)
         {
             _repository = repository;
+            _authMiddleWare = authMiddleWare;
         }
         [HttpGet("/getHotelImages")]
         public async Task<IActionResult> getHotelImages()
