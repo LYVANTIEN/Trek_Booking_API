@@ -22,7 +22,7 @@ namespace Trek_Booking_DataAccess
 
         public string? Email { get; set; }
 
-        [StringLength(11, ErrorMessage = "The Phone must be equal 11 number")]
+        [StringLength(15, ErrorMessage = "The Phone must be equal 15 number")]
         [DataType(DataType.PhoneNumber)]
         public string? Phone { get; set; }
 
@@ -51,5 +51,6 @@ namespace Trek_Booking_DataAccess
         public ICollection<Booking>? bookings { get; set; }
         [JsonIgnore]
         public ICollection<VoucherUsageHistory>? voucherUsageHistories { get; set; }
+
     }
 }

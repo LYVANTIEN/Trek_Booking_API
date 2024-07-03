@@ -53,7 +53,6 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(check);
         }
 
-
         [HttpGet("/getTourOrderByTourId/{tourId}")]
         public async Task<IActionResult> getTourOrderByTourId(int tourId)
         {

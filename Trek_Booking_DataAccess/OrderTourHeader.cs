@@ -15,7 +15,7 @@ namespace Trek_Booking_DataAccess
         public int Id { get; set; }
 
         [ForeignKey("User")]
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
 
         public User? User { get; set; }
 
@@ -39,6 +39,8 @@ namespace Trek_Booking_DataAccess
 
         public string? Phone { get; set; }
 
-     
+        public string? Process { get; set; }
+
+        public bool Completed { get; set; }
     }
 }

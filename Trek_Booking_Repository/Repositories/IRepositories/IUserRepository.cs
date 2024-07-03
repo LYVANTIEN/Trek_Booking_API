@@ -14,6 +14,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<User> createUser(User registerRequest);
         public Task<User> updateUser(User user);
         public Task<int> deleteUser(int userId);
+        public Task<int> deleteUserImage(int userId);
         public Task<int> recoverUserDeleted(int userId);
         public Task<IEnumerable<User>> getUserByRoleId(int roleId);
         public Task<bool> checkExitsEmail(string email);

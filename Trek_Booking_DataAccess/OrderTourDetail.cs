@@ -13,8 +13,7 @@ namespace Trek_Booking_DataAccess
     {
         [Key]
         public int Id { get; set; }
-        public int? OrderTourHeaderlId { get; set; }
-
+        public int? OrderTourHeaderlId { get; set; } 
 
         [ForeignKey("Tour")]
         public int TourId { get; set; }

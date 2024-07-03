@@ -7,8 +7,7 @@ public class OrderHotelDetail
 {
     [Key]
     public int Id { get; set; }
-
-    public int? OrderHotelHeaderlId { get; set; }
+    public int? OrderHotelHeaderlId { get; set; }  
 
     [ForeignKey("Hotel")]
     public int? HotelId { get; set; }
@@ -20,7 +19,6 @@ public class OrderHotelDetail
     public string? RoomName { get; set; }
 
     public string? HotelName { get; set; }
-
     
     public double? Price { get; set; }
     public int? RoomQuantity { get; set; }

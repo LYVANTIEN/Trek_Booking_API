@@ -8,6 +8,7 @@ using Trek_Booking_DataAccess;
 using Trek_Booking_Repository.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Trek_Booking_Repository.Repositories
 {
@@ -149,6 +150,17 @@ namespace Trek_Booking_Repository.Repositories
 
             }
             return new NoContentResult();
+        }
+
+        public async Task<int> deleteUserImage(int userId)
+        {
+            var check = await _context.users.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (check != null)
+            {
+                check.Avatar = null;
+                await _context.SaveChangesAsync();
+            }
+            return 0;
         }
     }
 }
