@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Trek_Booking_DataAccess;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace Trek_Booking_Hotel_3D_API.Controllers
@@ -10,10 +11,12 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
     public class HotelAPIController : ControllerBase
     {
         private readonly IHotelRepository _repository;
-        public HotelAPIController(IHotelRepository repository)
+        private readonly AuthMiddleWare _authMiddleWare;
+        public HotelAPIController(IHotelRepository repository, AuthMiddleWare authMiddleWare)
         {
             _repository = repository;
-        }
+            _authMiddleWare = authMiddleWare;
+        }    
         [HttpGet("/getHotels")]
         public async Task<IActionResult> getHotels()
         {
@@ -25,15 +28,16 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             return Ok(c);
         }
 
-        [HttpGet("/getHotelsBySupplierId/{supplierId}")]
-        public async Task<IActionResult> getHotelsBySupplierId(int supplierId)
+        [HttpGet("/getHotelsBySupplierId")]
+        public async Task<IActionResult> getHotelsBySupplierId()
         {
-            var c = await _repository.getHotelsBySupplierId(supplierId);
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var c = await _repository.getHotelsBySupplierId(supplierId.Value);
             if (c == null)
             {
                 return NotFound("Not Found");
             }
-            return Ok(c);
+            return StatusCode(200, c);
         }
 
         [HttpGet("/searchHotelByName/{key}")]
