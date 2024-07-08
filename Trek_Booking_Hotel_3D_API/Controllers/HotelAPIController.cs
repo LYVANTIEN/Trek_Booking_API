@@ -16,7 +16,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         {
             _repository = repository;
             _authMiddleWare = authMiddleWare;
-        }    
+        }
         [HttpGet("/getHotels")]
         public async Task<IActionResult> getHotels()
         {
@@ -32,12 +32,21 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         public async Task<IActionResult> getHotelsBySupplierId()
         {
             var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
-            var c = await _repository.getHotelsBySupplierId(supplierId.Value);
-            if (c == null)
+            if (supplierId != null && supplierId != 0)
             {
-                return NotFound("Not Found");
+                var c = await _repository.getHotelsBySupplierId(supplierId.Value);
+
+                if (c == null)
+                {
+                    return NotFound("Not Found");
+                }
+                return Ok(c);
             }
-            return StatusCode(200, c);
+            else
+            {
+                return BadRequest(403);
+            }
+                
         }
 
         [HttpGet("/searchHotelByName/{key}")]

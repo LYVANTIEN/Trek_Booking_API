@@ -10,5 +10,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
     public interface IOrderRepository
     {
         Task<OrderDTO> Create(OrderDTO objDTO);
+        Task<OrderTourDTO> CreateTour(OrderTourDTO objDTO);
+
     }
 }

@@ -21,6 +21,6 @@ namespace Trek_Booking_DataAccess
 
         [Required(ErrorMessage = "ServiceImage is not null")]
         public string? ServiceImage { get; set; }
-        public ICollection<RoomService>? roomServices { get; set; }    
+        public ICollection<RoomService>? roomServices { get; set; }
     }
 }

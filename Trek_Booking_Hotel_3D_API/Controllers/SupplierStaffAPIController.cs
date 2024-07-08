@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using Trek_Booking_DataAccess;
 using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Hotel_3D_API.Service;
@@ -73,9 +72,8 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             {
                 return BadRequest(403);
             }
-
+                
         }
-
         [HttpPost("/createSupplierStaff")]
         public async Task<IActionResult> createSupplier([FromBody] SupplierStaff supplierStaff)
         {
@@ -93,14 +91,13 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         [HttpPut("/updateSupplierStaff")]
         public async Task<IActionResult> updateSupplierStaff([FromBody] SupplierStaff supplierStaff)
         {
-            var staffId = _authMiddleWare.GetSupplierStaffIdFromToken(HttpContext);
-            var check = await _repository.getSupplierStaffbyId(staffId.Value);
+            var check = await _repository.getSupplierStaffbyId(supplierStaff.StaffId);
             if (check == null)
             {
                 return BadRequest("Not found Supplier");
             }
-            await _repository.updateSupplierStaff(supplierStaff);
-            return StatusCode(200, "Update Successfully!");
+            var update = await _repository.updateSupplierStaff(supplierStaff);
+            return Ok(update);
         }
         [HttpDelete("/deleteSupplierStaff/{staffId}")]
         public async Task<IActionResult> deleteSupplierStaff(int staffId)

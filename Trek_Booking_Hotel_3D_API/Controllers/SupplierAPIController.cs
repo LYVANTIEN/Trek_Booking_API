@@ -24,7 +24,6 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             _jwtUtils = jwtUtils;
             _roleRepository = roleRepository;
             _authMiddleWare = authMiddleWare;
-
         }
         [HttpGet("/getSuppliers")]
         public async Task<IActionResult> getSuppliers()
@@ -53,6 +52,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             {
                 return BadRequest(403);
             }
+                
         }
         [HttpPost("/createSupplier")]
         public async Task<IActionResult> createSupplier([FromBody] Supplier supplier)
@@ -113,14 +113,6 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
                 {
                     IsAuthSuccessful = true,
                     ToKen = token,
-                    Supplier = new Supplier()
-                    {
-                        SupplierName = result.SupplierName,
-                        SupplierId = result.SupplierId,
-                        Email = result.Email,
-                        Phone = result.Phone,
-                        RoleId = result.RoleId,
-                    },
                     SupplierName = result.SupplierName,
                     RoleId = result.RoleId,
                     RoleName = role?.RoleName

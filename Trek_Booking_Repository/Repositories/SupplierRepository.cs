@@ -96,7 +96,8 @@ namespace Trek_Booking_Repository.Repositories
                 findSupplier.Email = supplier.Email;
                 findSupplier.Phone = supplier.Phone;
                 findSupplier.Address = supplier.Address;
-                findSupplier.Avatar = supplier.Avatar;                
+                findSupplier.Avatar = supplier.Avatar;
+              
                 _context.suppliers.Update(findSupplier);
                 await _context.SaveChangesAsync();
                 return findSupplier;
