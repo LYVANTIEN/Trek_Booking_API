@@ -52,7 +52,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             {
                 return BadRequest(403);
             }
-                
+
         }
         [HttpPost("/createSupplier")]
         public async Task<IActionResult> createSupplier([FromBody] Supplier supplier)
@@ -137,6 +137,39 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             await _repository.createSupplier(supplier);
             return StatusCode(200);
+        }
+        [HttpPut("/changePasswordSupplier")]
+        public async Task<IActionResult> changePasswordSupplier([FromBody] Supplier supplier)
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.getSupplierbyId(supplierId.Value);
+            if (check == null)
+            {
+                return BadRequest("Not found Supplier");
+            }            
+            await _repository.changePasswordSupplier(supplier);
+            return StatusCode(200, "Change Password Successfully!");
+        }
+        [HttpPost("/checkPasswordSupplier")]
+        public async Task<IActionResult> checkPasswordSupplier([FromBody] Supplier supplier)
+        {            
+            var checkPass = await _repository.checkPasswordSupplier(supplier);
+            if (checkPass == null)
+            {
+                return BadRequest("Password is incorrect");
+            }          
+            return Ok();
+        }
+        [HttpGet("/getEmailBySupplierId")]
+        public async Task<IActionResult> getEmailBySupplierId()
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var email = await _repository.getEmailBySupplierId(supplierId.Value);            
+            if (email == null)
+            {
+                return BadRequest("Not found Supplier");
+            }          
+            return Ok(email);
         }
     }
 }

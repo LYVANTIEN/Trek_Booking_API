@@ -49,6 +49,7 @@ var apiSettingsSection = builder.Configuration.GetSection("APISettings");
 builder.Services.Configure<APISettings>(apiSettingsSection);
 var apiSettings = apiSettingsSection.Get<APISettings>();
 var key = Encoding.ASCII.GetBytes(apiSettings.SecretKey);
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -83,7 +84,7 @@ builder.Services.AddAuthentication(opt =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins("http://localhost:3000")
+        builder => builder.WithOrigins("http://localhost:3000","https://trek-booking.vercel.app")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
@@ -100,7 +101,6 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IRoomServiceRepository, RoomServiceRepository>();
 builder.Services.AddScoped<IRoomImageRepository, RoomImageRepository>();
-builder.Services.AddScoped<IHotelImageRepository, HotelImageRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRateRepository, RateRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
@@ -118,6 +118,7 @@ builder.Services.AddScoped<ICartTourRepository, CartTourRepository>();
 builder.Services.AddScoped<ITourOrderRepository, TourOrderRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IHotelImageRepository, HotelImageRepository>();
 builder.Services.AddScoped<IAuthenticationUserRepository, AuthenticationUserRepository>();
 builder.Services.AddScoped<IOrderTourHeaderRepository, OrderTourHeaderRepository>();
 builder.Services.AddScoped<IOrderTourDetailRepository, OrderTourDetailRepository>();
@@ -127,14 +128,14 @@ builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<AuthMiddleWare>();
 
 
+
 var app = builder.Build();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe")["ApiKey"];
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 app.UseRouting();

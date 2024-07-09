@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,29 @@ namespace Trek_Booking_Repository.Repositories
             _context = context;
            
         }
+        public async Task<OrderTourHeader> GetOrderTourBySessionId(string sessionId)
+        {
+            return await _context.OrderTourHeaders
+                 .FirstOrDefaultAsync(o => o.SessionId == sessionId);
+        }
+
+        public async Task UpdateTour(OrderTourHeader orderTour)
+        {
+            _context.OrderTourHeaders.Update(orderTour);
+            await _context.SaveChangesAsync();
+        }
+        public async Task<OrderHotelHeader> GetOrderBySessionId(string sessionId)
+        {
+            return await _context.OrderHotelHeaders
+                .FirstOrDefaultAsync(o => o.SessionId == sessionId);
+        }
+
+        public async Task Update(OrderHotelHeader order)
+        {
+            _context.OrderHotelHeaders.Update(order);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<OrderDTO> Create(OrderDTO objDTO)
         {
             try
@@ -27,6 +51,7 @@ namespace Trek_Booking_Repository.Repositories
                 var orderHeader = new OrderHotelHeader
                 {
                     UserId = objDTO.OrderHeader.UserId,
+                    SupplierId = objDTO.OrderHeader.SupplierId,
                     TotalPrice = objDTO.OrderHeader.TotalPrice,
                     CheckInDate = objDTO.OrderHeader.CheckInDate,
                     CheckOutDate = objDTO.OrderHeader.CheckOutDate,
@@ -36,7 +61,9 @@ namespace Trek_Booking_Repository.Repositories
                     Email = objDTO.OrderHeader.Email,
                     Phone = objDTO.OrderHeader.Phone,
                     Requirement = objDTO.OrderHeader.Requirement,
-                 
+                    Process = objDTO.OrderHeader.Process,
+                    Completed = objDTO.OrderHeader.Completed
+                    
                 };
 
                 _context.OrderHotelHeaders.Add(orderHeader);
@@ -68,6 +95,7 @@ namespace Trek_Booking_Repository.Repositories
                     {
                         Id = orderHeader.Id,
                         UserId = orderHeader.UserId,
+                        SupplierId = objDTO.OrderHeader.SupplierId,
                         TotalPrice = orderHeader.TotalPrice,
                         CheckInDate = orderHeader.CheckInDate,
                         CheckOutDate = orderHeader.CheckOutDate,
@@ -77,7 +105,8 @@ namespace Trek_Booking_Repository.Repositories
                         Email = orderHeader.Email,
                         Phone = orderHeader.Phone,
                         Requirement = orderHeader.Requirement,
-                       
+                       Process = orderHeader.Process,
+                       Completed = orderHeader.Completed
                     },
                     OrderDetails = orderDetails.Select(d => new OrderHotelDetail
                     {
@@ -108,6 +137,7 @@ namespace Trek_Booking_Repository.Repositories
                 var orderHeader = new OrderTourHeader
                 {
                     UserId = objDTO.OrderHeader.UserId,
+                    SupplierId = objDTO.OrderHeader.SupplierId,
                     TotalPrice = objDTO.OrderHeader.TotalPrice,
                     TourOrderDate = objDTO.OrderHeader.TourOrderDate,
                     SessionId = objDTO.OrderHeader.SessionId,
@@ -146,6 +176,7 @@ namespace Trek_Booking_Repository.Repositories
                     {
                         Id = orderHeader.Id,
                         UserId = orderHeader.UserId,
+                        SupplierId = objDTO.OrderHeader.SupplierId,
                         TotalPrice = orderHeader.TotalPrice,
                         TourOrderDate = orderHeader.TourOrderDate,
                         SessionId = orderHeader.SessionId,
@@ -176,8 +207,6 @@ namespace Trek_Booking_Repository.Repositories
             }
         }
 
-
-
-
+     
     }
 }

@@ -14,7 +14,7 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         {
             _repository = repository;
         }
-
+        
         [HttpGet("/getOrderHotelDetailByOrderHotelHeaderId/{orderHotelHeaderId}")]
         public async Task<IActionResult> getOrderHotelDetailByOrderHotelHeaderId(int orderHotelHeaderId)
         {

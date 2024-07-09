@@ -17,7 +17,9 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<IEnumerable<Supplier>> getSuppliers();
         public Task<Supplier> checkBannedSupplier(Supplier supplier);
         public Task<Supplier> getUserByEmail(string email);
-
+        public Task<Supplier> changePasswordSupplier(Supplier supplier);
+        public Task<Supplier> checkPasswordSupplier(Supplier supplier);
+        public Task<string> getEmailBySupplierId(int supplierId);
         public Task<bool> checkExitsEmail(string email);
         Task<IActionResult> ToggleStatus(ToggleSupplierRequest request);
     }

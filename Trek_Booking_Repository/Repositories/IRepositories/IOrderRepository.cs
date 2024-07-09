@@ -12,5 +12,11 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         Task<OrderDTO> Create(OrderDTO objDTO);
         Task<OrderTourDTO> CreateTour(OrderTourDTO objDTO);
 
+        Task<OrderHotelHeader> GetOrderBySessionId(string sessionId);
+        Task Update(OrderHotelHeader order);
+
+        Task<OrderTourHeader> GetOrderTourBySessionId(string sessionId);
+        Task UpdateTour(OrderTourHeader orderTour);
+
     }
 }

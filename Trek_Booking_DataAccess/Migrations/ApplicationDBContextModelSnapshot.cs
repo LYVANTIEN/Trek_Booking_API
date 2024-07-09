@@ -306,6 +306,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("HotelView")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsVerify")
                         .HasColumnType("bit");
 
@@ -792,6 +795,9 @@ namespace Trek_Booking_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TourView")
+                        .HasColumnType("int");
+
                     b.HasKey("TourId");
 
                     b.HasIndex("SupplierId");
@@ -973,6 +979,23 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.HasIndex("VoucherId");
 
                     b.ToTable("VoucherUsageHistory");
+                });
+
+            modelBuilder.Entity("Trek_Booking_DataAccess.dataUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("dataUsers");
                 });
 
             modelBuilder.Entity("OrderHotelDetail", b =>

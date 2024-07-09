@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Stripe;
 using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Trek_Booking_DataAccess;
 using Trek_Booking_DataAccess.Data;
+using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
 namespace YourNamespace.Controllers
@@ -20,13 +23,14 @@ namespace YourNamespace.Controllers
         private readonly IConfiguration _configuration;
         private readonly ApplicationDBContext _context;
         private readonly IOrderRepository _orderRepository;
-
-        public StripePaymentController(ILogger<StripePaymentController> logger, IConfiguration configuration,ApplicationDBContext context,IOrderRepository orderRepository)
+        private readonly StripeSettings _stripeSettings;
+        public StripePaymentController(IOptions<StripeSettings> stripeSettings, ILogger<StripePaymentController> logger, IConfiguration configuration,ApplicationDBContext context,IOrderRepository orderRepository)
         {
             _logger = logger;
             _configuration = configuration;
             _context = context;
             _orderRepository = orderRepository;
+            _stripeSettings = stripeSettings.Value;
         }
 
         [HttpPost("/StripePayment/Create")]
@@ -72,19 +76,14 @@ namespace YourNamespace.Controllers
 
                 var service = new Stripe.Checkout.SessionService();
                 var session = await service.CreateAsync(options);
-
-                // Gọi hàm lưu đơn hàng sau khi thanh toán thành công
                 paymentDTO.Order.OrderHeader.SessionId = session.Id;
                 paymentDTO.Order.OrderHeader.PaymentIntentId = session.PaymentIntentId;
-
-                // Giả sử bạn muốn lưu trường Requirement từ phía client
-                // paymentDTO.Order.OrderHeader.Requirement = paymentDTO.Order.OrderHeader.Requirement;
-
                 var createdOrder = await _orderRepository.Create(paymentDTO.Order);
-                foreach (var detail in paymentDTO.Order.OrderDetails)
-                {
-                    await ClearCart(detail.RoomId);
-                }
+
+                //foreach (var detail in paymentDTO.Order.OrderDetails)
+                //{
+                //    await ClearCart(detail.RoomId);
+                //}
                 return Ok(new SuccessModelDTO
                 {
                     Data = session.Id
@@ -99,6 +98,71 @@ namespace YourNamespace.Controllers
                 });
             }
         }
+        [HttpPost("/StripePayment/Confirm")]
+        public async Task<IActionResult> Confirm()
+        {
+            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            var signatureHeader = Request.Headers["Stripe-Signature"];
+
+            if (string.IsNullOrEmpty(signatureHeader))
+            {
+                return BadRequest("Missing Stripe-Signature header.");
+            }
+
+            var webhookSecret = _configuration.GetValue<string>("Stripe:WebhookSecret");
+            if (string.IsNullOrEmpty(webhookSecret))
+            {
+                throw new InvalidOperationException("Stripe webhook secret is not configured.");
+            }
+
+            Stripe.Event stripeEvent;
+            try
+            {
+                stripeEvent = EventUtility.ConstructEvent(json, signatureHeader, webhookSecret, throwOnApiVersionMismatch: false);
+            }
+            catch (StripeException e)
+            {
+                return BadRequest($"Unable to construct Stripe event: {e.Message}");
+            }
+
+            if (stripeEvent.Type == Events.CheckoutSessionCompleted)
+            {
+                var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
+                if (session == null)
+                {
+                    return BadRequest("Session is null.");
+                }
+
+                // Tìm đơn hàng bằng sessionId
+                var order = await _orderRepository.GetOrderBySessionId(session.Id);
+                if (order != null)
+                {
+                    order.PaymentIntentId = session.PaymentIntentId;
+                    order.Process = "Success"; // Cập nhật trạng thái thành công
+                    await _orderRepository.Update(order);
+
+                    // Tải chi tiết đơn hàng
+                    var orderDetails = await _context.OrderHotelDetails
+                        .Where(od => od.OrderHotelHeaderlId == order.Id)
+                        .ToListAsync();
+
+                    // Xóa cart
+                    foreach (var detail in orderDetails)
+                    {
+                        await ClearCart(detail.RoomId);
+                    }
+
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound("Order not found");
+                }
+            }
+
+            return Ok();
+        }
+
 
         private async Task ClearCart(int? roomId)
         {
@@ -166,18 +230,12 @@ namespace YourNamespace.Controllers
                 var service = new Stripe.Checkout.SessionService();
                 var session = await service.CreateAsync(options);
 
-                // Gọi hàm lưu đơn hàng sau khi thanh toán thành công
                 paymentDTO.Order.OrderHeader.SessionId = session.Id;
                 paymentDTO.Order.OrderHeader.PaymentIntentId = session.PaymentIntentId;
 
-                // Giả sử bạn muốn lưu trường Requirement từ phía client
-                // paymentDTO.Order.OrderHeader.Requirement = paymentDTO.Order.OrderHeader.Requirement;
 
                 var createdOrder = await _orderRepository.CreateTour(paymentDTO.Order);
-                foreach (var detail in paymentDTO.Order.OrderDetails)
-                {
-                    await ClearCartTour(detail.TourId);
-                }
+          
 
                 return Ok(new SuccessModelDTO
                 {
@@ -192,6 +250,74 @@ namespace YourNamespace.Controllers
                     ErrorMessage = ex.Message,
                 });
             }
+        }
+        [HttpPost("/StripePayment/ConfirmTour")]
+        public async Task<IActionResult> ConfirmTour()
+        {
+            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            var signatureHeader = Request.Headers["Stripe-Signature"].FirstOrDefault();
+
+            if (string.IsNullOrEmpty(signatureHeader))
+            {
+                _logger.LogError("Missing Stripe-Signature header.");
+                return BadRequest("Missing Stripe-Signature header.");
+            }
+
+            var webhookSecretTour = _configuration.GetValue<string>("Stripe:WebhookSecretTour");
+            if (string.IsNullOrEmpty(webhookSecretTour))
+            {
+                _logger.LogError("Stripe webhook secret for tour is not configured.");
+                throw new InvalidOperationException("Stripe webhook secret for tour is not configured.");
+            }
+
+            Stripe.Event stripeEvent;
+            try
+            {
+                stripeEvent = EventUtility.ConstructEvent(json, signatureHeader, webhookSecretTour, throwOnApiVersionMismatch: false);
+            }
+            catch (StripeException e)
+            {
+                _logger.LogError($"Unable to construct Stripe event: {e.Message}");
+                return BadRequest($"Unable to construct Stripe event: {e.Message}");
+            }
+
+            if (stripeEvent.Type == Events.CheckoutSessionCompleted)
+            {
+                var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
+                if (session == null)
+                {
+                    _logger.LogError("Session is null.");
+                    return BadRequest("Session is null.");
+                }
+
+                _logger.LogInformation($"Session ID: {session.Id}, Payment Intent ID: {session.PaymentIntentId}, Email: {session.CustomerDetails.Email}");
+
+                var order = await _orderRepository.GetOrderTourBySessionId(session.Id);
+                if (order != null)
+                {
+                    order.PaymentIntentId = session.PaymentIntentId;
+                    order.Process = "Success";
+                    await _orderRepository.UpdateTour(order);
+
+                    var orderDetails = await _context.OrderTourDetails
+                        .Where(od => od.OrderTourHeaderlId == order.Id)
+                        .ToListAsync();
+
+                    foreach (var detail in orderDetails)
+                    {
+                        await ClearCartTour(detail.TourId);
+                    }
+
+                    return Ok();
+                }
+                else
+                {
+                    _logger.LogError($"Order not found for session ID: {session.Id}");
+                    return NotFound("Order not found");
+                }
+            }
+
+            return Ok();
         }
 
 
@@ -216,6 +342,36 @@ namespace YourNamespace.Controllers
                 _logger.LogError("Error clearing CartTour: {message}", ex.Message);
             }
         }
+
+
+
+        //[HttpDelete("{roomId}")]
+        //public async Task<IActionResult> ClearCart(int? roomId)
+        //{
+        //    try
+        //    {
+        //        var cartItem = _context.bookingCarts.FirstOrDefault(ci => ci.RoomId == roomId);
+        //        if (cartItem != null)
+        //        {
+        //            _context.bookingCarts.Remove(cartItem);
+        //            await _context.SaveChangesAsync();
+        //            _logger.LogInformation("Cart cleared successfully for roomId: {roomId}", roomId);
+        //            return Ok(new { message = "Cart cleared successfully" });
+        //        }
+        //        else
+        //        {
+        //            _logger.LogWarning("Cart item not found for roomId: {roomId}", roomId);
+        //            return NotFound(new { message = "Cart item not found" });
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError("Error clearing cart: {message}", ex.Message);
+        //        return StatusCode(500, new { message = "Error clearing cart", error = ex.Message });
+        //    }
+        //}
+
+
 
 
     }

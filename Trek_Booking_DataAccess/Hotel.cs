@@ -15,36 +15,37 @@ namespace Trek_Booking_DataAccess
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int HotelId { get; set; }
 
-        
+
         [StringLength(100, ErrorMessage = "The UserName must be greater than 0 and less than or equal 100")]
         public string? HotelName { get; set; }
 
-        
+
         [StringLength(50, ErrorMessage = "The UserName must be greater than 0 and less than or equal 50")]
         public string? HotelPhone { get; set; }
 
-        
-        
+
+
         [StringLength(100, ErrorMessage = "The HotelEmail must be greater than 0 and less than or equal 100")]
         public string? HotelEmail { get; set; }
 
-        
+
         public string? HotelAvatar { get; set; }
 
-        
+
         public string? HotelFulDescription { get; set; }
 
-        
+
         public string? HotelDistrict { get; set; }
 
-        
+
         [StringLength(200, ErrorMessage = "The HotelCity must be greater than 0 and less than or equal 200 ")]
         public string? HotelCity { get; set; }
 
-        
+
         public string? HotelInformation { get; set; }
 
         public bool IsVerify { get; set; }
+        public int HotelView { get; set; }
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }

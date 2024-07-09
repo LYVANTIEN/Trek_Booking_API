@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,13 +16,12 @@ namespace Trek_Booking_Repository.Repositories
     public class SupplierRepository : ISupplierRepository
     {
         private readonly ApplicationDBContext _context;
-        private readonly IPasswordHasher _passwordHasher;
-
+        private readonly IPasswordHasher _passwordHasher;        
 
         public SupplierRepository(ApplicationDBContext context, IPasswordHasher passwordHasher)
         {
             _context = context;
-            _passwordHasher = passwordHasher;
+            _passwordHasher = passwordHasher;            
         }
 
         public async Task<bool> checkExitsEmail(string email)
@@ -89,7 +90,7 @@ namespace Trek_Booking_Repository.Repositories
 
         public async Task<Supplier> updateSupplier(Supplier supplier)
         {
-            var findSupplier = await _context.suppliers.FirstOrDefaultAsync(t => t.SupplierId == supplier.SupplierId);
+            var findSupplier = await _context.suppliers.FirstOrDefaultAsync(t => t.SupplierId == supplier.SupplierId);            
             if (findSupplier != null)
             {
                 findSupplier.SupplierName = supplier.SupplierName;
@@ -103,6 +104,34 @@ namespace Trek_Booking_Repository.Repositories
                 return findSupplier;
             }
             return null;
+        }
+        public async Task<Supplier> changePasswordSupplier(Supplier supplier)
+        {
+            var findSupplier = await _context.suppliers.FirstOrDefaultAsync(t => t.SupplierId == supplier.SupplierId);
+            if (findSupplier != null)
+            {
+                var newPasswordHash = _passwordHasher.HashPassword(supplier.Password);
+                findSupplier.Password = newPasswordHash;
+
+                _context.suppliers.Update(findSupplier);
+                await _context.SaveChangesAsync();
+                return findSupplier;               
+            }
+            return null;
+        }
+        public async Task<Supplier> checkPasswordSupplier(Supplier supplier)
+        {
+            var check = await getUserByEmail(supplier.Email);
+            if (check == null)
+            {
+                throw new Exception("Email is not found!");
+            }
+            var result = _passwordHasher.Verify(check.Password, supplier.Password);
+            if (!result)
+            {
+                return null; //Password incorrect
+            }
+            return check;
         }
         public async Task<IActionResult> ToggleStatus(ToggleSupplierRequest request)
         {
@@ -126,6 +155,15 @@ namespace Trek_Booking_Repository.Repositories
 
             }
             return new NoContentResult();
+        }
+        public async Task<string> getEmailBySupplierId(int supplierId)
+        {
+            var email = await _context.suppliers.Where(s => s.SupplierId == supplierId).Select(s => s.Email).FirstOrDefaultAsync();
+            if (email == null)
+            {
+                throw new Exception();
+            }
+            return email;
         }
     }
 }
