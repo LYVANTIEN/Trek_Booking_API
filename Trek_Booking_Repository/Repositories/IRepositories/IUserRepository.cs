@@ -22,5 +22,7 @@ namespace Trek_Booking_Repository.Repositories.IRepositories
         public Task<User> getUserByEmail(string email);
         public Task<User> checkBannedUser(User user);
         Task<IActionResult> ToggleStatus(ToggleUserRequest request);
+        public Task<User> changePasswordUser(User user);
+        public Task<User> checkPasswordUser(User user);
     }
 }

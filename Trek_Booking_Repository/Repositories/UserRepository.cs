@@ -127,6 +127,34 @@ namespace Trek_Booking_Repository.Repositories
             }
             return null;
         }
+        public async Task<User> changePasswordUser(User user)
+        {
+            var findUser = await _context.users.FirstOrDefaultAsync(t => t.UserId == user.UserId);
+            if (findUser != null)
+            {
+                var newPasswordHash = _passwordHasher.HashPassword(user.Password);
+                findUser.Password = newPasswordHash;
+
+                _context.users.Update(findUser);
+                await _context.SaveChangesAsync();
+                return findUser;
+            }
+            return null;
+        }
+        public async Task<User> checkPasswordUser(User user)
+        {
+            var check = await getUserByEmail(user.Email);
+            if (check == null)
+            {
+                throw new Exception("Email is not found!");
+            }
+            var result = _passwordHasher.Verify(check.Password, user.Password);
+            if (!result)
+            {
+                return null; //Password incorrect
+            }
+            return check;
+        }
         public async Task<IActionResult> ToggleStatus(ToggleUserRequest request)
         {
             var user = await _context.users.FindAsync(request.UserId);
