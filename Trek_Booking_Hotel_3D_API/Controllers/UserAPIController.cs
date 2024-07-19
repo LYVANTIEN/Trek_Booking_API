@@ -27,6 +27,40 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             _roleRepository = roleRepository;
             _authMiddleWare = authMiddleWare;
         }
+
+        [HttpPut("/changePasswordUser")]
+        public async Task<IActionResult> changePasswordUser([FromBody] User user)
+        {
+            var userId = _authMiddleWare.GetUserIdFromToken(HttpContext);
+            var check = await _repository.getUserById(userId.Value);
+            if (check == null)
+            {
+                return BadRequest("Not found Supplier");
+            }
+            await _repository.changePasswordUser(user);
+            return StatusCode(200, "Change Password Successfully!");
+        }
+        [HttpPost("/checkPasswordUser")]
+        public async Task<IActionResult> checkPasswordUser([FromBody] User user)
+        {
+            var checkPass = await _repository.checkPasswordUser(user);
+            if (checkPass == null)
+            {
+                return BadRequest("Password is incorrect");
+            }
+            return Ok();
+        }
+
+        [HttpPut("/toggleUserStatus")]
+        public async Task<IActionResult> ToggleStatus([FromBody] ToggleUserRequest request)
+        {
+            var result = await _repository.ToggleStatus(request);
+            if (result is NotFoundResult)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
         [HttpGet("/getUsers")]
         public async Task<IActionResult> getUsers()
         {
@@ -163,28 +197,6 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             await _repository.updateUser(user);
             return StatusCode(200, "Update Successfully!");
-        }
-        [HttpPut("/changePasswordUser")]
-        public async Task<IActionResult> changePasswordUser([FromBody] User user)
-        {
-            var userId = _authMiddleWare.GetUserIdFromToken(HttpContext);
-            var check = await _repository.getUserById(userId.Value);
-            if (check == null)
-            {
-                return BadRequest("Not found Supplier");
-            }
-            await _repository.changePasswordUser(user);
-            return StatusCode(200, "Change Password Successfully!");
-        }
-        [HttpPost("/checkPasswordUser")]
-        public async Task<IActionResult> checkPasswordUser([FromBody] User user)
-        {
-            var checkPass = await _repository.checkPasswordUser(user);
-            if (checkPass == null)
-            {
-                return BadRequest("Password is incorrect");
-            }
-            return Ok();
         }
     }
 }

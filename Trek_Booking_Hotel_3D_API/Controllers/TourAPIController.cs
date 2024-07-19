@@ -19,6 +19,17 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             _repository = repository;
             _authMiddleWare = authMiddleWare;
         }
+
+        [HttpPut("/toggleTourStatus")]
+        public async Task<IActionResult> ToggleStatus([FromBody] ToggleTourRequest request)
+        {
+            var result = await _repository.ToggleStatus(request);
+            if (result is NotFoundResult)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
         [HttpGet("/getTours")]
         public async Task<IActionResult> getTours()
         {
@@ -94,6 +105,17 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             }
             await _repository.deleteTour(tourId);
             return StatusCode(200, "Delele Successfully!");
+        }
+
+        [HttpGet("/searchTourByAddress")]
+        public async Task<IActionResult> searchTourByAddress([FromQuery] string address)
+        {
+            var tours = await _repository.searchTourByAddress(address);
+            if (tours == null || !tours.Any())
+            {
+                return NotFound("No tours found in the specified city.");
+            }
+            return Ok(tours);
         }
     }
 }

@@ -835,28 +835,28 @@ namespace Trek_Booking_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TourOrderId"));
 
-                    b.Property<bool>("IsConfirmed")
+                    b.Property<bool?>("IsConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Status")
+                    b.Property<bool?>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int>("SupplierId")
+                    b.Property<int?>("SupplierId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TourId")
+                    b.Property<int?>("TourId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("TourOrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TourOrderQuantity")
+                    b.Property<int?>("TourOrderQuantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TourTotalPrice")
+                    b.Property<decimal?>("TourTotalPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("TourOrderId");
@@ -1313,20 +1313,17 @@ namespace Trek_Booking_DataAccess.Migrations
                     b.HasOne("Trek_Booking_DataAccess.Supplier", "Supplier")
                         .WithMany("tourOrders")
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Trek_Booking_DataAccess.Tour", "Tour")
                         .WithMany("tourOrders")
                         .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Trek_Booking_DataAccess.User", "User")
                         .WithMany("tourOrders")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Supplier");
 

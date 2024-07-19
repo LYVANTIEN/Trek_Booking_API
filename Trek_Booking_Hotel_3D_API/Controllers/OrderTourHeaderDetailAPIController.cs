@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Trek_Booking_DataAccess;
 using Trek_Booking_Hotel_3D_API.Helper;
 using Trek_Booking_Repository.Repositories.IRepositories;
 
@@ -17,7 +18,26 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
             _repository = repository;
             _authMiddleWare = authMiddleWare;
         }
-
+        [HttpPut("/toggleOrderTourHeaderStatus")]
+        public async Task<IActionResult> toggleOrderTourHeaderStatus([FromBody] ToggleOrderTourHeaderRequest request)
+        {
+            var result = await _repository.ToggleStatus(request);
+            if (result is NotFoundResult)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+        [HttpGet("/getOrderTourHeaderBySupplierIdAdmin/{supplierId}")]
+        public async Task<IActionResult> getOrderTourHeaderBySupplierId(int supplierId)
+        {
+            var check = await _repository.getOrderTourHeaderBySupplierId(supplierId);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
         [HttpGet("/getOrderTourHeaderByUserId")]
         public async Task<IActionResult> getOrderTourHeaderByUserId()
         {
@@ -34,6 +54,118 @@ namespace Trek_Booking_Hotel_3D_API.Controllers
         {
             var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
             var check = await _repository.getOrderTourHeaderBySupplierId(supplierId.Value);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
+        [HttpPut("/updateOrderTourHeader")]
+        public async Task<IActionResult> updateOrderTourHeader(OrderTourHeader orderTourHeader)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var check = await _repository.getOrderTourHeaderByUserId(orderTourHeader.Id);
+            if (check == null)
+            {
+                return BadRequest("Not found Order Tour Header");
+            }
+            var update = await _repository.updateOrderTourHeader(orderTourHeader);
+            return Ok(new { message = "Update successful", data = update });
+        }
+
+        [HttpGet("/getRevenueTourBySupplierId")]
+        public async Task<IActionResult> getRevenueTourBySupplierId()
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.getRevenueTourBySupplierId(supplierId.Value);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
+        [HttpGet("/countTotalOrderTourBySupplierId")]
+        public async Task<IActionResult> countTotalOrderTourBySupplierId()
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.countTotalOrderTourBySupplierId(supplierId.Value);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
+        [HttpGet("/getPercentChangeTourFromLastWeek")]
+        public async Task<IActionResult> getPercentChangeTourFromLastWeek()
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.getPercentChangeTourFromLastWeek(supplierId.Value, DateTime.Now);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
+        [HttpGet("/getTotalRevenueTourBySupplierId")]
+        public async Task<IActionResult> getTotalRevenueTourBySupplierId()
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.getTotalRevenueTourBySupplierId(supplierId.Value);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
+        [HttpGet("/getPercentChangeRevenueTourFromLastWeek")]
+        public async Task<IActionResult> getPercentChangeRevenueTourFromLastWeek()
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.getPercentChangeRevenueTourFromLastWeek(supplierId.Value, DateTime.Now);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
+
+        [HttpGet("/getCurrentWeekRevenueTourBySupplierId")]
+        public async Task<IActionResult> getCurrentWeekRevenueTourBySupplierId()
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.getCurrentWeekRevenueTourBySupplierId(supplierId.Value);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+        [HttpGet("/getCurrentMonthOfYearRevenueTourBySupplierId")]
+        public async Task<IActionResult> getCurrentMonthOfYearRevenueTourBySupplierId()
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.getCurrentMonthOfYearRevenueTourBySupplierId(supplierId.Value);
+            if (check == null)
+            {
+                return NotFound("Not Found");
+            }
+            return Ok(check);
+        }
+
+        [HttpGet("/getCurrentQuarterOfYearRevenueTourBySupplierId")]
+        public async Task<IActionResult> getCurrentQuarterOfYearRevenueTourBySupplierId()
+        {
+            var supplierId = _authMiddleWare.GetSupplierIdFromToken(HttpContext);
+            var check = await _repository.getCurrentQuarterOfYearRevenueTourBySupplierId(supplierId.Value);
             if (check == null)
             {
                 return NotFound("Not Found");

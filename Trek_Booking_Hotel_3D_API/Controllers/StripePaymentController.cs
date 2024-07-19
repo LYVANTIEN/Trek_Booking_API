@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -24,13 +25,18 @@ namespace YourNamespace.Controllers
         private readonly ApplicationDBContext _context;
         private readonly IOrderRepository _orderRepository;
         private readonly StripeSettings _stripeSettings;
-        public StripePaymentController(IOptions<StripeSettings> stripeSettings, ILogger<StripePaymentController> logger, IConfiguration configuration,ApplicationDBContext context,IOrderRepository orderRepository)
+        private readonly IEmailSender _emailSender;
+
+
+        public StripePaymentController(IEmailSender emailSender, IOptions<StripeSettings> stripeSettings, ILogger<StripePaymentController> logger, IConfiguration configuration,ApplicationDBContext context,IOrderRepository orderRepository)
         {
             _logger = logger;
             _configuration = configuration;
             _context = context;
             _orderRepository = orderRepository;
             _stripeSettings = stripeSettings.Value;
+            _emailSender = emailSender;
+
         }
 
         [HttpPost("/StripePayment/Create")]
@@ -79,11 +85,6 @@ namespace YourNamespace.Controllers
                 paymentDTO.Order.OrderHeader.SessionId = session.Id;
                 paymentDTO.Order.OrderHeader.PaymentIntentId = session.PaymentIntentId;
                 var createdOrder = await _orderRepository.Create(paymentDTO.Order);
-
-                //foreach (var detail in paymentDTO.Order.OrderDetails)
-                //{
-                //    await ClearCart(detail.RoomId);
-                //}
                 return Ok(new SuccessModelDTO
                 {
                     Data = session.Id
@@ -98,6 +99,8 @@ namespace YourNamespace.Controllers
                 });
             }
         }
+
+
         [HttpPost("/StripePayment/Confirm")]
         public async Task<IActionResult> Confirm()
         {
@@ -122,6 +125,7 @@ namespace YourNamespace.Controllers
             }
             catch (StripeException e)
             {
+                _logger.LogError($"Unable to construct Stripe event: {e.Message}");
                 return BadRequest($"Unable to construct Stripe event: {e.Message}");
             }
 
@@ -130,6 +134,7 @@ namespace YourNamespace.Controllers
                 var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
                 if (session == null)
                 {
+                    _logger.LogError("Session is null.");
                     return BadRequest("Session is null.");
                 }
 
@@ -137,9 +142,17 @@ namespace YourNamespace.Controllers
                 var order = await _orderRepository.GetOrderBySessionId(session.Id);
                 if (order != null)
                 {
+                 // mail
+                    string emailContent = "Cảm ơn anh/chị đã booking tại web https://trek-booking.vercel.app  ";
+                    await _emailSender.SendEmailAsync(order.Email, "TrekBooking ", emailContent);
+
                     order.PaymentIntentId = session.PaymentIntentId;
-                    order.Process = "Success"; // Cập nhật trạng thái thành công
+                    order.Process = "Paid"; // Cập nhật trạng thái thành công
                     await _orderRepository.Update(order);
+
+                    
+               
+                
 
                     // Tải chi tiết đơn hàng
                     var orderDetails = await _context.OrderHotelDetails
@@ -156,12 +169,14 @@ namespace YourNamespace.Controllers
                 }
                 else
                 {
+                    _logger.LogError("Order not found for session id: " + session.Id);
                     return NotFound("Order not found");
                 }
             }
 
             return Ok();
         }
+
 
 
         private async Task ClearCart(int? roomId)
@@ -295,8 +310,14 @@ namespace YourNamespace.Controllers
                 var order = await _orderRepository.GetOrderTourBySessionId(session.Id);
                 if (order != null)
                 {
+                    //mail tour
+                    // mail
+                    string emailContent = "Cảm ơn anh/chị đã booking tại web https://trek-booking.vercel.app  ";
+                    await _emailSender.SendEmailAsync(order.Email, "TrekBooking ", emailContent);
+
+
                     order.PaymentIntentId = session.PaymentIntentId;
-                    order.Process = "Success";
+                    order.Process = "Paid";
                     await _orderRepository.UpdateTour(order);
 
                     var orderDetails = await _context.OrderTourDetails

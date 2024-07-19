@@ -87,3 +87,11 @@ D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\ref
 D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\Trek_Booking_Hotel_3D_API.pdb
 D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\Trek_Booking_Hotel_3D_API.genruntimeconfig.cache
 D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\obj\Debug\net7.0\ref\Trek_Booking_Hotel_3D_API.dll
+D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Trek_Booking_Hotel_3D_API.staticwebassets.runtime.json
+D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
+D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\MailKit.dll
+D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\MimeKit.dll
+D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
+D:\FPTCode\Clone\Trek_Booking_API\Trek_Booking_Hotel_3D_API\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -48,8 +49,12 @@ builder.Services.AddSwaggerGen(c =>
 var apiSettingsSection = builder.Configuration.GetSection("APISettings");
 builder.Services.Configure<APISettings>(apiSettingsSection);
 var apiSettings = apiSettingsSection.Get<APISettings>();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 var key = Encoding.ASCII.GetBytes(apiSettings.SecretKey);
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -84,7 +89,7 @@ builder.Services.AddAuthentication(opt =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins("http://localhost:3000","https://trek-booking.vercel.app")
+        builder => builder.WithOrigins("http://localhost:3000","https://trek-booking.vercel.app","https://admintrekbooking.vercel.app")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
