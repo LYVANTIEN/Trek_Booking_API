@@ -85,6 +85,9 @@ namespace Trek_Booking_Repository.Repositories
                 Status = true,
                 IsVerify = true,
                 RoleId = registerRequest.RoleId,
+                BankName = registerRequest.BankName,
+                BankAccount = registerRequest.BankAccount,
+                BankNumber = registerRequest.BankNumber,
             };
             _context.suppliers.Add(supplier);
             await _context.SaveChangesAsync();
@@ -124,6 +127,9 @@ namespace Trek_Booking_Repository.Repositories
                 findSupplier.Phone = supplier.Phone;
                 findSupplier.Address = supplier.Address;
                 findSupplier.Avatar = supplier.Avatar;
+                findSupplier.BankName = supplier.BankName;
+                findSupplier.BankAccount = supplier.BankAccount;
+                findSupplier.BankNumber = supplier.BankNumber;
               
                 _context.suppliers.Update(findSupplier);
                 await _context.SaveChangesAsync();
